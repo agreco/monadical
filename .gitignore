@@ -1,0 +1,25 @@
+
+# FILES
+npm-debug.log
+.DS_Store
+._*
+.nyc_output
+*.log
+*.iml
+*.tern-project
+*.tern-port
+*.zhtml
+package-lock.json
+.env.local
+
+# DIRECTORIES
+node_modules
+build
+.build/
+.idea
+.vscode
+.out/
+.history/
+coverage
+test
+test-report

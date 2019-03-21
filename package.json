@@ -1,0 +1,18 @@
+{
+  "name": "monadic",
+  "version": "1.0.0",
+  "description": "A set of monadic data types",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "scripts/build"
+  },
+  "author": "Antonio G. Greco",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.2.0",
+    "@babel/preset-env": "^7.4.1"
+  }
+}
