@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var curry2 = function curry2(func) {
+var curry = function curry(func) {
   return function (argA) {
     return function (argB) {
       return func(argA, argB);
@@ -13,5 +13,5 @@ var curry2 = function curry2(func) {
   };
 };
 
-var _default = curry2;
+var _default = curry;
 exports.default = _default;

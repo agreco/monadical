@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var compose = function compose() {
-  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
-    funcs[_key] = arguments[_key];
+  for (var _len = arguments.length, fns = new Array(_len), _key = 0; _key < _len; _key++) {
+    fns[_key] = arguments[_key];
   }
 
-  return funcs.reduce(function (f, g) {
+  return fns.reduceRight(function (f, g) {
     return function () {
       return f(g.apply(void 0, arguments));
     };
