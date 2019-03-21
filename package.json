@@ -32,6 +32,10 @@
   },
   "author": "Antonio G. Greco",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agreco/monadic"
+  },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.0",
