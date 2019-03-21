@@ -3,9 +3,9 @@ import noop from './noop';
 
 export default class Empty {
 
-	map = _ => noop();
+  map = _ => noop();
 
-	fmap = _ => new Empty();
+  fmap = _ => new Empty();
 
-	toString = () => `Empty []`;
+  toString = () => `Empty []`;
 };

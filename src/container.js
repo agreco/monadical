@@ -9,7 +9,7 @@ export default class Container {
 
   map = func => Container.of(func(this._val));
 
-	join = () => !this._val instanceof Container ? this : this._val.join();
+  join = () => !this._val instanceof Container ? this : this._val.join();
 
   toString = () => `Container[${this._val}]`;
 }
