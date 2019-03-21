@@ -15,11 +15,11 @@ var Container = function Container(val) {
   _classCallCheck(this, Container);
 
   _defineProperty(this, "map", function (func) {
-    return Container.of(func(_this._val));
+    return func(_this._val);
   });
 
   _defineProperty(this, "fmap", function (func) {
-    return new Container(func(_this._val));
+    return Container.of(func(_this._val));
   });
 
   _defineProperty(this, "join", function () {
