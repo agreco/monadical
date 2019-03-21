@@ -1,4 +1,4 @@
 
-const compose = (...funcs) => funcs.reduce((f, g) => (...args) => f(g(...args)));
+const compose = (...fns) => fns.reduceRight((f, g) => (...args) => f(g(...args)));
 
 export default compose;

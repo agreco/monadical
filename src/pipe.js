@@ -1,6 +1,4 @@
 
-import compose from './compose';
-
-const pipe = (...funcs) => funcs.reduceRight(compose);
+const pipe = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)));
 
 export default pipe;
