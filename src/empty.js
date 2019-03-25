@@ -7,5 +7,7 @@ export default class Empty {
 
   fmap = _ => new Empty();
 
-  toString = () => `Empty []`;
+  toString () {
+    return 'Empty[]';
+  }
 };

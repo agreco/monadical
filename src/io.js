@@ -8,13 +8,23 @@ export default class IO {
     this.effect = effect;
   }
 
-  static of = val => new IO(() => val);
+  map (func) {
+    return new IO(() => func(this.effect()));
+  }
 
-  static from = fn => new IO(fn);
+  chain (func) {
+    return func(this.effect());
+  }
 
-  map = func => new IO(() => func(this.effect()));
+  run () {
+    return this.effect();
+  }
 
-  chain = func => func(this.effect());
+  static of (val) {
+    return new IO(() => val);
+  }
 
-  run = () => this.effect();
+  static from (fn) {
+    return new IO(fn);
+  }
 };

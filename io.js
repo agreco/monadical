@@ -1,51 +1,178 @@
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/io.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./src/io.js":
+/*!*******************!*\
+  !*** ./src/io.js ***!
+  \*******************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
 "use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _isFunction = _interopRequireDefault(require("./isFunction"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return IO; });
+/* harmony import */ var _isFunction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isFunction */ "./src/isFunction.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-var IO = function IO(effect) {
-  var _this = this;
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  _classCallCheck(this, IO);
 
-  _defineProperty(this, "map", function (func) {
-    return new IO(function () {
-      return func(_this.effect());
-    });
-  });
 
-  _defineProperty(this, "chain", function (func) {
-    return func(_this.effect());
-  });
+var IO =
+/*#__PURE__*/
+function () {
+  function IO(effect) {
+    _classCallCheck(this, IO);
 
-  _defineProperty(this, "run", function () {
-    return _this.effect();
-  });
+    if (!Object(_isFunction__WEBPACK_IMPORTED_MODULE_0__["default"])(effect)) throw 'Invalid parameter passed to IO. Please provide a function.';
+    this.effect = effect;
+  }
 
-  if (!(0, _isFunction.default)(effect)) throw 'Invalid parameter passed to IO. Please provide a function.';
-  this.effect = effect;
-};
+  _createClass(IO, [{
+    key: "map",
+    value: function map(func) {
+      var _this = this;
 
-exports.default = IO;
+      return new IO(function () {
+        return func(_this.effect());
+      });
+    }
+  }, {
+    key: "chain",
+    value: function chain(func) {
+      return func(this.effect());
+    }
+  }, {
+    key: "run",
+    value: function run() {
+      return this.effect();
+    }
+  }], [{
+    key: "of",
+    value: function of(val) {
+      return new IO(function () {
+        return val;
+      });
+    }
+  }, {
+    key: "from",
+    value: function from(fn) {
+      return new IO(fn);
+    }
+  }]);
 
-_defineProperty(IO, "of", function (val) {
-  return new IO(function () {
-    return val;
-  });
-});
+  return IO;
+}();
 
-_defineProperty(IO, "from", function (fn) {
-  return new IO(fn);
-});
 
 ;
+
+/***/ }),
+
+/***/ "./src/isFunction.js":
+/*!***************************!*\
+  !*** ./src/isFunction.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var isFunction = function isFunction(obj) {
+  return !!(obj && obj.constructor && obj.call && obj.apply);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (isFunction);
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=io.js.map

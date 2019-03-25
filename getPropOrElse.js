@@ -82,10 +82,68 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/isDefined.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/getPropOrElse.js");
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./src/curry.js":
+/*!**********************!*\
+  !*** ./src/curry.js ***!
+  \**********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var _this = undefined;
+
+var curry = function curry(func) {
+  for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    args[_key - 1] = arguments[_key];
+  }
+
+  return args.length >= func.length ? func.call.apply(func, [_this].concat(args)) : function () {
+    for (var _len2 = arguments.length, argsN = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      argsN[_key2] = arguments[_key2];
+    }
+
+    return curry.apply(void 0, [func.bind.apply(func, [_this].concat(args))].concat(argsN));
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (curry);
+
+/***/ }),
+
+/***/ "./src/getPropOrElse.js":
+/*!******************************!*\
+  !*** ./src/getPropOrElse.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _curry__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./curry */ "./src/curry.js");
+/* harmony import */ var _notNil__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./notNil */ "./src/notNil.js");
+
+
+
+var gProp = function gProp(paths, obj, defaultVal) {
+  return !paths.some(function (p) {
+    return !p.length;
+  }) && Object(_notNil__WEBPACK_IMPORTED_MODULE_1__["default"])(obj) ? paths.reduce(function (acc, val) {
+    return acc = Object(_notNil__WEBPACK_IMPORTED_MODULE_1__["default"])(acc[val]) ? acc[val] : Object(_notNil__WEBPACK_IMPORTED_MODULE_1__["default"])(defaultVal) ? defaultVal : {}, acc;
+  }, obj) : void 0;
+};
+
+var getPropOrElse = Object(_curry__WEBPACK_IMPORTED_MODULE_0__["default"])(function (path, obj, defaultVal) {
+  return gProp(Object(_notNil__WEBPACK_IMPORTED_MODULE_1__["default"])(path) ? path.split('.') : [''], obj, defaultVal);
+});
+/* harmony default export */ __webpack_exports__["default"] = (getPropOrElse);
+
+/***/ }),
 
 /***/ "./src/isDefined.js":
 /*!**************************!*\
@@ -102,7 +160,46 @@ var isDefined = function isDefined(val) {
 
 /* harmony default export */ __webpack_exports__["default"] = (isDefined);
 
+/***/ }),
+
+/***/ "./src/notNil.js":
+/*!***********************!*\
+  !*** ./src/notNil.js ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _notNull__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./notNull */ "./src/notNull.js");
+/* harmony import */ var _isDefined__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isDefined */ "./src/isDefined.js");
+
+
+
+var notNil = function notNil(val) {
+  return Object(_notNull__WEBPACK_IMPORTED_MODULE_0__["default"])(val) && Object(_isDefined__WEBPACK_IMPORTED_MODULE_1__["default"])(val);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (notNil);
+
+/***/ }),
+
+/***/ "./src/notNull.js":
+/*!************************!*\
+  !*** ./src/notNull.js ***!
+  \************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var notNull = function notNull(val) {
+  return val !== null;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (notNull);
+
 /***/ })
 
 /******/ });
-//# sourceMappingURL=isDefined.js.map
+//# sourceMappingURL=getPropOrElse.js.map
