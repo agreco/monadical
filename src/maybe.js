@@ -1,19 +1,100 @@
 
-import notNull from "./notNull";
-import Just from './just';
-import Nothing from './nothing';
+import notNull from './notNull';
 
 export default class Maybe {
 
-  static just = val => new Just(val);
+  get isNothing () {
+    return false
+  };
 
-  static nothing = () => new Nothing();
+  get isJust () {
+    return false;
+  }
 
-  static nullable = val => notNull(val) ? Maybe.just(val) : Maybe.nothing();
+  static just (val) {
+    return new Just(val);
+  }
 
-  static of = val => Maybe.just(val);
+  static nothing () {
+    return new Nothing();
+  }
 
-  get isNothing () { return false };
+  static of (val) {
+    return Maybe.just(val);
+  }
 
-  get isJust () { return false; }
-};
+  static nullable (val) {
+    return notNull(val) ? Maybe.just(val) : Maybe.nothing();
+  }
+}
+
+export class Just extends Maybe {
+
+  constructor (value) {
+    super();
+    this._value = value;
+  }
+
+  get value () {
+    return this._value;
+  }
+
+  map (func) {
+    return Maybe.nullable(func(this._value));
+  }
+
+  chain (func) {
+    return func(this._value);
+  }
+
+  getOrElse () {
+    return this._value;
+  }
+
+  filter (func) {
+    Maybe.nullable(func(this._value) ? this._value : null);
+  }
+
+  get isJust () {
+    return true;
+  }
+
+  toString () {
+    return `Just[${this._value}]`;
+  }
+}
+
+export class Nothing extends Maybe {
+
+  constructor () {
+    super();
+  }
+
+  get value () {
+    throw new TypeError('Value extraction invalid for type Nothing[].');
+  }
+
+  get isNothing () {
+    return true;
+  }
+
+  map (func) {
+    return this;
+  }
+
+  chain (func) {
+    return this;
+  }
+
+  getOrElse (val) {
+    return val;
+  }
+
+  filter () {
+    return this._val;
+  }
+
+  toString () {
+    return 'Nothing[]';
+  }
+}

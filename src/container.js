@@ -1,17 +1,31 @@
 
 export default class Container {
 
-  constructor (val) {
-    this._val = val;
+  constructor (value) {
+    this._value = value;
   }
 
-  static of = val => new Container(val);
+  get value () {
+    return this._value;
+  }
 
-  map = func => Container.of(func(this._val));
+  map(f) {
+    return f(this._value);
+  }
 
-  join = () => !this._val instanceof Container ? this : this._val.join();
+  fmap (f) {
+    return new Container(f(this._value));
+  }
 
-  get value () { return this._val; }
+  join () {
+    return !(this._value instanceof Container) ? this : this._value.join();
+  }
 
-  toString = () => `Container[${this._val}]`;
+  static of (value) {
+    return new Container(value);
+  }
+
+  toString () {
+    return `Container[${this._value}]`;
+  }
 }

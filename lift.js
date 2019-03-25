@@ -82,24 +82,73 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/either.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/lift.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/either.js":
-/*!***********************!*\
-  !*** ./src/either.js ***!
-  \***********************/
-/*! exports provided: default, Right, Left */
+/***/ "./src/curry.js":
+/*!**********************!*\
+  !*** ./src/curry.js ***!
+  \**********************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Either; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Right", function() { return Right; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Left", function() { return Left; });
-/* harmony import */ var _notNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./notNil */ "./src/notNil.js");
+var _this = undefined;
+
+var curry = function curry(func) {
+  for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    args[_key - 1] = arguments[_key];
+  }
+
+  return args.length >= func.length ? func.call.apply(func, [_this].concat(args)) : function () {
+    for (var _len2 = arguments.length, argsN = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      argsN[_key2] = arguments[_key2];
+    }
+
+    return curry.apply(void 0, [func.bind.apply(func, [_this].concat(args))].concat(argsN));
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (curry);
+
+/***/ }),
+
+/***/ "./src/lift.js":
+/*!*********************!*\
+  !*** ./src/lift.js ***!
+  \*********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _maybe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./maybe */ "./src/maybe.js");
+/* harmony import */ var curry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! curry */ "./src/curry.js");
+
+
+var lift = Object(curry__WEBPACK_IMPORTED_MODULE_1__["default"])(function (func, value) {
+  return _maybe__WEBPACK_IMPORTED_MODULE_0__["default"].nullable(value).map(func);
+});
+/* harmony default export */ __webpack_exports__["default"] = (lift);
+
+/***/ }),
+
+/***/ "./src/maybe.js":
+/*!**********************!*\
+  !*** ./src/maybe.js ***!
+  \**********************/
+/*! exports provided: default, Just, Nothing */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Maybe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Just", function() { return Just; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Nothing", function() { return Nothing; });
+/* harmony import */ var _notNull__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./notNull */ "./src/notNull.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
@@ -120,211 +169,153 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var Either =
+var Maybe =
 /*#__PURE__*/
 function () {
-  function Either(value) {
-    _classCallCheck(this, Either);
-
-    this._value = value;
+  function Maybe() {
+    _classCallCheck(this, Maybe);
   }
 
-  _createClass(Either, [{
+  _createClass(Maybe, [{
+    key: "isNothing",
+    get: function get() {
+      return false;
+    }
+  }, {
+    key: "isJust",
+    get: function get() {
+      return false;
+    }
+  }], [{
+    key: "just",
+    value: function just(val) {
+      return new Just(val);
+    }
+  }, {
+    key: "nothing",
+    value: function nothing() {
+      return new Nothing();
+    }
+  }, {
+    key: "of",
+    value: function of(val) {
+      return Maybe.just(val);
+    }
+  }, {
+    key: "nullable",
+    value: function nullable(val) {
+      return Object(_notNull__WEBPACK_IMPORTED_MODULE_0__["default"])(val) ? Maybe.just(val) : Maybe.nothing();
+    }
+  }]);
+
+  return Maybe;
+}();
+
+
+var Just =
+/*#__PURE__*/
+function (_Maybe) {
+  _inherits(Just, _Maybe);
+
+  function Just(value) {
+    var _this;
+
+    _classCallCheck(this, Just);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Just).call(this));
+    _this._value = value;
+    return _this;
+  }
+
+  _createClass(Just, [{
+    key: "map",
+    value: function map(func) {
+      return Maybe.nullable(func(this._value));
+    }
+  }, {
+    key: "chain",
+    value: function chain(func) {
+      return func(this._value);
+    }
+  }, {
+    key: "getOrElse",
+    value: function getOrElse() {
+      return this._value;
+    }
+  }, {
+    key: "filter",
+    value: function filter(func) {
+      Maybe.nullable(func(this._value) ? this._value : null);
+    }
+  }, {
+    key: "toString",
+    value: function toString() {
+      return "Just[".concat(this._value, "]");
+    }
+  }, {
     key: "value",
     get: function get() {
       return this._value;
     }
-  }], [{
-    key: "left",
-    value: function left(value) {
-      return new Left(value);
-    }
   }, {
-    key: "right",
-    value: function right(value) {
-      return new Right(value);
-    }
-  }, {
-    key: "of",
-    value: function of(value) {
-      return Either.right(value);
-    }
-  }, {
-    key: "nullable",
-    value: function nullable(value) {
-      return Object(_notNil__WEBPACK_IMPORTED_MODULE_0__["default"])(value) ? Either.right(value) : Either.left(value);
+    key: "isJust",
+    get: function get() {
+      return true;
     }
   }]);
 
-  return Either;
-}();
-
-
-;
-var Right =
+  return Just;
+}(Maybe);
+var Nothing =
 /*#__PURE__*/
-function (_Either) {
-  _inherits(Right, _Either);
+function (_Maybe2) {
+  _inherits(Nothing, _Maybe2);
 
-  function Right() {
-    _classCallCheck(this, Right);
+  function Nothing() {
+    _classCallCheck(this, Nothing);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Right).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(Nothing).call(this));
   }
 
-  _createClass(Right, [{
+  _createClass(Nothing, [{
     key: "map",
     value: function map(func) {
-      return Either.of(func(this.value));
+      return this;
+    }
+  }, {
+    key: "chain",
+    value: function chain(func) {
+      return this;
     }
   }, {
     key: "getOrElse",
     value: function getOrElse(val) {
-      return this.value;
-    }
-  }, {
-    key: "orElse",
-    value: function orElse() {
-      return this;
-    }
-  }, {
-    key: "chain",
-    value: function chain(func) {
-      return func(this.value);
-    }
-  }, {
-    key: "getOrElseThrow",
-    value: function getOrElseThrow(_) {
-      this.value;
+      return val;
     }
   }, {
     key: "filter",
-    value: function filter(func) {
-      return Either.nullable(func(this.value) ? this.value : null);
+    value: function filter() {
+      return this._val;
     }
   }, {
     key: "toString",
     value: function toString() {
-      return "Right[".concat(this.value, "]");
-    }
-  }, {
-    key: "isRight",
-    get: function get() {
-      return true;
-    }
-  }, {
-    key: "isLeft",
-    get: function get() {
-      return false;
-    }
-  }]);
-
-  return Right;
-}(Either);
-var Left =
-/*#__PURE__*/
-function (_Either2) {
-  _inherits(Left, _Either2);
-
-  function Left() {
-    _classCallCheck(this, Left);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Left).apply(this, arguments));
-  }
-
-  _createClass(Left, [{
-    key: "map",
-    value: function map(_) {
-      return this;
-    }
-  }, {
-    key: "getOrElse",
-    value: function getOrElse(defaultVal) {
-      return defaultVal;
-    }
-  }, {
-    key: "orElse",
-    value: function orElse(func) {
-      return func(this.value);
-    }
-  }, {
-    key: "chain",
-    value: function chain(func) {
-      return this;
-    }
-  }, {
-    key: "getOrElseThrow",
-    value: function getOrElseThrow(val) {
-      throw new Error(val);
-    }
-  }, {
-    key: "filter",
-    value: function filter(func) {
-      return this;
-    }
-  }, {
-    key: "toString",
-    value: function toString() {
-      return "Left[".concat(this.value, "]");
+      return 'Nothing[]';
     }
   }, {
     key: "value",
     get: function get() {
-      throw new TypeError("Value extraction invalid for type Left[A].");
+      throw new TypeError('Value extraction invalid for type Nothing[].');
     }
   }, {
-    key: "isRight",
-    get: function get() {
-      return false;
-    }
-  }, {
-    key: "isLeft",
+    key: "isNothing",
     get: function get() {
       return true;
     }
   }]);
 
-  return Left;
-}(Either);
-
-/***/ }),
-
-/***/ "./src/isDefined.js":
-/*!**************************!*\
-  !*** ./src/isDefined.js ***!
-  \**************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var isDefined = function isDefined(val) {
-  return val !== undefined;
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (isDefined);
-
-/***/ }),
-
-/***/ "./src/notNil.js":
-/*!***********************!*\
-  !*** ./src/notNil.js ***!
-  \***********************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _notNull__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./notNull */ "./src/notNull.js");
-/* harmony import */ var _isDefined__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isDefined */ "./src/isDefined.js");
-
-
-
-var notNil = function notNil(val) {
-  return Object(_notNull__WEBPACK_IMPORTED_MODULE_0__["default"])(val) && Object(_isDefined__WEBPACK_IMPORTED_MODULE_1__["default"])(val);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (notNil);
+  return Nothing;
+}(Maybe);
 
 /***/ }),
 
@@ -346,4 +337,4 @@ var notNull = function notNull(val) {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=either.js.map
+//# sourceMappingURL=lift.js.map
