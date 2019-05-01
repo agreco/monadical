@@ -1,6 +1,12 @@
 
 # FILES
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 npm-debug.log
+yarn-error.log*
+yarn-debug.log*
 .DS_Store
 ._*
 .nyc_output
@@ -9,15 +15,17 @@ npm-debug.log
 *.tern-project
 *.tern-port
 *.zhtml
-package-lock.json
-.env.local
+.pnp.js
 
 # DIRECTORIES
 node_modules
-.build/
-.idea
-.vscode
-.out/
-.history/
-coverage
-test-report
+/build
+/node_modules
+/.pnp
+/.build
+/.idea
+/.vscode
+/.out
+.history
+/coverage
+/test-report
