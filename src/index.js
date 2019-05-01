@@ -9,15 +9,11 @@ import identity from './identity';
 import IO from './io';
 import isDefined from './isDefined';
 import isFunction from './isFunction';
-import Just from './just';
-import Left from './left';
 import Maybe from './maybe';
 import noop from './noop';
-import Nothing from './nothing';
 import notNil from './notNil';
 import notNull from './notNull';
 import pipe from './pipe';
-import Right from './right';
 import seq from './seq';
 
 export {
@@ -31,14 +27,10 @@ export {
   IO,
   isDefined,
   isFunction,
-  Just,
-  Left,
   Maybe,
   noop,
-  Nothing,
   notNil,
   notNull,
   pipe,
-  Right,
   seq
 }
