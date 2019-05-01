@@ -498,7 +498,7 @@ var identity = function identity(value) {
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! exports provided: alt, compose, Container, curry, Either, Empty, identity, IO, isDefined, isFunction, Just, Left, Maybe, noop, Nothing, notNil, notNull, pipe, Right, seq */
+/*! exports provided: alt, compose, Container, curry, Either, Empty, identity, IO, isDefined, isFunction, Maybe, noop, notNil, notNull, pipe, seq */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -533,35 +533,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _isFunction__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./isFunction */ "./src/isFunction.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isFunction", function() { return _isFunction__WEBPACK_IMPORTED_MODULE_9__["default"]; });
 
-!(function webpackMissingModule() { var e = new Error("Cannot find module './just'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-throw new Error("Cannot find module './just'");
-!(function webpackMissingModule() { var e = new Error("Cannot find module './left'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-throw new Error("Cannot find module './left'");
-/* harmony import */ var _maybe__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./maybe */ "./src/maybe.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Maybe", function() { return _maybe__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+/* harmony import */ var _maybe__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./maybe */ "./src/maybe.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Maybe", function() { return _maybe__WEBPACK_IMPORTED_MODULE_10__["default"]; });
 
-/* harmony import */ var _noop__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./noop */ "./src/noop.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "noop", function() { return _noop__WEBPACK_IMPORTED_MODULE_12__["default"]; });
+/* harmony import */ var _noop__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./noop */ "./src/noop.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "noop", function() { return _noop__WEBPACK_IMPORTED_MODULE_11__["default"]; });
 
-!(function webpackMissingModule() { var e = new Error("Cannot find module './nothing'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-throw new Error("Cannot find module './nothing'");
-/* harmony import */ var _notNil__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./notNil */ "./src/notNil.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notNil", function() { return _notNil__WEBPACK_IMPORTED_MODULE_13__["default"]; });
+/* harmony import */ var _notNil__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./notNil */ "./src/notNil.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notNil", function() { return _notNil__WEBPACK_IMPORTED_MODULE_12__["default"]; });
 
-/* harmony import */ var _notNull__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./notNull */ "./src/notNull.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notNull", function() { return _notNull__WEBPACK_IMPORTED_MODULE_14__["default"]; });
+/* harmony import */ var _notNull__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./notNull */ "./src/notNull.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "notNull", function() { return _notNull__WEBPACK_IMPORTED_MODULE_13__["default"]; });
 
-/* harmony import */ var _pipe__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./pipe */ "./src/pipe.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "pipe", function() { return _pipe__WEBPACK_IMPORTED_MODULE_15__["default"]; });
+/* harmony import */ var _pipe__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pipe */ "./src/pipe.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "pipe", function() { return _pipe__WEBPACK_IMPORTED_MODULE_14__["default"]; });
 
-!(function webpackMissingModule() { var e = new Error("Cannot find module './right'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-throw new Error("Cannot find module './right'");
-/* harmony import */ var _seq__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./seq */ "./src/seq.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "seq", function() { return _seq__WEBPACK_IMPORTED_MODULE_16__["default"]; });
-
-
-
-
+/* harmony import */ var _seq__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./seq */ "./src/seq.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "seq", function() { return _seq__WEBPACK_IMPORTED_MODULE_15__["default"]; });
 
 
 
