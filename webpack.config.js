@@ -4,7 +4,7 @@ let fileList = fs.readdirSync('./src/');
 fileList = fileList.filter(file => !file.startsWith('base'));
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
 
   devtool: 'source-map',
 
