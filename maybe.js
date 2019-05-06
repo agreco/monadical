@@ -1,2 +1,127 @@
-module.exports=function(t){var e={};function n(r){if(e[r])return e[r].exports;var u=e[r]={i:r,l:!1,exports:{}};return t[r].call(u.exports,u,u.exports,n),u.l=!0,u.exports}return n.m=t,n.c=e,n.d=function(t,e,r){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:r})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var u in t)n.d(r,u,function(e){return t[e]}.bind(null,u));return r},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=6)}({0:function(t,e,n){"use strict";n.r(e);e.default=function(t){return null!==t}},6:function(t,e,n){"use strict";n.r(e),n.d(e,"default",function(){return y}),n.d(e,"Just",function(){return p}),n.d(e,"Nothing",function(){return v});var r=n(0);function u(t){return(u="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function o(t,e){return!e||"object"!==u(e)&&"function"!=typeof e?function(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}(t):e}function i(t){return(i=Object.setPrototypeOf?Object.getPrototypeOf:function(t){return t.__proto__||Object.getPrototypeOf(t)})(t)}function f(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),e&&l(t,e)}function l(t,e){return(l=Object.setPrototypeOf||function(t,e){return t.__proto__=e,t})(t,e)}function c(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function a(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}function s(t,e,n){return e&&a(t.prototype,e),n&&a(t,n),t}var y=function(){function t(){c(this,t)}return s(t,[{key:"isNothing",get:function(){return!1}},{key:"isJust",get:function(){return!1}}],[{key:"just",value:function(t){return new p(t)}},{key:"nothing",value:function(){return new v}},{key:"of",value:function(e){return t.just(e)}},{key:"nullable",value:function(e){return Object(r.default)(e)?t.just(e):t.nothing()}}]),t}(),p=function(t){function e(t){var n;return c(this,e),(n=o(this,i(e).call(this)))._value=t,n}return f(e,y),s(e,[{key:"map",value:function(t){return y.nullable(t(this._value))}},{key:"chain",value:function(t){return t(this._value)}},{key:"getOrElse",value:function(){return this._value}},{key:"filter",value:function(t){y.nullable(t(this._value)?this._value:null)}},{key:"toString",value:function(){return"Just[".concat(this._value,"]")}},{key:"value",get:function(){return this._value}},{key:"isJust",get:function(){return!0}}]),e}(),v=function(t){function e(){return c(this,e),o(this,i(e).call(this))}return f(e,y),s(e,[{key:"map",value:function(t){return this}},{key:"chain",value:function(t){return this}},{key:"getOrElse",value:function(t){return t}},{key:"filter",value:function(){return this._val}},{key:"toString",value:function(){return"Nothing[]"}},{key:"value",get:function(){throw new TypeError("Value extraction invalid for type Nothing[].")}},{key:"isNothing",get:function(){return!0}}]),e}()}});
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var notNil_1 = require("./notNil");
+var Maybe = (function () {
+    function Maybe() {
+        this._value = void 0;
+    }
+    Object.defineProperty(Maybe.prototype, "isNothing", {
+        get: function () {
+            return false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(Maybe.prototype, "isJust", {
+        get: function () {
+            return false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Maybe.just = function (val) {
+        return new Just(val);
+    };
+    Maybe.nothing = function (val) {
+        return new Nothing();
+    };
+    Maybe.of = function (val) {
+        return Maybe.just(val);
+    };
+    Maybe.nullable = function (val) {
+        return notNil_1.default(val) ? Maybe.just(val) : Maybe.nothing(val);
+    };
+    return Maybe;
+}());
+exports.default = Maybe;
+var Just = (function (_super) {
+    __extends(Just, _super);
+    function Just(value) {
+        var _this = _super.call(this) || this;
+        _this._value = value;
+        return _this;
+    }
+    Object.defineProperty(Just.prototype, "value", {
+        get: function () {
+            return this._value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Just.prototype.map = function (func) {
+        return Maybe.nullable(func(this._value));
+    };
+    Just.prototype.chain = function (func) {
+        return func(this._value);
+    };
+    Just.prototype.getOrElse = function (val) {
+        return this._value;
+    };
+    Just.prototype.filter = function (func) {
+        return Maybe.nullable(func(this._value) ? this._value : null);
+    };
+    Object.defineProperty(Just.prototype, "isJust", {
+        get: function () {
+            return true;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Just.prototype.toString = function () {
+        return "Just[" + this._value + "]";
+    };
+    return Just;
+}(Maybe));
+exports.Just = Just;
+var Nothing = (function (_super) {
+    __extends(Nothing, _super);
+    function Nothing() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Object.defineProperty(Nothing.prototype, "value", {
+        get: function () {
+            throw new TypeError('Value extraction invalid for type Nothing[].');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Nothing.prototype, "isNothing", {
+        get: function () {
+            return true;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Nothing.prototype.map = function (func) {
+        return this;
+    };
+    Nothing.prototype.chain = function (func) {
+        return this;
+    };
+    Nothing.prototype.getOrElse = function (val) {
+        return val;
+    };
+    Nothing.prototype.filter = function (func) {
+        return this._value;
+    };
+    Nothing.prototype.toString = function () {
+        return 'Nothing[]';
+    };
+    return Nothing;
+}(Maybe));
+exports.Nothing = Nothing;
 //# sourceMappingURL=maybe.js.map

@@ -1,2 +1,33 @@
-module.exports=function(e){var t={};function n(r){if(t[r])return t[r].exports;var u=t[r]={i:r,l:!1,exports:{}};return e[r].call(u.exports,u,u.exports,n),u.l=!0,u.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var u in e)n.d(r,u,function(t){return e[t]}.bind(null,u));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=13)}({13:function(e,t,n){"use strict";n.r(t),n.d(t,"default",function(){return o});var r=n(5);function u(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}var o=function(){function e(t){if(function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),!Object(r.default)(t))throw"Invalid parameter passed to IO. Please provide a function.";this.effect=t}var t,n,o;return t=e,o=[{key:"of",value:function(t){return new e(function(){return t})}},{key:"from",value:function(t){return new e(t)}}],(n=[{key:"map",value:function(t){var n=this;return new e(function(){return t(n.effect())})}},{key:"chain",value:function(e){return e(this.effect())}},{key:"run",value:function(){return this.effect()}}])&&u(t.prototype,n),o&&u(t,o),e}()},5:function(e,t,n){"use strict";n.r(t);t.default=function(e){return!!(e&&e.constructor&&e.call&&e.apply)}}});
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var isFunction_1 = require("./isFunction");
+var IO = (function () {
+    function IO(effect) {
+        if (!isFunction_1.default(effect)) {
+            throw new TypeError('Invalid parameter passed to IO. Please provide a function.');
+        }
+        this.effect = effect;
+    }
+    IO.prototype.map = function (func) {
+        var _this = this;
+        return new IO(function () { return func(_this.effect()); });
+    };
+    IO.prototype.chain = function (func) {
+        return func(this.effect());
+    };
+    IO.prototype.run = function () {
+        return this.effect();
+    };
+    IO.of = function (val) {
+        return new IO(function () { return val; });
+    };
+    IO.from = function (func) {
+        return new IO(func);
+    };
+    IO.lift = function (val) {
+        return IO.of(val);
+    };
+    return IO;
+}());
+exports.default = IO;
 //# sourceMappingURL=io.js.map

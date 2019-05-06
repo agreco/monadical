@@ -1,2 +1,29 @@
-module.exports=function(e){var n={};function t(r){if(n[r])return n[r].exports;var u=n[r]={i:r,l:!1,exports:{}};return e[r].call(u.exports,u,u.exports,t),u.l=!0,u.exports}return t.m=e,t.c=n,t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{enumerable:!0,get:r})},t.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},t.t=function(e,n){if(1&n&&(e=t(e)),8&n)return e;if(4&n&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(t.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&n&&"string"!=typeof e)for(var u in e)t.d(r,u,function(n){return e[n]}.bind(null,u));return r},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t.p="",t(t.s=9)}({9:function(e,n,t){"use strict";function r(e,n){for(var t=0;t<n.length;t++){var r=n[t];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}t.r(n),t.d(n,"default",function(){return u});var u=function(){function e(n){!function(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}(this,e),this._value=n}var n,t,u;return n=e,u=[{key:"of",value:function(n){return new e(n)}}],(t=[{key:"map",value:function(e){return e(this._value)}},{key:"fmap",value:function(n){return new e(n(this._value))}},{key:"join",value:function(){return this._value instanceof e?this._value.join():this}},{key:"toString",value:function(){return"Container[".concat(this._value,"]")}},{key:"value",get:function(){return this._value}}])&&r(n.prototype,t),u&&r(n,u),e}()}});
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var curry_1 = require("./curry");
+var Container = (function () {
+    function Container(value) {
+        this._value = value;
+    }
+    Container.prototype.get = function () {
+        return this._value;
+    };
+    Container.prototype.map = function (f) {
+        return Container.of(f(this._value));
+    };
+    Container.prototype.join = function () {
+        return !(this._value instanceof Container) ? this : this._value.join();
+    };
+    Container.of = function (value) {
+        return new Container(value);
+    };
+    Container.prototype.toString = function () {
+        return "Container[" + this._value + "]";
+    };
+    return Container;
+}());
+exports.default = Container;
+exports.mapC = curry_1.default(function (f, container) { return container.map(f); });
+exports.chainC = curry_1.default(function (f, container) { return container.chain(f); });
+exports.getOrElseC = curry_1.default(function (message, container) { return container.getOrElse(message); });
 //# sourceMappingURL=container.js.map
