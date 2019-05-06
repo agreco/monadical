@@ -1,2 +1,19 @@
-module.exports=function(e){var t={};function r(n){if(t[n])return t[n].exports;var o=t[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,r),o.l=!0,o.exports}return r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)r.d(n,o,function(t){return e[t]}.bind(null,o));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="",r(r.s=3)}({3:function(e,t,r){"use strict";r.r(t);var n=void 0;t.default=function e(t){for(var r=arguments.length,o=new Array(r>1?r-1:0),u=1;u<r;u++)o[u-1]=arguments[u];return o.length>=t.length?t.call.apply(t,[n].concat(o)):function(){for(var r=arguments.length,u=new Array(r),l=0;l<r;l++)u[l]=arguments[l];return e.apply(void 0,[t.bind.apply(t,[n].concat(o))].concat(u))}}}});
+"use strict";
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var curry = function (func) {
+    var args = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        args[_i - 1] = arguments[_i];
+    }
+    return (args.length >= func.length) ? func.call.apply(func, [_this].concat(args)) :
+        function () {
+            var argsN = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                argsN[_i] = arguments[_i];
+            }
+            return curry.apply(void 0, [func.bind.apply(func, [_this].concat(args))].concat(argsN));
+        };
+};
+exports.default = curry;
 //# sourceMappingURL=curry.js.map

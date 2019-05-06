@@ -1,2 +1,12 @@
-module.exports=function(t){var e={};function n(r){if(e[r])return e[r].exports;var u=e[r]={i:r,l:!1,exports:{}};return t[r].call(u.exports,u,u.exports,n),u.l=!0,u.exports}return n.m=t,n.c=e,n.d=function(t,e,r){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:r})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var u in t)n.d(r,u,function(e){return t[e]}.bind(null,u));return r},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=16)}({0:function(t,e,n){"use strict";n.r(e);e.default=function(t){return null!==t}},1:function(t,e,n){"use strict";n.r(e);e.default=function(t){return void 0!==t}},16:function(t,e,n){"use strict";n.r(e);var r=n(3),u=n(2),o=Object(r.default)(function(t,e,n){return function(t,e,n){return!t.some(function(t){return!t.length})&&Object(u.default)(e)?t.reduce(function(t,e){return t=Object(u.default)(t[e])?t[e]:Object(u.default)(n)?n:{}},e):void 0}(Object(u.default)(t)?t.split("."):[""],e,n)});e.default=o},2:function(t,e,n){"use strict";n.r(e);var r=n(0),u=n(1);e.default=function(t){return Object(r.default)(t)&&Object(u.default)(t)}},3:function(t,e,n){"use strict";n.r(e);var r=void 0;e.default=function t(e){for(var n=arguments.length,u=new Array(n>1?n-1:0),o=1;o<n;o++)u[o-1]=arguments[o];return u.length>=e.length?e.call.apply(e,[r].concat(u)):function(){for(var n=arguments.length,o=new Array(n),c=0;c<n;c++)o[c]=arguments[c];return t.apply(void 0,[e.bind.apply(e,[r].concat(u))].concat(o))}}}});
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var curry_1 = require("./curry");
+var notNil_1 = require("./notNil");
+var gProp = function (paths, obj, defaultVal) {
+    return !paths.some(function (p) { return !p.length; }) && notNil_1.default(obj) ? paths.reduce(function (acc, val) { return (acc = notNil_1.default(acc[val]) ? acc[val] : notNil_1.default(defaultVal) ? defaultVal : {}, acc); }, obj) : void 0;
+};
+var getPropOrElse = curry_1.default(function (path, obj, defaultVal) {
+    return gProp(notNil_1.default(path) ? path.split('.') : [''], obj, defaultVal);
+});
+exports.default = getPropOrElse;
 //# sourceMappingURL=getPropOrElse.js.map

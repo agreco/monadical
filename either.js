@@ -1,2 +1,137 @@
-module.exports=function(t){var e={};function n(r){if(e[r])return e[r].exports;var u=e[r]={i:r,l:!1,exports:{}};return t[r].call(u.exports,u,u.exports,n),u.l=!0,u.exports}return n.m=t,n.c=e,n.d=function(t,e,r){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:r})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var u in t)n.d(r,u,function(e){return t[e]}.bind(null,u));return r},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=10)}([function(t,e,n){"use strict";n.r(e);e.default=function(t){return null!==t}},function(t,e,n){"use strict";n.r(e);e.default=function(t){return void 0!==t}},function(t,e,n){"use strict";n.r(e);var r=n(0),u=n(1);e.default=function(t){return Object(r.default)(t)&&Object(u.default)(t)}},,,,,,,,function(t,e,n){"use strict";n.r(e),n.d(e,"default",function(){return y}),n.d(e,"Right",function(){return p}),n.d(e,"Left",function(){return v});var r=n(2);function u(t){return(u="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function o(t,e){return!e||"object"!==u(e)&&"function"!=typeof e?function(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}(t):e}function i(t){return(i=Object.setPrototypeOf?Object.getPrototypeOf:function(t){return t.__proto__||Object.getPrototypeOf(t)})(t)}function f(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),e&&c(t,e)}function c(t,e){return(c=Object.setPrototypeOf||function(t,e){return t.__proto__=e,t})(t,e)}function l(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function a(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}function s(t,e,n){return e&&a(t.prototype,e),n&&a(t,n),t}var y=function(){function t(e){l(this,t),this._value=e}return s(t,[{key:"value",get:function(){return this._value}}],[{key:"left",value:function(t){return new v(t)}},{key:"right",value:function(t){return new p(t)}},{key:"of",value:function(e){return t.right(e)}},{key:"nullable",value:function(e){return Object(r.default)(e)?t.right(e):t.left(e)}}]),t}(),p=function(t){function e(){return l(this,e),o(this,i(e).apply(this,arguments))}return f(e,y),s(e,[{key:"map",value:function(t){return y.of(t(this.value))}},{key:"getOrElse",value:function(t){return this.value}},{key:"orElse",value:function(){return this}},{key:"chain",value:function(t){return t(this.value)}},{key:"getOrElseThrow",value:function(t){this.value}},{key:"filter",value:function(t){return y.nullable(t(this.value)?this.value:null)}},{key:"toString",value:function(){return"Right[".concat(this.value,"]")}},{key:"isRight",get:function(){return!0}},{key:"isLeft",get:function(){return!1}}]),e}(),v=function(t){function e(){return l(this,e),o(this,i(e).apply(this,arguments))}return f(e,y),s(e,[{key:"map",value:function(t){return this}},{key:"getOrElse",value:function(t){return t}},{key:"orElse",value:function(t){return t(this.value)}},{key:"chain",value:function(t){return this}},{key:"getOrElseThrow",value:function(t){throw new Error(t)}},{key:"filter",value:function(t){return this}},{key:"toString",value:function(){return"Left[".concat(this.value,"]")}},{key:"value",get:function(){throw new TypeError("Value extraction invalid for type Left[A].")}},{key:"isRight",get:function(){return!1}},{key:"isLeft",get:function(){return!0}}]),e}()}]);
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var notNil_1 = require("./notNil");
+var Either = (function () {
+    function Either(value) {
+        this._value = value;
+    }
+    Object.defineProperty(Either.prototype, "value", {
+        get: function () {
+            return this._value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Either.left = function (value) {
+        return new Left(value);
+    };
+    Either.right = function (value) {
+        return new Right(value);
+    };
+    Either.of = function (value) {
+        return Either.right(value);
+    };
+    Either.nullable = function (value) {
+        return notNil_1.default(value) ? Either.right(value) : Either.left(value);
+    };
+    return Either;
+}());
+exports.default = Either;
+;
+var Right = (function (_super) {
+    __extends(Right, _super);
+    function Right() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Object.defineProperty(Right.prototype, "isRight", {
+        get: function () {
+            return true;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Right.prototype, "isLeft", {
+        get: function () {
+            return false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Right.prototype.map = function (func) {
+        return Either.of(func(this._value));
+    };
+    Right.prototype.getOrElse = function (val) {
+        return this._value;
+    };
+    Right.prototype.orElse = function () {
+        return this;
+    };
+    Right.prototype.chain = function (func) {
+        return func(this._value);
+    };
+    Right.prototype.getOrElseThrow = function (_) {
+        return this._value;
+    };
+    Right.prototype.filter = function (func) {
+        return Either.nullable(func(this._value) ? this._value : null);
+    };
+    Right.prototype.toString = function () {
+        return "Right[" + this._value + "]";
+    };
+    return Right;
+}(Either));
+exports.Right = Right;
+var Left = (function (_super) {
+    __extends(Left, _super);
+    function Left() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Object.defineProperty(Left.prototype, "value", {
+        get: function () {
+            throw new TypeError("Value extraction invalid for type Left[U].");
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Left.prototype, "isRight", {
+        get: function () {
+            return false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Left.prototype, "isLeft", {
+        get: function () {
+            return true;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Left.prototype.map = function (_) {
+        return this;
+    };
+    Left.prototype.getOrElse = function (defaultVal) {
+        return defaultVal;
+    };
+    Left.prototype.orElse = function (func) {
+        return func(this._value);
+    };
+    Left.prototype.chain = function (func) {
+        return this;
+    };
+    Left.prototype.getOrElseThrow = function (val) {
+        throw new Error(val);
+    };
+    Left.prototype.filter = function (func) {
+        return this;
+    };
+    Left.prototype.toString = function () {
+        return "Left[" + this._value + "]";
+    };
+    return Left;
+}(Either));
+exports.Left = Left;
 //# sourceMappingURL=either.js.map

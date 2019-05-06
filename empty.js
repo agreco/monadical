@@ -1,2 +1,18 @@
-module.exports=function(e){var t={};function n(r){if(t[r])return t[r].exports;var u=t[r]={i:r,l:!1,exports:{}};return e[r].call(u.exports,u,u.exports,n),u.l=!0,u.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var u in e)n.d(r,u,function(t){return e[t]}.bind(null,u));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=11)}({11:function(e,t,n){"use strict";n.r(t),n.d(t,"default",function(){return i});var r=n(4);function u(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}function o(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var i=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),o(this,"map",function(e){return Object(r.default)()}),o(this,"fmap",function(t){return new e})}var t,n,i;return t=e,(n=[{key:"toString",value:function(){return"Empty[]"}}])&&u(t.prototype,n),i&&u(t,i),e}()},4:function(e,t,n){"use strict";n.r(t);t.default=function(){}}});
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Empty = (function () {
+    function Empty() {
+    }
+    Empty.prototype.map = function (_) {
+        return this;
+    };
+    Empty.prototype.fmap = function (_) {
+        return new Empty();
+    };
+    Empty.prototype.toString = function () {
+        return 'Empty[]';
+    };
+    return Empty;
+}());
+exports.default = Empty;
 //# sourceMappingURL=empty.js.map
