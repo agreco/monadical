@@ -21,14 +21,14 @@ The following provides a outline of each monad and their supported operations an
 
 straight up container monad:
 
-**Operations**
+*Operations:*
 
 - get: `(): T`
 - map: `<U>(f: (x: T) => U): Container<U>`
 - join: `Container<T>`
 - of: `<U>(value: U): Container<U>`
       
-**Exports**
+*Exports*
   
 Container based operations for monads such as Either and Maybe, useful during programmable commas
    
@@ -38,7 +38,7 @@ Container based operations for monads such as Either and Maybe, useful during pr
 
 #### Maybe
 
-**Operations**
+*Operations:*
 
 - isNothing: `(): boolean`
 - isJust: `(): boolean`
@@ -49,7 +49,7 @@ Container based operations for monads such as Either and Maybe, useful during pr
     
 #### Just
 
-**Operations**
+*Operations:*
 
 - get value: `(): T`
 - map: `<V>(func: (a: any) => V): Just<V> | Nothing<V>`
@@ -60,7 +60,7 @@ Container based operations for monads such as Either and Maybe, useful during pr
       
 #### Nothing
 
-**Operations**
+*Operations:*
   
 - get value: `() : TypeError`
 - get isNothing `() : boolean`
@@ -71,7 +71,7 @@ Container based operations for monads such as Either and Maybe, useful during pr
 
 #### Either
 
-**Operations**
+*Operations:*
 
 - get value: `(): T`
 - _static_ left: `<U>(value: U): Left<U>`
@@ -81,7 +81,7 @@ Container based operations for monads such as Either and Maybe, useful during pr
   
 #### Left
 
-**Operations**
+*Operations:*
 
 - get value: `(): TypeError`
 - get isRight: `(): boolean`
@@ -95,7 +95,7 @@ Container based operations for monads such as Either and Maybe, useful during pr
 
 #### Right
 
-**Operations**
+*Operations:*
 
 - get isRight: `(): boolean`
 - get isLeft: `(): boolean`
@@ -108,7 +108,7 @@ Container based operations for monads such as Either and Maybe, useful during pr
 
 #### IO:
 
-**Operations**
+*Operations:*
 
 - map: `(func: FuntT): IO<FuncT>`
 - chain: `(func: FuncT): any`
@@ -119,7 +119,7 @@ Container based operations for monads such as Either and Maybe, useful during pr
 
 #### Empty
 
-**Operations**
+*Operations:*
   
 - map: `(_: any): void`
 - fmap: `(_: any): Empty`
