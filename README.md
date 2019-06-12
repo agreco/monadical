@@ -15,7 +15,7 @@ _A small set of monadic data types to get you going functionally, with some opti
 
 ### Monads
 
-The following provides a outline of each monad and their supported operations and signature. It is worth taking a deeper look into each monadic type and their test cases, to gain a deeper understanding of how each operation is used and their possible outcomes.
+The following provides a outline of each monad and their supported operations and signature. It is worth taking a look into each monadic type and their test cases, to gain a deeper understanding of how each operation is used and their possible outcomes.
 
 #### Container
 
