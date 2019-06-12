@@ -1,4 +1,4 @@
-# Monadic 
+# Monadical
 _A small set of monadic data types to get you going functionally, with some optional extras_
 
 ## Supported Types, Interfaces and Monads
