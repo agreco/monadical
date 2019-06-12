@@ -28,7 +28,7 @@ straight up container monad:
 - join: `Container<T>`
 - of: `<U>(value: U): Container<U>`
       
-*Exports*
+*Exports:*
   
 Container based operations for monads such as Either and Maybe, useful during programmable commas
    
