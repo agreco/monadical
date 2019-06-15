@@ -1,5 +1,6 @@
 
 # FILES
+package-lock.json
 .env.local
 .env.development.local
 .env.test.local
