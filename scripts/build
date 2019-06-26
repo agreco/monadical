@@ -1,3 +1,14 @@
 #!/usr/bin/env bash
 
-npx tsc 
+rm -rf ./*.js
+
+npx tsc
+
+for file in *.js; do
+	if [[ $file == "tsconfig.json" ]];
+	then
+		continue
+	fi
+  uglifyjs "$file" --stats -c -m  -o ./"$file" --source-map 'filename'
+  echo minified: "$file"
+done

@@ -1,5 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var isFunction = function (obj) { return !!(obj && obj.constructor && obj.call && obj.apply); };
-exports.default = isFunction;
-//# sourceMappingURL=isFunction.js.map
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var isFunction=function(t){return!!(t&&t.constructor&&t.call&&t.apply)};exports.default=isFunction;

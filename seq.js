@@ -1,11 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var seq = function () {
-    var funcs = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        funcs[_i] = arguments[_i];
-    }
-    return function (val) { return funcs.forEach(function (fn) { return fn(val); }); };
-};
-exports.default = seq;
-//# sourceMappingURL=seq.js.map
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var seq=function(){for(var e=[],r=0;r<arguments.length;r++)e[r]=arguments[r];return function(r){return e.forEach(function(e){return e(r)})}};exports.default=seq;

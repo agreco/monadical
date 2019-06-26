@@ -1,1 +1,1 @@
-{"version":3,"file":"alt.js","sourceRoot":"","sources":["src/alt.ts"],"names":[],"mappings":";;AACA,IAAM,GAAG,GAAG,UAAO,KAAkB,EAAE,KAAkB,IAAkB,OAAA,UAAC,GAAM,IAAK,OAAA,KAAK,CAAC,GAAG,CAAC,IAAI,KAAK,CAAC,GAAG,CAAC,EAAxB,CAAwB,EAApC,CAAoC,CAAC;AAEhH,kBAAe,GAAG,CAAC"}
+{"version":3,"sources":["alt.js"],"names":["Object","defineProperty","exports","value","alt","funcA","funcB","val","default"],"mappings":"AAAA,aACAA,OAAOC,eAAeC,QAAS,aAAc,CAAEC,OAAO,IACtD,IAAIC,IAAM,SAAUC,EAAOC,GAAS,OAAO,SAAUC,GAAO,OAAOF,EAAME,IAAQD,EAAMC,KACvFL,QAAQM,QAAUJ","file":true}

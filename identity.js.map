@@ -1,1 +1,1 @@
-{"version":3,"file":"identity.js","sourceRoot":"","sources":["src/identity.ts"],"names":[],"mappings":";;AACA,IAAM,QAAQ,GAAG,UAAC,KAAU,IAAU,OAAA,KAAK,EAAL,CAAK,CAAC;AAE5C,kBAAe,QAAQ,CAAC"}
+{"version":3,"sources":["identity.js"],"names":["Object","defineProperty","exports","value","identity","default"],"mappings":"AAAA,aACAA,OAAOC,eAAeC,QAAS,aAAc,CAAEC,OAAO,IACtD,IAAIC,SAAW,SAAUD,GAAS,OAAOA,GACzCD,QAAQG,QAAUD","file":true}

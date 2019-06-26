@@ -1,17 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var pipe = function () {
-    var fns = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        fns[_i] = arguments[_i];
-    }
-    return fns.reduce(function (f, g) { return function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        return f(g.apply(void 0, args));
-    }; });
-};
-exports.default = pipe;
-//# sourceMappingURL=pipe.js.map
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var pipe=function(){for(var e=[],r=0;r<arguments.length;r++)e[r]=arguments[r];return e.reduce(function(t,n){return function(){for(var e=[],r=0;r<arguments.length;r++)e[r]=arguments[r];return t(n.apply(void 0,e))}})};exports.default=pipe;

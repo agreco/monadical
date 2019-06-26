@@ -1,5 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var noop = function () { };
-exports.default = noop;
-//# sourceMappingURL=noop.js.map
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var noop=function(){};exports.default=noop;

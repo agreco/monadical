@@ -1,5 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var isDefined = function (val) { return val !== undefined; };
-exports.default = isDefined;
-//# sourceMappingURL=isDefined.js.map
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var isDefined=function(e){return void 0!==e};exports.default=isDefined;

@@ -1,1 +1,1 @@
-{"version":3,"file":"noop.js","sourceRoot":"","sources":["src/noop.ts"],"names":[],"mappings":";;AACA,IAAM,IAAI,GAAG,cAAa,CAAC,CAAC;AAE5B,kBAAe,IAAI,CAAC"}
+{"version":3,"sources":["noop.js"],"names":["Object","defineProperty","exports","value","noop","default"],"mappings":"AAAA,aACAA,OAAOC,eAAeC,QAAS,aAAc,CAAEC,OAAO,IACtD,IAAIC,KAAO,aACXF,QAAQG,QAAUD","file":true}

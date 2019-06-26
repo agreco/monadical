@@ -1,5 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var notNull = function (val) { return val !== null; };
-exports.default = notNull;
-//# sourceMappingURL=notNull.js.map
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var notNull=function(e){return null!==e};exports.default=notNull;

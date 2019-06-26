@@ -1,9 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var maybe_1 = require("./maybe");
-var curry_1 = require("./curry");
-var lift = curry_1.default(function (func, value) {
-    return maybe_1.default.nullable(func(value));
-});
-exports.default = lift;
-//# sourceMappingURL=lift.js.map
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var maybe_1=require("./maybe"),curry_1=require("./curry"),lift=curry_1.default(function(e,r){return maybe_1.default.nullable(e(r))});exports.default=lift;
