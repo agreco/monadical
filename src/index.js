@@ -1,7 +1,7 @@
 
 import alt from '../alt';
 import compose from '../compose';
-import Container from '../container';
+import Container, { chainC, getOrElseC, mapC } from '../container';
 import curry from '../curry';
 import Either from '../either';
 import Empty from '../empty';
@@ -22,9 +22,11 @@ import * as types from '../types';
 
 export {
   alt,
+  chainC,
   compose,
   Container,
   curry,
+  getOrElseC,
   Either,
   Empty,
   getPropOrElse,
@@ -33,6 +35,7 @@ export {
   isDefined,
   isFunction,
   lift,
+  mapC,
   Maybe,
   noop,
   notNil,
