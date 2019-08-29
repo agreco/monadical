@@ -49,7 +49,7 @@ test('mapping over IO', t => {
     IO.lift,
     getOrElseC('Unable to find point'),
     mapC(utils.visualSideEffect('Point properties stringified')),
-    mapC(utils.joiner),
+    mapC(utils.joiner(',')),
     mapC(utils.visualSideEffect('Retrieved point properties')),
     mapC(utils.getProps(['id', 'x', 'y', 'z'])),
     mapC(utils.visualSideEffect('Retrieved point')),

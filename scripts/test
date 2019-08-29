@@ -1,3 +1,16 @@
 #!/usr/bin/env bash
 
-ava
+npx ava ./test/**/*.js
+
+#npx ava ./test/alt.js
+#npx ava ./test/compose.js
+#npx ava ./test/container.js
+#npx ava ./test/curry.js
+#npx ava ./test/either.js
+#npx ava ./test/empty.js
+#npx ava ./test/getPropOrElse.js
+#npx ava ./test/io.js
+#npx ava ./test/maybe.js
+#npx ava ./test/partial.js
+#npx ava ./test/pipe.js
+#npx ava ./test/utils.js

@@ -17,8 +17,27 @@ import notNil from './notNil';
 import notNull from './notNull';
 import pipe from './pipe';
 import seq from './seq';
-import * as utils from './utils';
 import * as types from './types';
+import * as utils from './utils';
+import {
+  notEmpty,
+  hasValue,
+  safeUnpackG,
+  chainG,
+  collapse,
+  extractG,
+  getProps,
+  isEmpty,
+  joiner,
+  mapG,
+  normailse,
+  readVal,
+  safeHandleErrorG,
+  trim,
+  validLength,
+  visualSideEffect,
+  writeVal
+} from './utils';
 
 export {
   alt,
@@ -43,5 +62,22 @@ export {
   pipe,
   seq,
   types,
+  notEmpty,
+  hasValue,
+  safeUnpackG,
+  chainG,
+  collapse,
+  extractG,
+  getProps,
+  isEmpty,
+  joiner,
+  mapG,
+  normailse,
+  readVal,
+  safeHandleErrorG,
+  trim,
+  validLength,
+  visualSideEffect,
+  writeVal,
   utils
 }
