@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/agreco/monadical.svg?branch=master)](https://travis-ci.org/agreco/monadical)
 
-# Monadical
+![](https://github.com/agreco/monadical/blob/master/assets/images/logo-with-text.png)
+
 _A small set of monadic data types to get you going functionally, with some optional extras_
 
 ## Supported Types, Interfaces and Monads
