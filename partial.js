@@ -1,1 +1,4 @@
-"use strict";var _this=this;Object.defineProperty(exports,"__esModule",{value:!0});var partial=function(e){for(var a=[],t=1;t<arguments.length;t++)a[t-1]=arguments[t];return function(){for(var t=[],r=0;r<arguments.length;r++)t[r]=arguments[r];return e.call.apply(e,[_this].concat(a.concat(t)))}};exports.default=partial;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const partial = (func, ...a) => (...sa) => func.call(this, ...[...a, ...sa]);
+exports.default = partial;

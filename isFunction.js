@@ -1,1 +1,8 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var isFunction=function(t){return!!(t&&t.constructor&&t.call&&t.apply)};exports.default=isFunction;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const curry_1 = require("./curry");
+const isFunction = curry_1.default((val) => {
+    const stringTypeRep = Object.prototype.toString.call(val);
+    return /(Function)\]$/.test(stringTypeRep) && !!(val && val.constructor && val.call && val.apply);
+});
+exports.default = isFunction;

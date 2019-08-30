@@ -1,1 +1,6 @@
-"use strict";var _this=this;Object.defineProperty(exports,"__esModule",{value:!0});var curry=function(e){for(var n=[],t=1;t<arguments.length;t++)n[t-1]=arguments[t];return n.length>=e.length?e.call.apply(e,[_this].concat(n)):function(){for(var t=[],r=0;r<arguments.length;r++)t[r]=arguments[r];return curry.apply(void 0,[e.bind.apply(e,[_this].concat(n))].concat(t))}};exports.default=curry;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const curry = (func, ...args) => (args.length >= func.length) ?
+    func.call(this, ...args) :
+    (...argsN) => curry(func.bind(this, ...args), ...argsN);
+exports.default = curry;

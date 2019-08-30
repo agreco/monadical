@@ -1,4 +1,4 @@
 
-const noop = (): void => {};
+const noop = <N>(a?: N): void => {};
 
 export default noop;

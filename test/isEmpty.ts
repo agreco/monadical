@@ -1,6 +1,6 @@
 
 import test from "ava";
-import { isEmpty } from '../src/utils';
+import isEmpty from '../src/isEmpty';
 import noop from '../src/noop';
 
 test('null isEmpty', t => t.is(isEmpty(null), true));
@@ -22,11 +22,12 @@ test('NaN isEmpty', t => t.is(isEmpty(NaN), true));
 test('Infinity isEmpty', t => t.is(isEmpty(Infinity), true));
 
 test('function isEmpty', t => {
-  function func () {}
-  func.prototype.expand = "test";
-  
-  t.is(isEmpty(func), true);
-  t.is(isEmpty(new func()), true);
+  function Func () {}
+  Func.prototype.expand = "test";
+  const MyFunc = new (Func as any)(); // TS nonsense
+
+  t.is(isEmpty(Func), true);
+  t.is(isEmpty(MyFunc), true);
   t.is(isEmpty(noop), true);
   t.is(isEmpty(noop()), true);
 });
@@ -43,7 +44,10 @@ test('string isEmpty', t => t.is(isEmpty(''), true));
 test('string not isEmpty', t => t.is(isEmpty('A value'), false));
 
 test('Map isEmpty', t => t.is(isEmpty(new Map()), true));
-test('Map not isEmpty', t => t.is(isEmpty(new Map([['a', 'b', 'c']])), false));
+test('Map not isEmpty', t => {
+  const M = new (Map as any)([['a', 'b', 'c']]); // TS nonsense
+  t.is(isEmpty(M), false)
+});
 
 test('Set isEmpty', t => t.is(isEmpty(new Set()), true));
 test('Set not isEmpty', t => t.is(isEmpty(new Set(['a', 'b', 'c'])), false));

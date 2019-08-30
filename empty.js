@@ -1,1 +1,14 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var Empty=function(){function e(){}return e.prototype.map=function(t){return this},e.prototype.fmap=function(t){return new e},e.prototype.toString=function(){return"Empty[]"},e}();exports.default=Empty;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class Empty {
+    map(_) {
+        return this;
+    }
+    fmap(_) {
+        return new Empty();
+    }
+    toString() {
+        return 'Empty[]';
+    }
+}
+exports.default = Empty;

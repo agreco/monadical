@@ -1,1 +1,86 @@
-"use strict";var __extends=this&&this.__extends||function(){var r=function(t,e){return(r=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])})(t,e)};return function(t,e){function n(){this.constructor=t}r(t,e),t.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n)}}();Object.defineProperty(exports,"__esModule",{value:!0});var notNil_1=require("./notNil"),Maybe=function(){function e(){this._value=void 0}return Object.defineProperty(e.prototype,"isNothing",{get:function(){return!1},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"isJust",{get:function(){return!1},enumerable:!0,configurable:!0}),e.just=function(t){return new Just(t)},e.nothing=function(t){return new Nothing},e.of=function(t){return e.just(t)},e.nullable=function(t){return notNil_1.default(t)?e.just(t):e.nothing(t)},e}(),Just=function(n){function t(t){var e=n.call(this)||this;return e._value=t,e}return __extends(t,n),Object.defineProperty(t.prototype,"value",{get:function(){return this._value},enumerable:!0,configurable:!0}),t.prototype.map=function(t){return Maybe.nullable(t(this._value))},t.prototype.chain=function(t){return t(this._value)},t.prototype.getOrElse=function(t){return this._value},t.prototype.filter=function(t){return Maybe.nullable(t(this._value)?this._value:null)},Object.defineProperty(t.prototype,"isJust",{get:function(){return!0},enumerable:!0,configurable:!0}),t.prototype.toString=function(){return"Just["+this._value+"]"},t}(exports.default=Maybe);exports.Just=Just;var Nothing=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return __extends(e,t),Object.defineProperty(e.prototype,"value",{get:function(){throw new TypeError("Value extraction invalid for type Nothing[].")},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"isNothing",{get:function(){return!0},enumerable:!0,configurable:!0}),e.prototype.map=function(t){return this},e.prototype.chain=function(t){return this},e.prototype.getOrElse=function(t){return t},e.prototype.filter=function(t){return this._value},e.prototype.toString=function(){return"Nothing[]"},e}(Maybe);exports.Nothing=Nothing;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const notNil_1 = require("./notNil");
+class Maybe {
+    constructor() {
+        this._value = void 0;
+    }
+    toString() {
+        return `Maybe[${this.value}]`;
+    }
+    get isNothing() {
+        return false;
+    }
+    ;
+    get isJust() {
+        return false;
+    }
+    static just(val) {
+        return new Just(val);
+    }
+    static nothing(val) {
+        return new Nothing();
+    }
+    static of(val) {
+        return Maybe.just(val);
+    }
+    static nullable(val) {
+        return notNil_1.default(val) ? Maybe.just(val) : Maybe.nothing(void 0);
+    }
+    get value() {
+        return this._value;
+    }
+}
+exports.default = Maybe;
+class Just extends Maybe {
+    constructor(value) {
+        super();
+        this._value = value;
+    }
+    toString() {
+        return `Just[${this.value}]`;
+    }
+    get isJust() {
+        return true;
+    }
+    get isNothing() {
+        return false;
+    }
+    map(func) {
+        return Maybe.nullable(func(this.value));
+    }
+    chain(func) {
+        return func(this.value);
+    }
+    getOrElse(val) {
+        return this.value;
+    }
+    filter(func) {
+        return Maybe.nullable(func(this.value) ? this.value : null);
+    }
+}
+exports.Just = Just;
+class Nothing extends Maybe {
+    toString() {
+        return `Nothing[]`;
+    }
+    get isJust() {
+        return false;
+    }
+    get isNothing() {
+        return true;
+    }
+    map(func) {
+        return this;
+    }
+    chain(func) {
+        return this.value;
+    }
+    getOrElse(val) {
+        return val;
+    }
+    filter(func) {
+        return this;
+    }
+}
+exports.Nothing = Nothing;

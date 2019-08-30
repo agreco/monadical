@@ -15,19 +15,19 @@ export default class Either<T> {
     return this._value;
   }
 
-  public static left <U>(value: U): Left<U> {
+  static left <U>(value: U): Left<U> {
     return new Left(value);
   }
 
-  public static right <U>(value: U): Right<U> {
+  static right <U>(value: U): Right<U> {
     return new Right(value);
   }
 
-  public static of <U>(value: U): Right<U> {
+  static of <U>(value: U): Right<U> {
     return Either.right(value);
   }
-
-  public static nullable <U>(value: U): Right<U> | Left<U> {
+  
+  static nullable <U>(value: U): Right<U> | Left<U> {
     return notNil(value) ? Either.right(value) : Either.left(value);
   }
 };
@@ -46,11 +46,11 @@ export class Right<U> extends Either<T> {
     return Either.of(func(this._value));
   }
 
-  public getOrElse (val: T): T {
+  public getOrElse (val: U): U {
     return this._value;
   }
 
-  public orElse (): Right<T> {
+  public orElse (): Right<U> {
     return this;
   }
 

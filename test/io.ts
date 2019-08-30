@@ -3,30 +3,45 @@ import test from 'ava';
 import curry from '../src/curry';
 import compose from '../src/compose';
 import lift from '../src/lift';
-import Either from '../src/either';
+import Either, { Left, Right } from '../src/either';
 import notNil from '../src/notNil';
 import * as utils from '../src/utils';
 import { mapC, chainC, getOrElseC } from '../src/container';
 import IO from '../src/io';
+import { Just, Nothing } from '../src/maybe';
+import Empty from '../src/empty';
 
 test('IO value', t => {
   
-  const objA = {
-    x: 10
-  };
+  type IObj = {
+    x: number
+  }
   
-  const objB = {
-    x: 10
-  };
+  const times: (x: number) => number = (x: number) => x * x;
+  const divideByTwo: (x: number) => number = (x: number) => x / 2;
   
-  const ioA = IO.from(utils.readVal(objA, 'x')).map(x => x*x).map(x => x/2);
+  const objA: IObj = { x: 10 };
+  const ioA: IO<number> = IO.from(utils.readVal(objA, 'x')).map(times).map(divideByTwo);
   t.is(ioA.run(), 50);
   
-  const ioB = IO.from(utils.writeVal(objB, 'x', 20)).map(x => x*x).map(x => x/2);
+  const objB: IObj = { x: 10 };
+  const ioB: IO<number> = IO.from(utils.writeVal(objB, 'x', 20)).map(times).map(divideByTwo);
   t.is(ioB.run(), 200);
 });
 
 test('mapping over IO', t => {
+  
+  interface IPoint {
+    id: string,
+    x: number,
+    y: number,
+    z: number
+  }
+  
+  type TSafeFindPoint = {
+    (point: IPoint): (id: string) => Right<IPoint> | Left<string>;
+    (point: IPoint, id: string): Right<IPoint> | Left<string>;
+  };
   
   const point = {
     id: 'abcd-efghi',
@@ -35,16 +50,17 @@ test('mapping over IO', t => {
     z: 40
   };
   
-  const safeFindPoint = curry((aPoint, id) => {
+  const safeFindPoint: TSafeFindPoint = curry((aPoint, id) => {
     const point = utils.collapse(aPoint.id) === id ? aPoint : {};
     return notNil(point) ? Either.right(point) : Either.left(`A point with the: ${id}, does not exist.`);
   });
   
-  const findPoint = safeFindPoint(point);
+  const findPoint: (id: string) => Right<IPoint> | Left<string> = safeFindPoint(point);
   
-  const checkIdLength = (id) => utils.validLength(id, 9) ? Either.right(id) : Either.left(`Invalid ID: ${id}`);
+  const checkIdLength: (id: string) => Right<string> | Left<string> =
+    (id: string) => utils.validLength(id, 9) ? Either.right(id) : Either.left(`Invalid ID: ${id}`);
   
-  const retrieveObj = compose(
+  const retrieveObj: (a: string) => IO<string> = compose(
     mapC(utils.visualSideEffect('Writing object retrieval to screen')),
     IO.lift,
     getOrElseC('Unable to find point'),
@@ -57,7 +73,7 @@ test('mapping over IO', t => {
     mapC(utils.visualSideEffect('Validated id')),
     chainC(checkIdLength),
     mapC(utils.visualSideEffect('Normalised id')),
-    lift(utils.normailse)
+    lift<string, Empty>()(utils.normailse)
   );
   
   const ioEffect = retrieveObj('abcd-efghi').run();

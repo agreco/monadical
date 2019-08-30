@@ -8,7 +8,7 @@ _A small set of monadic data types to get you going functionally, with some opti
 
 ### Types
 
-* `FuncT = <A>(a: A | void) => any | void;`
+* `TFunc = <A>(a: A | void) => any | void;`
 
 ### Interfaces
 
@@ -35,8 +35,8 @@ straight up container monad:
   
 Container based operations for monads such as Either and Maybe, useful during programmable commas
    
-- mapC: `(f: FuncT, container: IMonadical) => container.map(f)`
-- chainC: `(f: FuncT, container: IMonadical) => container.chain(f)`
+- mapC: `(f: TFunc, container: IMonadical) => container.map(f)`
+- chainC: `(f: TFunc, container: IMonadical) => container.chain(f)`
 - getOrElseC: `(message: string, container: IMonadical) => container.getOrElse(message)`
 
 #### Maybe
@@ -113,11 +113,11 @@ Container based operations for monads such as Either and Maybe, useful during pr
 
 *Operations:*
 
-- map: `(func: FuntT): IO<FuncT>`
-- chain: `(func: FuncT): any`
+- map: `(func: FuntT): IO<TFunc>`
+- chain: `(func: TFunc): any`
 - run: `(): any`
 - of: `<U>(val: U): IO<U>`
-- from: `<T>(func: FuncT): IO<T>`
+- from: `<T>(func: TFunc): IO<T>`
 - lift: `<U>(val: U): IO<U>`
 
 #### Empty

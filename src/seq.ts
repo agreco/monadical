@@ -1,5 +1,5 @@
 
-const seq = <T>(...funcs: Array<(...a: any[]) => any>): (a: T) => void =>
-  (val: any): void => funcs.forEach(fn => fn(val));
+const seq = (...fns: Array<(...a: any[]) => any>): (...s: any[]) => void =>
+  (...val: any[]): void => fns.forEach(fn => fn(...val));
 
 export default seq;

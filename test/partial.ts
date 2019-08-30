@@ -4,32 +4,37 @@ import partial from '../src/partial';
 import isFunction from '../src/isFunction';
 
 test('partially apply a function with 1 arg', t => {
-  const sayHi = name => {
+  
+  const sayHi: (name: string) => string = (name: any) => {
     return `Hi ${name}`;
   };
 
-  const func = partial(sayHi, 'Antonio');
+  const func: () => string = partial(sayHi, 'Antonio');
   t.is(isFunction(func), true);
   t.is(func(), 'Hi Antonio');
 });
 
 test('partially apply a function with 2 args', t => {
-  const sayHi = (name, greeting) => {
+  
+  const sayHi: (name: string, greeting: string) => string = (name: string, greeting: string) => {
     return `Hi ${name}, ${greeting}`;
   };
 
-  const x = partial(sayHi, 'Antonio');
+  const x: (greeting: string) => string = partial(sayHi, 'Antonio');
   t.is(isFunction(x), true);
 
   t.is(x('pleased to meet you.'), 'Hi Antonio, pleased to meet you.');
 });
 
 test('partially apply a function with n args', t => {
-  const sayHi = (name, greeting, question, conclusion) => {
-    return `Hi ${name}, ${greeting}. ${question}? ${conclusion}`;
-  };
+  
+  const sayHi: (name: string, greeting: string, question: string, conclusion: string) => string =
+    (name: string, greeting: string, question: string, conclusion: string) => {
+      return `Hi ${name}, ${greeting}. ${question}? ${conclusion}`;
+    };
 
-  const x = partial(sayHi, 'Antonio', 'pleased to meet you');
+  const x: (question: string, conclusion: string) => string =
+    partial(sayHi, 'Antonio', 'pleased to meet you');
   t.is(isFunction(x), true);
 
   t.is(
