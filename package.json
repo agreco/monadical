@@ -1,15 +1,17 @@
 {
   "name": "monadical",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "A set of monadic data types",
-  "main": "index.js",
+  "main": "./index.js",
   "scripts": {
     "build": "scripts/build",
-    "prepublish": "scripts/build",
     "test": "scripts/test"
   },
   "ava": {
-    "tap": true,
+    "tap": false,
+    "failFast": true,
+    "cache": false,
+    "verbose": true,
     "compileEnhancements": false,
     "require": [
       "ts-node/register"
@@ -27,7 +29,7 @@
   "devDependencies": {
     "ava": "^1.4.1",
     "ts-node": "^8.1.0",
-    "typescript": "^3.4.5",
+    "typescript": "^3.6.0",
     "uglify-js": "^3.6.0"
   }
 }

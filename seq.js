@@ -1,1 +1,4 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var seq=function(){for(var e=[],r=0;r<arguments.length;r++)e[r]=arguments[r];return function(r){return e.forEach(function(e){return e(r)})}};exports.default=seq;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const seq = (...fns) => (...val) => fns.forEach(fn => fn(...val));
+exports.default = seq;

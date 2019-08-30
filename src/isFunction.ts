@@ -1,6 +1,10 @@
 
-import { FuncT } from './types';
+import { TFuncSpreadable } from './types';
+import curry from './curry';
 
-const isFunction = (obj: FuncT): boolean => !!(obj && obj.constructor && obj.call && obj.apply);
+const isFunction: TFuncSpreadable = curry((val: any): boolean => {
+  const stringTypeRep = Object.prototype.toString.call(val);
+  return /(Function)\]$/.test(stringTypeRep) && !!(val && val.constructor && val.call && val.apply);
+});
 
 export default isFunction;

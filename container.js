@@ -1,1 +1,27 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var curry_1=require("./curry"),Container=function(){function r(t){this._value=t}return r.prototype.get=function(){return this._value},r.prototype.map=function(t){return r.of(t(this._value))},r.prototype.join=function(){return this._value instanceof r?this._value.join():this},r.of=function(t){return new r(t)},r.prototype.toString=function(){return"Container["+this._value+"]"},r}();exports.default=Container,exports.mapC=curry_1.default(function(t,r){return r.map(t)}),exports.chainC=curry_1.default(function(t,r){return r.chain(t)}),exports.getOrElseC=curry_1.default(function(t,r){return r.getOrElse(t)});
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const curry_1 = require("./curry");
+class Container {
+    constructor(value) {
+        this._value = value;
+    }
+    get() {
+        return this._value;
+    }
+    map(f) {
+        return Container.of(f(this._value));
+    }
+    join() {
+        return !(this._value instanceof Container) ? this : this._value.join();
+    }
+    static of(value) {
+        return new Container(value);
+    }
+    toString() {
+        return `Container[${this._value}]`;
+    }
+}
+exports.default = Container;
+exports.mapC = curry_1.default((f, container) => container.map(f));
+exports.chainC = curry_1.default((f, container) => container.chain(f));
+exports.getOrElseC = curry_1.default((message, container) => container.getOrElse(message));

@@ -1,1 +1,4 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var notNull=function(e){return null!==e};exports.default=notNull;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const notNull = (val) => val !== null;
+exports.default = notNull;

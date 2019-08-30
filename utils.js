@@ -1,1 +1,53 @@
-"use strict";var __generator=this&&this.__generator||function(t,n){var u,o,a,r,c={label:0,sent:function(){if(1&a[0])throw a[1];return a[1]},trys:[],ops:[]};return r={next:e(0),throw:e(1),return:e(2)},"function"==typeof Symbol&&(r[Symbol.iterator]=function(){return this}),r;function e(e){return function(r){return function(e){if(u)throw new TypeError("Generator is already executing.");for(;c;)try{if(u=1,o&&(a=2&e[0]?o.return:e[0]?o.throw||((a=o.return)&&a.call(o),0):o.next)&&!(a=a.call(o,e[1])).done)return a;switch(o=0,a&&(e=[2&e[0],a.value]),e[0]){case 0:case 1:a=e;break;case 4:return c.label++,{value:e[1],done:!1};case 5:c.label++,o=e[1],e=[0];continue;case 7:e=c.ops.pop(),c.trys.pop();continue;default:if(!(a=0<(a=c.trys).length&&a[a.length-1])&&(6===e[0]||2===e[0])){c=0;continue}if(3===e[0]&&(!a||e[1]>a[0]&&e[1]<a[3])){c.label=e[1];break}if(6===e[0]&&c.label<a[1]){c.label=a[1],a=e;break}if(a&&c.label<a[2]){c.label=a[2],c.ops.push(e);break}a[2]&&c.ops.pop(),c.trys.pop();continue}e=n.call(t,c)}catch(r){e=[6,r],o=0}finally{u=a=0}if(5&e[0])throw e[1];return{value:e[0]?e[1]:void 0,done:!0}}([e,r])}}};Object.defineProperty(exports,"__esModule",{value:!0});var getPropOrElse_1=require("./getPropOrElse"),curry_1=require("./curry"),compose_1=require("./compose"),notNil_1=require("./notNil"),either_1=require("./either"),container_1=require("./container");exports.readVal=curry_1.default(function(r,e){return function(){return r[e]}}),exports.writeVal=curry_1.default(function(r,e,t){return function(){return r[e]=t}}),exports.visualSideEffect=curry_1.default(function(r,e){return getPropOrElse_1.default("NODE_ENV.debug",process,!1)&&console.log("INFO: "+r+", DATA: "+e),e}),exports.getProps=curry_1.default(function(r,t){return r.reduce(function(r,e){return notNil_1.default(t[e])&&r.push(t[e]),r},[])}),exports.isEmpty=curry_1.default(function(r){if(!notNil_1.default(r))return!0;var e=Object.prototype.toString.call(r);if(/(Boolean)\]$/.test(e))return!0;var t=/(Number)\]$/.test(e);if(t)return!0;if(t&&r.isNaN)return!0;if(/(Function)\]$/.test(e))return!0;var n=/(String)\]$/.test(e);if(n&&(n&&""===r))return!0;var u=/(Object)\]$/.test(e),o=u&&0===Object.keys(r).length;if(u&&o)return!0;var a=/(Array)\]$/.test(e),c=a&&0===r.length;if(a&&c)return!0;var i=/(Map)\]$/.test(e),s=i&&0===r.size;if(i&&s)return!0;var l=/(Set)\]$/.test(e),f=l&&0===r.size;return!(!l||!f)}),exports.validLength=curry_1.default(function(r,e){return r.length===e}),exports.trim=curry_1.default(function(r){return r.trim()}),exports.collapse=curry_1.default(function(r){return r.replace(/\-/g,"")}),exports.joiner=curry_1.default(function(r,e){return e.join(r)}),exports.normailse=compose_1.default(exports.collapse,exports.trim),exports.notEmpty=curry_1.default(function(r){return!exports.isEmpty(r)}),exports.hasValue=curry_1.default(function(r){return notNil_1.default(r)&&exports.notEmpty(r)}),exports.extractG=curry_1.default(function(e){return __generator(this,function(r){switch(r.label){case 0:return[4,e];case 1:return[2,r.sent()]}})}),exports.chainG=curry_1.default(function(e,t){var n,u;return __generator(this,function(r){switch(r.label){case 0:return n=container_1.chainC,u=[e],[4,t];case 1:return[4,n.apply(void 0,u.concat([r.sent()]))];case 2:return[2,r.sent()]}})}),exports.mapG=curry_1.default(function(e,t){var n,u;return __generator(this,function(r){switch(r.label){case 0:return n=container_1.mapC,u=[e],[4,t];case 1:return[4,n.apply(void 0,u.concat([r.sent()]))];case 2:return[2,r.sent()]}})}),exports.safeHandleErrorG=curry_1.default(function(e,t){var n,u;return __generator(this,function(r){switch(r.label){case 0:return[4,t];case 1:return n=r.sent(),(u=n.error)?[4,e(u)]:[3,3];case 2:return r.sent(),[2,either_1.default.left(n)];case 3:return[2,either_1.default.right(n)]}})}),exports.safeUnpackG=curry_1.default(function(r){return compose_1.default(exports.extractG,exports.chainG(exports.safeHandleErrorG(r)),exports.extractG)});
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const getPropOrElse_1 = require("./getPropOrElse");
+const curry_1 = require("./curry");
+const compose_1 = require("./compose");
+const notNil_1 = require("./notNil");
+const either_1 = require("./either");
+const container_1 = require("./container");
+exports.readVal = curry_1.default((anObject, key) => () => anObject[key]);
+exports.writeVal = curry_1.default((anObject, key, z) => () => anObject[key] = z);
+exports.visualSideEffect = curry_1.default((info, data) => {
+    const debugging = getPropOrElse_1.default('NODE_ENV.debug', process, false);
+    if (debugging) {
+        console.log(`INFO: ${info}, DATA: ${data}`);
+    }
+    return data;
+});
+exports.getProps = curry_1.default((propsArray, anObject) => {
+    return propsArray.reduce((acc, val) => {
+        if (notNil_1.default(anObject[val])) {
+            acc.push(anObject[val]);
+        }
+        return acc;
+    }, []);
+});
+exports.validLength = curry_1.default((str, len) => str.length === len);
+exports.trim = curry_1.default(str => str.trim());
+exports.collapse = curry_1.default(str => str.replace(/\-/g, ''));
+exports.joiner = curry_1.default((delim, arr) => arr.join(delim));
+exports.normailse = compose_1.default(exports.collapse, exports.trim);
+exports.notEmpty = curry_1.default(val => !isEmpty(val));
+exports.hasValue = curry_1.default(val => notNil_1.default(val) && exports.notEmpty(val));
+exports.extractG = curry_1.default(function* (val) {
+    return yield val;
+});
+exports.chainG = curry_1.default(function* (func, val) {
+    return yield container_1.chainC(func, yield val);
+});
+exports.mapG = curry_1.default(function* (func, val) {
+    return yield container_1.mapC(func, yield val);
+});
+exports.safeHandleErrorG = curry_1.default(function* (operation, val) {
+    const result = yield val;
+    const { error } = result;
+    if (error) {
+        yield operation(error);
+        return either_1.default.left(result);
+    }
+    else {
+        return either_1.default.right(result);
+    }
+});
+exports.safeUnpackG = curry_1.default(operation => compose_1.default(exports.extractG, exports.chainG(exports.safeHandleErrorG(operation)), exports.extractG));

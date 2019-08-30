@@ -1,1 +1,88 @@
-"use strict";var __extends=this&&this.__extends||function(){var n=function(t,e){return(n=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var r in e)e.hasOwnProperty(r)&&(t[r]=e[r])})(t,e)};return function(t,e){function r(){this.constructor=t}n(t,e),t.prototype=null===e?Object.create(e):(r.prototype=e.prototype,new r)}}();Object.defineProperty(exports,"__esModule",{value:!0});var notNil_1=require("./notNil"),Either=function(){function e(t){this._value=t}return Object.defineProperty(e.prototype,"value",{get:function(){return this._value},enumerable:!0,configurable:!0}),e.left=function(t){return new Left(t)},e.right=function(t){return new Right(t)},e.of=function(t){return e.right(t)},e.nullable=function(t){return notNil_1.default(t)?e.right(t):e.left(t)},e}(),Right=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return __extends(e,t),Object.defineProperty(e.prototype,"isRight",{get:function(){return!0},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"isLeft",{get:function(){return!1},enumerable:!0,configurable:!0}),e.prototype.map=function(t){return Either.of(t(this._value))},e.prototype.getOrElse=function(t){return this._value},e.prototype.orElse=function(){return this},e.prototype.chain=function(t){return t(this._value)},e.prototype.getOrElseThrow=function(t){return this._value},e.prototype.filter=function(t){return Either.nullable(t(this._value)?this._value:null)},e.prototype.toString=function(){return"Right["+this._value+"]"},e}(exports.default=Either);exports.Right=Right;var Left=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return __extends(e,t),Object.defineProperty(e.prototype,"value",{get:function(){throw new TypeError("Value extraction invalid for type Left[U].")},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"isRight",{get:function(){return!1},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"isLeft",{get:function(){return!0},enumerable:!0,configurable:!0}),e.prototype.map=function(t){return this},e.prototype.getOrElse=function(t){return t},e.prototype.orElse=function(t){return t(this._value)},e.prototype.chain=function(t){return this},e.prototype.getOrElseThrow=function(t){throw new Error(t)},e.prototype.filter=function(t){return this},e.prototype.toString=function(){return"Left["+this._value+"]"},e}(Either);exports.Left=Left;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const notNil_1 = require("./notNil");
+class Either {
+    constructor(value) {
+        this._value = value;
+    }
+    get value() {
+        return this._value;
+    }
+    static left(value) {
+        return new Left(value);
+    }
+    static right(value) {
+        return new Right(value);
+    }
+    static of(value) {
+        return Either.right(value);
+    }
+    static nullable(value) {
+        return notNil_1.default(value) ? Either.right(value) : Either.left(value);
+    }
+}
+exports.default = Either;
+;
+class Right extends Either {
+    get isRight() {
+        return true;
+    }
+    get isLeft() {
+        return false;
+    }
+    map(func) {
+        return Either.of(func(this._value));
+    }
+    getOrElse(val) {
+        return this._value;
+    }
+    orElse() {
+        return this;
+    }
+    chain(func) {
+        return func(this._value);
+    }
+    getOrElseThrow(_) {
+        return this._value;
+    }
+    filter(func) {
+        return Either.nullable(func(this._value) ? this._value : null);
+    }
+    toString() {
+        return `Right[${this._value}]`;
+    }
+}
+exports.Right = Right;
+class Left extends Either {
+    get value() {
+        throw new TypeError("Value extraction invalid for type Left[U].");
+    }
+    get isRight() {
+        return false;
+    }
+    get isLeft() {
+        return true;
+    }
+    map(_) {
+        return this;
+    }
+    getOrElse(defaultVal) {
+        return defaultVal;
+    }
+    orElse(func) {
+        return func(this._value);
+    }
+    chain(func) {
+        return this;
+    }
+    getOrElseThrow(val) {
+        throw new Error(val);
+    }
+    filter(func) {
+        return this;
+    }
+    toString() {
+        return `Left[${this._value}]`;
+    }
+}
+exports.Left = Left;

@@ -1,6 +1,7 @@
 
-import { FuncT } from './types';
+import { TFunc1, TFuncSpreadable } from './types';
 
-const partial = (func: FuncT, ...a: any[]): FuncT => (...sa: any[]): FuncT => func.call(this, ...[ ...a, ...sa]);
+const partial = (func: TFuncSpreadable, ...a: any[]): TFuncSpreadable =>
+  (...sa: any[]): TFunc1<any> => func.call(this, ...[ ...a, ...sa]);
 
 export default partial;

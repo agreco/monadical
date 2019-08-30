@@ -1,1 +1,30 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var isFunction_1=require("./isFunction"),IO=function(){function n(t){if(!isFunction_1.default(t))throw new TypeError("Invalid parameter passed to IO. Please provide a function.");this.effect=t}return n.prototype.map=function(t){var e=this;return new n(function(){return t(e.effect())})},n.prototype.chain=function(t){return t(this.effect())},n.prototype.run=function(){return this.effect()},n.of=function(t){return new n(function(){return t})},n.from=function(t){return new n(t)},n.lift=function(t){return n.of(t)},n}();exports.default=IO;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const isFunction_1 = require("./isFunction");
+class IO {
+    constructor(effect) {
+        if (!isFunction_1.default(effect)) {
+            throw new TypeError('Invalid parameter passed to IO. Please provide a function.');
+        }
+        this.effect = effect;
+    }
+    map(func) {
+        return new IO(() => func(this.effect()));
+    }
+    chain(func) {
+        return func(this.effect());
+    }
+    run() {
+        return this.effect();
+    }
+    static of(val) {
+        return new IO(() => val);
+    }
+    static from(func) {
+        return new IO(func);
+    }
+    static lift(val) {
+        return IO.of(val);
+    }
+}
+exports.default = IO;
