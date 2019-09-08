@@ -1,5 +1,5 @@
 
-import { TFuncSpreadable } from './types';
+import { TFuncSpreadable } from './index';
 import curry from './curry';
 
 const isMap: TFuncSpreadable = curry((val: any): boolean => {

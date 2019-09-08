@@ -5,6 +5,7 @@ import compose from './compose';
 import notNil from './notNil';
 import Either from './either';
 import { chainC, mapC } from './container';
+import isEmpty from "./isEmpty";
 
 export const readVal = curry((anObject, key) => () => anObject[key]);
 
@@ -37,7 +38,7 @@ export const collapse = curry(str => str.replace(/\-/g, ''));
 
 export const joiner = curry((delim, arr) => arr.join(delim));
 
-export const normailse = compose(collapse, trim);
+export const normalise = compose(collapse, trim);
 
 export const notEmpty = curry(val => !isEmpty(val));
 
@@ -67,4 +68,12 @@ export const safeHandleErrorG = curry(function* (operation, val) {
   }
 });
 
-export const safeUnpackG = curry(operation => compose(extractG, chainG(safeHandleErrorG(operation)), extractG));
+export const mapToResult = curry>((result, val) => result = val);
+
+export const safeUnpackG = curry(operation => compose(extractG(), chainG(safeHandleErrorG(operation)), extractG()));
+
+export const unpackG = safeUnpackG(curry(function* (error) {
+  yield put(error.requestAction);
+  yield put(error.exceptionAction);
+}));
+

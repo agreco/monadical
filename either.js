@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const notNil_1 = require("./notNil");
 class Either {
-    constructor(value) {
-        this._value = value;
+    isRight() {
+        return false;
     }
-    get value() {
-        return this._value;
+    isLeft() {
+        return false;
     }
     static left(value) {
         return new Left(value);
@@ -18,25 +18,49 @@ class Either {
         return Either.right(value);
     }
     static nullable(value) {
-        return notNil_1.default(value) ? Either.right(value) : Either.left(value);
+        return (!notNil_1.default(value) ? Either.left(null) : Either.right(value));
+    }
+    chain(func) {
+        return;
+    }
+    getOrElse(defaultVal) {
+        return;
+    }
+    getOrElseThrow(func) {
+        return;
+    }
+    map(func) {
+        return;
+    }
+    orElse(func) {
+        return;
+    }
+    filter(func) {
+        return;
     }
 }
 exports.default = Either;
 ;
-class Right extends Either {
-    get isRight() {
+class Right {
+    constructor(value) {
+        this._value = value;
+    }
+    get value() {
+        return this._value;
+    }
+    isRight() {
         return true;
     }
-    get isLeft() {
+    isLeft() {
         return false;
     }
     map(func) {
         return Either.of(func(this._value));
     }
-    getOrElse(val) {
+    getOrElse(_) {
         return this._value;
     }
-    orElse() {
+    orElse(_) {
         return this;
     }
     chain(func) {
@@ -49,40 +73,40 @@ class Right extends Either {
         return Either.nullable(func(this._value) ? this._value : null);
     }
     toString() {
-        return `Right[${this._value}]`;
+        return `Right[ ${this._value} ]`;
     }
 }
 exports.Right = Right;
-class Left extends Either {
-    get value() {
-        throw new TypeError("Value extraction invalid for type Left[U].");
+class Left {
+    constructor(value) {
+        this._value = value;
     }
-    get isRight() {
+    isRight() {
         return false;
     }
-    get isLeft() {
+    isLeft() {
         return true;
     }
-    map(_) {
+    chain(_) {
         return this;
     }
     getOrElse(defaultVal) {
         return defaultVal;
     }
+    map(_) {
+        return this;
+    }
     orElse(func) {
         return func(this._value);
     }
-    chain(func) {
+    filter(_) {
         return this;
     }
-    getOrElseThrow(val) {
-        throw new Error(val);
-    }
-    filter(func) {
-        return this;
+    getOrElseThrow(func) {
+        throw func(this._value);
     }
     toString() {
-        return `Left[${this._value}]`;
+        return `Left[ ${this._value} ]`;
     }
 }
 exports.Left = Left;

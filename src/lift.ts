@@ -1,12 +1,10 @@
 
-import Maybe, { Just, Nothing } from './maybe';
+import Maybe from './maybe';
 import curry from './curry';
-import { TFunc1, TLift } from './types';
+import { TFunc1, TLift } from './index';
 
-const lift = <J, N>(): TLift<J, N> => {
-  return curry((func: TFunc1<J>, value: J): Just<J> | Nothing<N> => {
-    return Maybe.nullable<J, N>(func(value));
-  });
-};
+const lift = <J, N>():TLift<J, N> => curry(<J, N>(func: TFunc1<J>, val: J): Maybe<J, N> => {
+  return Maybe.nullable<J, N>(func(val));
+});
 
 export default lift;

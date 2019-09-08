@@ -1,4 +1,4 @@
-import { TFunc1, TFunc1Optional } from './types';
+import { TFunc1, TFunc1Optional } from './index';
 export default class IO<T> {
     effect: TFunc1Optional;
     constructor(effect: TFunc1Optional);

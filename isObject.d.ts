@@ -1,3 +1,3 @@
-import { TFuncSpreadable } from './types';
+import { TFuncSpreadable } from './index';
 declare const isObject: TFuncSpreadable;
 export default isObject;

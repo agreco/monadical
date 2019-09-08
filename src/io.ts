@@ -1,5 +1,5 @@
 
-import { TFunc1, TFunc1Optional } from './types';
+import { TFunc1, TFunc1Optional } from './index';
 import isFunction from './isFunction';
 
 export default class IO<T> {
@@ -33,7 +33,7 @@ export default class IO<T> {
   public static from <T>(func: TFunc1Optional): IO<T> {
     return new IO(func);
   }
-  
+
   public static lift <U>(val: U): IO<U> {
     return IO.of(val);
   }
