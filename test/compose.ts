@@ -1,7 +1,7 @@
 
 import test from 'ava';
 import compose from '../src/compose';
-import { IGenFuncSpread } from '../src/types';
+import { IGenFuncSpread } from '../src';
 
 test('compose f g h', t => {
   

@@ -1,6 +1,6 @@
 
 import curry from './curry';
-import { TChainC, TFunc1, TGetOrElseC, TMapC, TMonadical } from './types';
+import { TChainC, TFunc1, TGetOrElseC, TMapC, TMonadical } from './index';
 
 class Container<T> {
 

@@ -1,4 +1,4 @@
-import { TChainC, TGetOrElseC, TMapC } from './types';
+import { TChainC, TGetOrElseC, TMapC } from './index';
 declare class Container<T> {
     _value: T;
     constructor(value: T);

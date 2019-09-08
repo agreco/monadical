@@ -2,84 +2,92 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const notNil_1 = require("./notNil");
 class Maybe {
-    constructor() {
-        this._value = void 0;
-    }
-    toString() {
-        return `Maybe[${this.value}]`;
-    }
-    get isNothing() {
+    isNothing() {
         return false;
     }
     ;
-    get isJust() {
+    isJust() {
         return false;
     }
     static just(val) {
         return new Just(val);
     }
-    static nothing(val) {
-        return new Nothing();
+    static nothing(_) {
+        return new Nothing(_);
     }
     static of(val) {
         return Maybe.just(val);
     }
     static nullable(val) {
-        return notNil_1.default(val) ? Maybe.just(val) : Maybe.nothing(void 0);
+        return (notNil_1.default(val) ? Maybe.just(val) : Maybe.nothing(void 0));
+    }
+    getOrElse(_) {
+        return;
+    }
+    chain(_) {
+        return;
+    }
+    map(_) {
+        return;
+    }
+    filter(_) {
+        return;
+    }
+}
+exports.default = Maybe;
+class Just {
+    constructor(value) {
+        this._value = value;
     }
     get value() {
         return this._value;
     }
-}
-exports.default = Maybe;
-class Just extends Maybe {
-    constructor(value) {
-        super();
-        this._value = value;
-    }
-    toString() {
-        return `Just[${this.value}]`;
-    }
-    get isJust() {
+    isJust() {
         return true;
     }
-    get isNothing() {
+    isNothing() {
         return false;
     }
     map(func) {
-        return Maybe.nullable(func(this.value));
+        return Maybe.of(func(this._value));
     }
     chain(func) {
-        return func(this.value);
+        return func(this._value);
     }
-    getOrElse(val) {
-        return this.value;
+    getOrElse(_) {
+        return this._value;
     }
     filter(func) {
-        return Maybe.nullable(func(this.value) ? this.value : null);
+        return Maybe.nullable(func(this._value) ? this._value : null);
+    }
+    toString() {
+        return `Just[ ${this._value} ]`;
     }
 }
 exports.Just = Just;
-class Nothing extends Maybe {
+class Nothing {
+    constructor(value) {
+        this._value = value;
+    }
     toString() {
         return `Nothing[]`;
     }
-    get isJust() {
+    isJust() {
         return false;
     }
-    get isNothing() {
+    isNothing() {
         return true;
     }
-    map(func) {
+    map(_) {
         return this;
     }
-    chain(func) {
-        return this.value;
+    chain(_) {
+        return this._value;
     }
-    getOrElse(val) {
-        return val;
+    getOrElse(defaultVal) {
+        return defaultVal;
     }
-    filter(func) {
+    filter(_) {
         return this;
     }
 }

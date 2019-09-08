@@ -2,18 +2,12 @@
 import notNil from "./notNil";
 
 export default class Maybe<J, N> {
-  
-  _value: J = void 0;
-  
-  public toString (): string {
-    return `Maybe[${ this.value }]`;
-  }
-  
-  public get isNothing (): boolean {
+
+  public isNothing (): boolean {
     return false;
   };
   
-  public get isJust (): boolean {
+  public isJust (): boolean {
     return false;
   }
   
@@ -21,86 +15,109 @@ export default class Maybe<J, N> {
     return new Just<J>(val);
   }
   
-  public static nothing <J, N>(val: J): Nothing<N> {
-    return new Nothing<N>();
+  public static nothing <J, N>(_: N): Nothing<N> {
+    return new Nothing<N>(_);
   }
   
-  public static of <J, N>(val: J): Just<J> {
-    return Maybe.just<J, N>(val);
+  public static of <J>(val: J): Just<J> {
+    return Maybe.just(val);
   }
   
-  public static nullable <J, N>(val: J): Just<J> | Nothing<N> {
-    return notNil(val) ? Maybe.just<J, N>(val) : Maybe.nothing<J, N>(void 0);
+  public static nullable <J, N>(val: J): Maybe<J, N> {
+    return (notNil(val) ? Maybe.just(val) : Maybe.nothing(void 0)) as unknown as Maybe<J, N>;
   }
-  
+
+  public getOrElse <T, N>(_: N): T | N {
+    return;
+  }
+
+  public chain <T>(_: (a: (J | N)) => T): T {
+    return;
+  }
+
+  public map (_: (val: (J | N)) => (J | N)): Maybe<J, N> {
+    return;
+  }
+
+  public filter (_: (val: J | N) => boolean): Maybe<J, N> {
+    return;
+  }
+}
+
+export class Just<J> {
+
+  private readonly _value: J;
+
+  public constructor (value: J) {
+    this._value = value;
+  }
+
   public get value (): J {
     return this._value;
   }
-}
 
-export class Just<J> extends Maybe<J, any> {
-  
-  public constructor (value: J) {
-    super();
-    this._value = value;
-  }
-  
-  public toString (): string {
-    return `Just[${ this.value }]`;
-  }
-  
-  public get isJust (): boolean {
+  public isJust (): boolean {
     return true;
   }
   
-  public get isNothing (): boolean {
+  public isNothing (): boolean {
     return false;
   }
   
-  public map <J, N>(func: (a: any) => J): Just<J> | Nothing<N> {
-    return Maybe.nullable<J, N>(func(this.value));
+  public map (func: (a: J) => J): Just<J> {
+    return Maybe.of<J>(func(this._value));
   }
   
-  public chain <J, N>(func: (a: any) => J): J | Just<J> | Nothing<N> {
-    return func(this.value);
+  public chain <T>(func: (a: J) => T): T {
+    return func(this._value);
   }
   
-  public getOrElse <T>(val: T): any {
-    return this.value;
+  public getOrElse (_: any): J {
+    return this._value;
   }
   
-  public filter <J, N>(func: (a: any) => boolean): Just<J> | Nothing<N> {
-    return Maybe.nullable(func(this.value) ? this.value : null);
+  public filter <N>(func: (a: J) => boolean): Maybe<J, N> {
+    return Maybe.nullable(func(this._value) ? this._value : null);
+  }
+
+  public toString (): string {
+    return `Just[ ${ this._value } ]`;
   }
 }
 
-export class Nothing<N> extends Maybe<any, N> {
-  
+export class Nothing<N> {
+
+  private readonly _value: N;
+
+  public constructor (value: N) {
+    this._value = value;
+  }
+
   public toString (): string {
     return `Nothing[]`;
   }
   
-  public get isJust (): boolean {
+  public isJust (): boolean {
     return false;
   }
   
-  public get isNothing (): boolean {
+  public isNothing (): boolean {
     return true;
   }
   
-  public map <J, N>(func: (a: any) => J): Just<J> | Nothing<N> {
+  public map (_: any): Nothing<N> {
     return this;
   }
   
-  public chain <J, N>(func: (a: any) => J): J | Just<J> | Nothing<N> {
-    return this.value;
+  public chain (_: any): N {
+    return this._value;
   }
   
-  public getOrElse <T>(val: T): any {
-    return val;
+  public getOrElse <T>(defaultVal: T): T {
+    return defaultVal;
   }
   
-  public filter <J, N>(func: (a: any) => boolean): Just<J> | Nothing<N>  {
+  public filter (_: any): Nothing<N>  {
     return this;
   }
 }

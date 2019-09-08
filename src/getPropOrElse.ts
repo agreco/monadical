@@ -1,7 +1,7 @@
 
 import curry from './curry';
 import notNil from './notNil';
-import { TGetPropOrElse, TIndexableAny } from './types';
+import { TGetPropOrElse, TIndexableAny } from './index';
 import isEmpty from './isEmpty';
 
 const gProp = (paths: string[], obj: object, defaultVal: any): any =>

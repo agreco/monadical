@@ -17,7 +17,7 @@ import notNil from './notNil';
 import notNull from './notNull';
 import pipe from './pipe';
 import seq from './seq';
-import * as types from './types';
+import * as types from './index';
 import * as utils from './utils';
 import {
   notEmpty,

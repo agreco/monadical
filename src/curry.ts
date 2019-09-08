@@ -1,5 +1,5 @@
 
-import { TFuncSpreadable } from './types';
+import { TFuncSpreadable } from './index';
 
 const curry = <T>(func: TFuncSpreadable, ...args: any[]): T =>
   (args.length >= func.length) ?

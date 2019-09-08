@@ -1,115 +1,148 @@
 
-import notNil from "./notNil";
+import notNil from './notNil';
+import { IEither } from './index';
 
-type T = any;
+export default class Either<L, R> implements IEither<L, R> {
 
-export default class Either<T> {
-
-  _value: T;
-
-  public constructor (value: T) {
-    this._value = value;
-  }
-
-  public get value (): T {
-    return this._value;
-  }
-
-  static left <U>(value: U): Left<U> {
-    return new Left(value);
-  }
-
-  static right <U>(value: U): Right<U> {
-    return new Right(value);
-  }
-
-  static of <U>(value: U): Right<U> {
-    return Either.right(value);
-  }
-  
-  static nullable <U>(value: U): Right<U> | Left<U> {
-    return notNil(value) ? Either.right(value) : Either.left(value);
-  }
-};
-
-export class Right<U> extends Either<T> {
-
-  public get isRight (): boolean {
-    return true;
-  }
-
-  public get isLeft (): boolean {
+  public isRight (): boolean {
     return false;
   }
 
-  public map <V>(func: (a: any) => V): Right<V> {
-    return Either.of(func(this._value));
+  public isLeft (): boolean {
+    return false;
   }
 
-  public getOrElse (val: U): U {
+  public static left <L, R>(value: L): Left<L> {
+    return new Left<L>(value);
+  }
+
+  public static right <L, R>(value: R): Right<R> {
+    return new Right<R>(value);
+  }
+
+  public static of <R>(value: R): Right<R> {
+    return Either.right(value);
+  }
+  
+  public static nullable <L, R>(value: R): Either<L, R>  {
+    return (!notNil(value) ? Either.left(null) : Either.right(value)) as unknown as Either<L, R>;
+  }
+
+  public chain <T>(func: (a: (L | R)) => T): T {
+    return;
+  }
+
+  public getOrElse <T>(defaultVal: T): T | R {
+    return;
+  }
+
+  public getOrElseThrow (func: (val: (L | R)) => Error): R | Error {
+    return;
+  }
+
+  public map (func: (val: (L | R)) => (L | R)): Either<L, R> {
+    return;
+  }
+
+  public orElse <T>(func: (defaultVal: (L | R)) => T): Either<L, R> {
+    return;
+  }
+
+  public filter (func: (val: L | R) => boolean): Either<L, R> {
+    return;
+  }
+};
+
+export class Right<R> {
+
+  private readonly _value: R;
+
+  public constructor (value: R) {
+    this._value = value;
+  }
+
+  public get value (): R {
     return this._value;
   }
 
-  public orElse (): Right<U> {
+  public isRight (): boolean {
+    return true;
+  }
+
+  public isLeft (): boolean {
+    return false;
+  }
+
+  public map (func: (val: R) => R): Right<R> {
+    return Either.of<R>(func(this._value));
+  }
+
+  public getOrElse (_: any): R {
+    return this._value;
+  }
+
+  public orElse (_: any): Right<R> {
     return this;
   }
 
-  public chain <V>(func: (a: any) => V): V {
+  public chain <T>(func: (a: R) => T): T {
     return func(this._value);
   }
 
-  public getOrElseThrow (_: any): Right<U>  {
+  public getOrElseThrow (_: any): R {
     return this._value;
   }
 
-  public filter <U>(func: (a: any) => any): Right<U> | Left<U> {
+  public filter <L>(func: (val: R) => boolean): Either<L, R> {
     return Either.nullable(func(this._value) ? this._value : null);
   }
 
   public toString (): string {
-    return `Right[${this._value}]`;
+    return `Right[ ${ this._value } ]`;
   }
 }
 
-export class Left<U> extends Either<T> {
+export class Left<L> {
 
-  public get value (): TypeError {
-    throw new TypeError("Value extraction invalid for type Left[U].");
+  private readonly _value: L;
+
+  public constructor (value: L) {
+    this._value = value;
   }
 
-  public get isRight (): boolean {
+  public isRight (): boolean {
     return false;
   }
 
-  public get isLeft (): boolean {
+  public isLeft (): boolean {
     return true;
   }
 
-  public map <U>(_: any): Left<U> {
+  public chain (_: any): Left<L> {
     return this;
   }
 
-  public getOrElse <U>(defaultVal: U): U {
+  public getOrElse <T>(defaultVal: T): T {
     return defaultVal;
   }
 
-  public orElse <V>(func: (a: any) => V): V {
+  public map (_: any): Left<L> {
+    return this;
+  }
+
+  public orElse <T>(func: (val: L) => T): T {
     return func(this._value);
   }
 
-  public chain (func: (a: any) => any): Left<U> {
+  public filter (_: any): Left<L> {
     return this;
   }
 
-  public getOrElseThrow (val: string): Error {
-    throw new Error(val);
-  }
-
-  public filter (func: (a: any) => any): Left<U> {
-    return this;
+  public getOrElseThrow (func: (val: L) => Error): Error {
+    throw func(this._value);
   }
 
   public toString (): string {
-    return `Left[${this._value}]`;
+    return `Left[ ${ this._value } ]`;
   }
 }
