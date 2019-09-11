@@ -4,7 +4,8 @@ import curry from './curry'
 import compose from './compose';
 import notNil from './notNil';
 import Either from './either';
-import { chainC, mapC } from './container';
+import chainC from './chainC';
+import mapC from './mapC';
 import isEmpty from "./isEmpty";
 
 export const readVal = curry((anObject, key) => () => anObject[key]);

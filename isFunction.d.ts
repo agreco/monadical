@@ -1,3 +1,3 @@
-import { TFuncSpreadable } from './index';
-declare const isFunction: TFuncSpreadable;
+import { FuncSpreadable } from './index';
+declare const isFunction: FuncSpreadable;
 export default isFunction;

@@ -1,4 +1,3 @@
-import { TChainC, TGetOrElseC, TMapC } from './index';
 declare class Container<T> {
     _value: T;
     constructor(value: T);
@@ -9,6 +8,3 @@ declare class Container<T> {
     toString(): string;
 }
 export default Container;
-export declare const mapC: TMapC;
-export declare const chainC: TChainC;
-export declare const getOrElseC: TGetOrElseC;

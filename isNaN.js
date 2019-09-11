@@ -1,9 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const curry_1 = require("./curry");
-const isNumber_1 = require("./isNumber");
-const isNaN = curry_1.default((val) => {
-    const stringTypeRep = Object.prototype.toString.call(val);
-    return isNumber_1.default(stringTypeRep) && val.isNaN;
-});
-exports.default = isNaN;
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var curry_1=require("./curry"),isNumber_1=require("./isNumber"),isNaN=curry_1.default(function(r){var e=Object.prototype.toString.call(r);return isNumber_1.default(e)&&r.isNaN});exports.default=isNaN;

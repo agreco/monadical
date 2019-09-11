@@ -1,6 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const curry = (func, ...args) => (args.length >= func.length) ?
-    func.call(this, ...args) :
-    (...argsN) => curry(func.bind(this, ...args), ...argsN);
-exports.default = curry;
+"use strict";var __spreadArrays=this&&this.__spreadArrays||function(){for(var r=0,e=0,t=arguments.length;e<t;e++)r+=arguments[e].length;var a=Array(r),s=0;for(e=0;e<t;e++)for(var n=arguments[e],l=0,_=n.length;l<_;l++,s++)a[s]=n[l];return a},_this=this;Object.defineProperty(exports,"__esModule",{value:!0});var curry=function(t){for(var a=[],r=1;r<arguments.length;r++)a[r-1]=arguments[r];return a.length>=t.length?t.call.apply(t,__spreadArrays([_this],a)):function(){for(var r=[],e=0;e<arguments.length;e++)r[e]=arguments[e];return curry.apply(void 0,__spreadArrays([t.bind.apply(t,__spreadArrays([_this],a))],r))}};exports.default=curry;

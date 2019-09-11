@@ -2,7 +2,7 @@
 import test from 'ava';
 import lift from '../src/lift';
 import identity from '../src/identity';
-import { TFunc1 } from '../src';
+import { Func1 } from '../src';
 import notNil from '../src/notNil';
 import Maybe from '../maybe';
 
@@ -12,7 +12,7 @@ interface IData extends Promise<IData> {
 
 const liftNumber = lift<number, void>();
 const initialVal: number = 10;
-const FuncToNothing: TFunc1<number> = (x: number) => {
+const FuncToNothing: Func1<number> = (x: number) => {
   const someVal: { data: void } = { data: void 0 };
   const { data }: IData = Promise.reject(someVal).catch<IData>(identity);
   return !notNil(data) ? void 0 : data + x;

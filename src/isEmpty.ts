@@ -1,5 +1,5 @@
 
-import { TFuncSpreadable } from './index';
+import { FuncSpreadable } from './index';
 
 import curry from './curry';
 import notNil from './notNil';
@@ -13,7 +13,7 @@ import isArray from './isArray';
 import isMap from './isMap';
 import isSet from './isSet';
 
-const isEmpty: TFuncSpreadable = curry((val: any): boolean => {
+const isEmpty: FuncSpreadable = curry((val: any): boolean => {
   return !notNil(val)
     || isBoolean(val)
     || isNumber(val)

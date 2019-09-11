@@ -1,4 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const partial = (func, ...a) => (...sa) => func.call(this, ...[...a, ...sa]);
-exports.default = partial;
+"use strict";var __spreadArrays=this&&this.__spreadArrays||function(){for(var r=0,t=0,a=arguments.length;t<a;t++)r+=arguments[t].length;var e=Array(r),s=0;for(t=0;t<a;t++)for(var n=arguments[t],l=0,i=n.length;l<i;l++,s++)e[s]=n[l];return e},_this=this;Object.defineProperty(exports,"__esModule",{value:!0});var partial=function(a){for(var e=[],r=1;r<arguments.length;r++)e[r-1]=arguments[r];return function(){for(var r=[],t=0;t<arguments.length;t++)r[t]=arguments[t];return a.call.apply(a,__spreadArrays([_this],__spreadArrays(e,r)))}};exports.default=partial;

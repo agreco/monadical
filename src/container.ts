@@ -1,7 +1,4 @@
 
-import curry from './curry';
-import { TChainC, TFunc1, TGetOrElseC, TMapC, TMonadical } from './index';
-
 class Container<T> {
 
   _value: T;
@@ -32,9 +29,3 @@ class Container<T> {
 }
 
 export default Container;
-
-export const mapC: TMapC = curry((f: TFunc1<any>, container: TMonadical) => container.map(f));
-
-export const chainC: TChainC = curry((f: TFunc1<any>, container: TMonadical) => container.chain(f));
-
-export const getOrElseC: TGetOrElseC = curry((message: string, container: TMonadical) => container.getOrElse(message));

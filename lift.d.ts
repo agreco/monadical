@@ -1,3 +1,3 @@
-import { TLift } from './index';
-declare const lift: <J, N>() => TLift<J, N>;
+import { Lift } from './index';
+declare const lift: <J, N>() => Lift<J, N>;
 export default lift;

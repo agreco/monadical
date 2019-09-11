@@ -1,7 +1,7 @@
 
 import curry from './curry';
-import { TFuncSpreadable } from './index';
+import { FuncSpreadable } from './index';
 
-const isDefined: TFuncSpreadable = curry((val: any): boolean => val !== undefined);
+const isDefined: FuncSpreadable = curry((val: any): boolean => val !== undefined);
 
 export default isDefined;
