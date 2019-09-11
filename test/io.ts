@@ -6,9 +6,12 @@ import lift from '../src/lift';
 import Either, { Left, Right } from '../src/either';
 import notNil from '../src/notNil';
 import * as utils from '../src/utils';
-import { mapC, chainC, getOrElseC } from '../src/container';
+import mapC from '../src/mapC';
+import chainC from '../src/chainC';
+import getOrElseC from '../src/getOrElseC';
 import IO from '../src/io';
 import Empty from '../src/empty';
+import Maybe from '../src/maybe';
 
 interface IPoint {
   id: string,
@@ -18,8 +21,8 @@ interface IPoint {
 }
 
 type TSafeFindPoint = {
-  (point: IPoint): (id: string) => Right<IPoint> | Left<string>;
-  (point: IPoint, id: string): Right<IPoint> | Left<string>;
+  (point: IPoint): (id: string) => Either<string, IPoint>;
+  (point: IPoint, id: string): Either<string, IPoint>;
 };
 
 const point = {
@@ -34,10 +37,14 @@ const safeFindPoint: TSafeFindPoint = curry((aPoint, id) => {
   return notNil(point) ? Either.right(point) : Either.left(`A point with the: ${id}, does not exist.`);
 });
 
-const findPoint: (id: string) => Right<IPoint> | Left<string> = safeFindPoint(point);
+const findPoint: (id: string) => Either<string, IPoint> = safeFindPoint(point);
 
-const checkIdLength: (id: string) => Right<string> | Left<string> =
-    (id: string) => utils.validLength(id, 9) ? Either.right(id) : Either.left(`Invalid ID: ${id}`);
+type IdCheck = Left<string, null> | Right<null, string>;
+
+const checkIdLength: (id: string) => IdCheck =
+    (id: string) => utils.validLength(id, 9) ?
+      Either.right<null, string>(id) :
+      Either.left<string, null>(`Invalid ID: ${id}`);
 
 test('IO value', t => {
 

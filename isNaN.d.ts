@@ -1,3 +1,3 @@
-import { TFuncSpreadable } from './index';
-declare const isNaN: TFuncSpreadable;
+import { FuncSpreadable } from './index';
+declare const isNaN: FuncSpreadable;
 export default isNaN;

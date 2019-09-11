@@ -1,3 +1,3 @@
-import { TFuncSpreadable } from './index';
-declare const curry: <T>(func: TFuncSpreadable, ...args: any[]) => T;
+import { FuncSpreadable } from './index';
+declare const curry: <T>(func: FuncSpreadable, ...args: any[]) => T;
 export default curry;

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-npx ava ./test/**/*
+npx ava
 
 #npx ava ./test/alt.ts
 #npx ava ./test/compose.ts

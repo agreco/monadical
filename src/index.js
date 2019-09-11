@@ -1,16 +1,19 @@
 
 import alt from './alt';
 import compose from './compose';
-import Container, { chainC, getOrElseC, mapC } from './container';
+import Container from './container';
+import chainC from './chainC';
 import curry from './curry';
 import Either from './either';
 import Empty from './empty';
+import getOrElseC from './getOrElseC';
 import getPropOrElse from './getPropOrElse';
 import identity from './identity';
 import IO from './io';
 import isDefined from './isDefined';
 import isFunction from './isFunction';
 import lift from './lift';
+import mapC from './mapC';
 import Maybe from './maybe';
 import noop from './noop';
 import notNil from './notNil';
@@ -29,7 +32,7 @@ import {
   getProps,
   joiner,
   mapG,
-  normailse,
+  normalise,
   readVal,
   safeHandleErrorG,
   trim,
@@ -70,7 +73,7 @@ export {
   getProps,
   joiner,
   mapG,
-  normailse,
+  normalise,
   readVal,
   safeHandleErrorG,
   trim,

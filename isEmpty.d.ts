@@ -1,3 +1,3 @@
-import { TFuncSpreadable } from './index';
-declare const isEmpty: TFuncSpreadable;
+import { FuncSpreadable } from './index';
+declare const isEmpty: FuncSpreadable;
 export default isEmpty;

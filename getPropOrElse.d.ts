@@ -1,3 +1,3 @@
-import { TGetPropOrElse } from './index';
-declare const getPropOrElse: TGetPropOrElse;
+import { GetPropOrElse } from './index';
+declare const getPropOrElse: GetPropOrElse;
 export default getPropOrElse;

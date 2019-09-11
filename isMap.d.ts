@@ -1,3 +1,3 @@
-import { TFuncSpreadable } from './index';
-declare const isMap: TFuncSpreadable;
+import { FuncSpreadable } from './index';
+declare const isMap: FuncSpreadable;
 export default isMap;

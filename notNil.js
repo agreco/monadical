@@ -1,6 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const notNull_1 = require("./notNull");
-const isDefined_1 = require("./isDefined");
-const notNil = (val) => notNull_1.default(val) && isDefined_1.default(val);
-exports.default = notNil;
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var notNull_1=require("./notNull"),isDefined_1=require("./isDefined"),notNil=function(e){return notNull_1.default(e)&&isDefined_1.default(e)};exports.default=notNil;

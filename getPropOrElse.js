@@ -1,8 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const curry_1 = require("./curry");
-const notNil_1 = require("./notNil");
-const isEmpty_1 = require("./isEmpty");
-const gProp = (paths, obj, defaultVal) => !paths.some(p => !p.length) && notNil_1.default(obj) ? paths.reduce((acc, val) => (acc = notNil_1.default(acc[val]) ? acc[val] : notNil_1.default(defaultVal) ? defaultVal : {}, acc), obj) : void 0;
-const getPropOrElse = curry_1.default((path, obj, defaultVal) => gProp(!isEmpty_1.default(path) ? path.split('.') : [''], obj, defaultVal));
-exports.default = getPropOrElse;
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var curry_1=require("./curry"),notNil_1=require("./notNil"),isEmpty_1=require("./isEmpty"),gProp=function(e,r,t){return!e.some(function(e){return!e.length})&&notNil_1.default(r)?e.reduce(function(e,r){return e=notNil_1.default(e[r])?e[r]:notNil_1.default(t)?t:{}},r):void 0},getPropOrElse=curry_1.default(function(e,r,t){return gProp(isEmpty_1.default(e)?[""]:e.split("."),r,t)});exports.default=getPropOrElse;

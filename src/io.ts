@@ -1,12 +1,12 @@
 
-import { TFunc1, TFunc1Optional } from './index';
+import { Func1, Func1Optional } from './index';
 import isFunction from './isFunction';
 
 export default class IO<T> {
   
-  effect: TFunc1Optional;
+  effect: Func1Optional;
   
-  public constructor (effect: TFunc1Optional) {
+  public constructor (effect: Func1Optional) {
     if (!isFunction(effect)) {
       throw new TypeError('Invalid parameter passed to IO. Please provide a function.');
     }
@@ -14,11 +14,11 @@ export default class IO<T> {
     this.effect = effect;
   }
   
-  public map <U>(func: TFunc1<U>): IO<TFunc1<U>> {
+  public map <U>(func: Func1<U>): IO<Func1<U>> {
     return new IO(() => func(this.effect()));
   }
   
-  public chain (func: TFunc1Optional): any {
+  public chain (func: Func1Optional): any {
     return func(this.effect());
   }
   
@@ -30,7 +30,7 @@ export default class IO<T> {
     return new IO(() => val);
   }
   
-  public static from <T>(func: TFunc1Optional): IO<T> {
+  public static from <T>(func: Func1Optional): IO<T> {
     return new IO(func);
   }
 
