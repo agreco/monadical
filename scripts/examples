@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-npm run build &>/dev/null
-npm run "build:examples" &>/dev/null
-node examples/build.js

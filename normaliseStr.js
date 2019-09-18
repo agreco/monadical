@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var index_1=require("./index"),compose_1=require("./compose"),normaliseStr=function(e){return compose_1.default(index_1.collapse(e),index_1.trim)};exports.default=normaliseStr;
