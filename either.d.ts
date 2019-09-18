@@ -1,18 +1,17 @@
-declare type EitherTransform<A, T, L, R> = A extends Left<L, R> ? Left<L, T> : Right<L, T>;
 export default abstract class Either<L, R> {
-    static left<L, R>(value: L): Left<L, R>;
-    static right<L, R>(value: R): Right<L, R>;
-    static of<L, R>(value: R): Right<L, R>;
-    static nullable<L, R>(value: R): Either<L, R>;
+    static left<L, R>(val: L): Left<L, R>;
+    static right<L, R>(val: R): Right<L, R>;
+    static of<L, R>(val: R): Right<L, R>;
+    static nullable<T>(value: T): Either<null, T>;
     abstract isRight(): boolean;
     abstract isLeft(): boolean;
     abstract chain<T>(func: (a: L | R) => T): Left<L, R> | T;
-    abstract getOrElse<T>(defaultVal: T): T | R;
+    abstract getOrElse(defaultVal: any): any | R;
     abstract getOrElseThrow(func: (val: L | R) => Error): R | Error;
-    abstract filter<T>(func: (val: T) => boolean): EitherTransform<this, T, L, R>;
+    abstract filter(func: (val: L | R) => boolean): Either<L, R>;
     abstract join(): Left<L, R> | Right<L, R>;
-    abstract orElse<T>(func: (val: L | R) => T): T | Right<L, R>;
-    abstract map<T>(func: (val: L | R) => T): EitherTransform<this, T, L, R>;
+    abstract orElse(func: (val: L | R) => any): Right<L, R> | any;
+    abstract map<T>(func: (val: L | R) => T): Either<L, T>;
 }
 export declare class Right<L, R> extends Either<L, R> {
     private readonly _value;
@@ -24,10 +23,10 @@ export declare class Right<L, R> extends Either<L, R> {
     chain<T>(func: (a: R) => T): T;
     getOrElse<T>(defaultVal: T): R;
     getOrElseThrow(func: (val: L | R) => Error): R | Error;
-    filter<T>(func: (val: T) => boolean): EitherTransform<this, T, L, R>;
+    filter(func: (val: R) => boolean): Either<L, R>;
     join<T>(): Right<L, R>;
-    orElse<T>(func: (val: R) => T): Right<L, R>;
-    map<T>(func: (val: R) => T): EitherTransform<this, T, L, R>;
+    orElse(func: (val: R) => any): this;
+    map<T>(func: (val: R) => T): Either<L, T>;
 }
 export declare class Left<L, R> extends Either<L, R> {
     private readonly _value;
@@ -36,11 +35,10 @@ export declare class Left<L, R> extends Either<L, R> {
     isRight(): boolean;
     isLeft(): boolean;
     chain<T>(func: (a: R) => T): Left<L, R>;
-    getOrElse<T>(defaultVal: T): T;
+    getOrElse(defaultVal: any): any;
     getOrElseThrow(func: (val: L) => Error): R | Error;
-    filter<T>(func: (val: T) => boolean): EitherTransform<this, T, L, R>;
+    filter(func: (val: R) => boolean): this;
     join(): Left<L, R>;
-    orElse<T>(func: (val: L) => T): T;
-    map<T>(_: (val: R) => T): EitherTransform<this, T, L, R>;
+    orElse(func: (val: L) => any): any;
+    map<T>(func: (val: L) => T): Either<L, T>;
 }
-export {};

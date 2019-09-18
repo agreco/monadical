@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var curry_1=require("./curry"),getPropOrElse_1=require("./getPropOrElse"),visualSideEffect=curry_1.default(function(e,r){return getPropOrElse_1.default("NODE_DEBUG",process.env,!1)&&console.log("INFO: "+e+", DATA: "+JSON.stringify(r)),r});exports.default=visualSideEffect;

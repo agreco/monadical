@@ -7,18 +7,18 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": false,
-    "allowJs": true,
+    "allowJs": false,
     "outDir": "./"
   },
   "lib": [
     "es2016"
   ],
   "include": [
-    "src/**/*"
+    "./src/**/*"
   ],
   "exclude": [
     "node_modules",
-    "**/*.spec.ts",
-    "src/index.d.ts"
+    "**/*.test.ts",
+    "**/*.spec.ts"
   ]
 }

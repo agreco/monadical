@@ -1,0 +1,1 @@
+{"version":3,"sources":["extractG.js"],"names":["Object","defineProperty","exports","value","curry_1","require","extractG","default","val","next"],"mappings":"AAAA,aACAA,OAAOC,eAAeC,QAAS,aAAc,CAAEC,OAAO,IACtD,IAAIC,QAAUC,QAAQ,WAClBC,SAAWF,QAAQG,QAAQ,SAAUC,GACrC,OAAOA,EAAIC,KAAOD,EAAIC,OAAON,MAAQK,IAEzCN,QAAQK,QAAUD","file":true}

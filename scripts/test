@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
 
-npx ava
+npx jest
 
-#npx ava ./test/alt.ts
-#npx ava ./test/compose.ts
-#npx ava ./test/container.ts
-#npx ava ./test/curry.ts
-#npx ava ./test/either.ts
-#npx ava ./test/empty.ts
-#npx ava ./test/getPropOrElse.ts
-#npx ava ./test/io.ts
-#npx ava ./test/maybe.ts
-#npx ava ./test/partial.ts
-#npx ava ./test/pipe.ts
-#npx ava ./test/isEmpty.ts
-#npx ava ./test/isBoolean.ts
-#npx ava ./test/lift.ts
-#npx ava ./test/seq.ts
+#npx jest ./test/alt.ts
+#npx jest ./test/compose.ts
+#npx jest ./test/container.ts
+#npx jest ./test/curry.ts
+#npx jest ./test/either.ts
+#npx jest ./test/empty.ts
+#npx jest ./test/getPropOrElse.ts
+#npx jest ./test/io.ts
+#npx jest ./test/maybe.ts
+#npx jest ./test/partial.ts
+#npx jest ./test/pipe.ts
+#npx jest ./test/isEmpty.ts
+#npx jest ./test/isBoolean.ts
+#npx jest ./test/lift.ts
+#npx jest ./test/seq.ts
+#npx jest ./test/notEmpty.ts
+#npx jest ./test/utils.ts

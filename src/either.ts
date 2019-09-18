@@ -1,24 +1,22 @@
 
 import notNil from './notNil';
 
-type EitherTransform<A, T, L, R> = A extends Left<L, R> ? Left<L, T> : Right<L, T>
-
 export default abstract class Either<L, R> {
 
-  public static left <L, R>(value: L): Left<L, R> {
-    return new Left<L, R>(value);
+  public static left <L, R>(val: L): Left<L, R> {
+    return new Left<L, R>(val);
   }
 
-  public static right <L, R>(value: R): Right<L, R> {
-    return new Right<L, R>(value);
+  public static right <L, R>(val: R): Right<L, R> {
+    return new Right<L, R>(val);
   }
 
-  public static of <L, R>(value: R): Right<L, R> {
-    return Either.right<L, R>(value);
+  public static of <L, R>(val: R): Right<L, R> {
+    return Either.right<L, R>(val);
   }
 
-  public static nullable <L, R>(value: R): Either<L, R> {
-    return (!notNil(value) ? Either.left<L, R>(null) : Either.right<L, R>(value)) as unknown as Either<L, R>;
+  public static nullable <T>(value: T): Either<null, T> {
+    return (!notNil(value) ? Either.left<null, T>(null) : Either.right<null, T>(value)) as Either<null, T>;
   }
 
   abstract isRight (): boolean;
@@ -27,17 +25,17 @@ export default abstract class Either<L, R> {
 
   abstract chain <T>(func: (a: L | R) => T): Left<L, R> | T;
 
-  abstract getOrElse <T>(defaultVal: T): T | R;
+  abstract getOrElse (defaultVal: any): any | R;
 
   abstract getOrElseThrow (func: (val: L | R) => Error): R | Error;
 
-  abstract filter <T>(func: (val: T) => boolean): EitherTransform<this, T, L, R>;
+  abstract filter (func: (val: L | R) => boolean): Either<L, R>;
 
   abstract join (): Left<L, R> | Right<L, R>;
 
-  abstract orElse <T>(func: (val: L | R) => T): T | Right<L, R>;
+  abstract orElse (func: (val: L | R) => any): Right<L, R> | any;
 
-  abstract map <T>(func: (val: L | R) => T): EitherTransform<this, T, L, R>;
+  abstract map <T>(func: (val: L | R) => T): Either<L, T>;
 };
 
 export class Right<L, R> extends Either<L, R> {
@@ -77,20 +75,20 @@ export class Right<L, R> extends Either<L, R> {
     return this._value;
   }
 
-  public filter <T>(func: (val: T) => boolean): EitherTransform<this, T, L, R> {
-    return Either.nullable(func(this._value as unknown as T) ? this._value : null) as unknown as EitherTransform<this, T, L, R>;
+  public filter (func: (val: R) => boolean): Either<L, R> {
+    return Either.nullable(func(this._value) ? this._value : null) as Either<L, R>;
   }
 
   public join <T>(): Right<L, R> {
     return (!(this._value instanceof Right) ? this : this._value.join());
   }
 
-  public orElse <T>(func: (val: R) => T): Right<L, R> {
+  public orElse (func: (val: R) => any): this {
     return this;
   }
 
-  public map <T>(func: (val: R) => T): EitherTransform<this, T, L, R> {
-    return Either.right(func(this._value)) as unknown as EitherTransform<this, T, L, R>;
+  public map <T>(func: (val: R) => T): Either<L, T> {
+    return Either.right(func(this._value)) as unknown as Either<L, T>;
   }
 }
 
@@ -119,7 +117,7 @@ export class Left<L, R> extends Either<L, R> {
     return this;
   }
 
-  public getOrElse <T>(defaultVal: T): T {
+  public getOrElse (defaultVal: any): any {
     return defaultVal;
   }
 
@@ -127,19 +125,19 @@ export class Left<L, R> extends Either<L, R> {
     throw func(this._value);
   }
 
-  public filter <T>(func: (val: T) => boolean): EitherTransform<this, T, L, R> {
-    return this as unknown as EitherTransform<this, T, L, R>;
+  public filter (func: (val: R) => boolean): this {
+    return this;
   }
 
   public join (): Left<L, R> {
     return (!(this._value instanceof Left) ? this : this._value.join());
   }
 
-  public orElse <T>(func: (val: L) => T): T {
+  public orElse (func: (val: L) => any): any {
     return func(this._value);
   }
 
-  public map <T>(_: (val: R) => T): EitherTransform<this, T, L, R> {
-    return this as unknown as EitherTransform<this, T, L, R>;
+  public map <T>(func: (val: L) => T): Either<L, T> {
+    return this as unknown as Either<L, T>;
   }
 }

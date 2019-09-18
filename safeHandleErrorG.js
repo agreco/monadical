@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var curry_1=require("./curry"),either_1=require("./either"),safeHandleErrorG=curry_1.default(function(e,r){var t=r.next?r.next().value:r,u=t.error;return u?(e(u),either_1.default.left(t)):either_1.default.right(t)});exports.default=safeHandleErrorG;
