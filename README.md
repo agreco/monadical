@@ -4,21 +4,52 @@
 
 _A small set of monadic data types to get you going functionally, with some optional extras_
 
-## Supported Types, Interfaces and Monads
+Monadical provides data-types and functions such as `Either` or `curry`, allowing you to compose operations originating from different context such as generators or monads, with safety in mind. 
 
-### Types
+## Installation
 
-* `TFunc = <A>(a: A | void) => any | void;`
+To install the latest stable version, run either of the following via a terminal:
 
-### Interfaces
+_using npm_
+```
+npm install monadical
+```
 
-* `IIndexableAny { [ key: string ]: any; }`
+_using yarn_
+```
+yarn add monadical
+```
+## Usage & Compatabiliy
+The project is currently written in Typescript, targeting version 3.6.x compiling down to es5 with [UMD](https://github.com/umdjs/umd) support.
 
-* `IMonadical { chain: any, map: any, getOrElse: any }`
+To import a data-type into your project via a browser, you can include it via a script tag: 
+```
+<script src="monadical/either.js"></script>
+```
 
-### Monads
+or using ES6, you can use the following import syntax:
+```
+import Either, { Left, Right } from 'monadical/either';
+```
 
-The following provides a outline of each monad and their supported operations and signature. It is worth taking a look into each monadic type and their test cases, to gain a deeper understanding of how each operation is used and their possible outcomes.
+So to import the `Maybe` data-type with composing functions, you would write the following using ES6:
+```
+import Maybe from 'monadical/maybe';
+import compose from 'monadical/compose';
+import curry from 'monadical/curry';
+import isNumber from 'monadical/isNumber';
+
+const add10 = amount => Maybe.nullable(isNumber(val) ? val + 10 : void 0);
+const safelyAdd10 = compose(chainC(amount => `My amount is now: ${x}`), add10);
+const amount = safelyAdd10(20);
+
+assert.equal(safelyAdd10(20), 'My amount is now: 30')
+assert.equal(safelyAdd10(null), void 0)
+```
+
+## Supported Types
+
+The following provides an outline of each data-type and their supported operations.
 
 #### Container
 
@@ -28,97 +59,90 @@ straight up container monad:
 
 - get: `(): T`
 - map: `<U>(f: (x: T) => U): Container<U>`
-- join: `Container<T>`
-- of: `<U>(value: U): Container<U>`
+- join: `(): Container<T>`
+- _static_ of: `<U>(value: U): Container<U>`
       
-*Exports:*
-  
-Container based operations for monads such as Either and Maybe, useful during programmable commas
-   
-- mapC: `(f: TFunc, container: IMonadical) => container.map(f)`
-- chainC: `(f: TFunc, container: IMonadical) => container.chain(f)`
-- getOrElseC: `(message: string, container: IMonadical) => container.getOrElse(message)`
-
 #### Maybe
 
 *Operations:*
 
 - isNothing: `(): boolean`
 - isJust: `(): boolean`
-- just: `<T>(val: T): Just<T>`
-- nothing: `<T>(val: T): Nothing<T>`
-- of: `<T>(val: T): Just<T>`
-- nullable: `<U>(val: U): Just<U> | Nothing<U>`
+- _static_ just: `<J, N>(val: J): Just<J>`
+- _static_ nothing: `<J, N>(_: N): Nothing<N>`
+- _static_ of: `<J>(val: J): Just<J>`
+- _static_ nullable: `<J, N>(val: J): Maybe<J, N>`
     
 #### Just
 
 *Operations:*
 
-- get value: `(): T`
-- map: `<V>(func: (a: any) => V): Just<V> | Nothing<V>`
-- chain: `<V>(func: (a: any) => V): V`
-- getOrElse: `<A>(val: A): T`
-- filter: `<U>(func: (a: any) => any): Just<U> | Nothing<U>`
-- get isJust: `(): boolean`
+- isNothing: `(): boolean`
+- isJust: `(): boolean`
+- get value: `(): J`
+- map: `(func: (a: J) => J): Just<J>`
+- chain: `<T>(func: (a: J) => T): T`
+- getOrElse: `(_: any): J`
+- filter: `<N>(func: (a: J) => boolean): Maybe<J, N>`
       
 #### Nothing
 
 *Operations:*
   
-- get value: `() : TypeError`
-- get isNothing `() : boolean`
-- map: `(func: (a: any) => any): Nothing<U>`
-- chain: `(func: (a: any) => any)a
-- getOrElse: `<V>(val: V): V`
-- filter: `(func: (a: any) => any): Nothing<U>`
+- isNothing: `(): boolean`
+- isJust: `(): boolean`
+- map: `(_: any): Nothing<N>`
+- chain: `(_: any): N`
+- getOrElse: `<T>(defaultVal: T): T`
+- filter: `(_: any): Nothing<N>`
 
 #### Either
 
 *Operations:*
 
 - get value: `(): T`
-- _static_ left: `<U>(value: U): Left<U>`
-- _static_ right: `<U>(value: U): Right<U>`
-- _static_ of: `<U>(value: U): Right<U>`
-- _static_ nullable: `<U>(value: U): Right<U> | Left<U>`
+- _static_ left: `<L, R>(val: L): Left<L, R>`
+- _static_ right: `<L, R>(val: R): Right<L, R>`
+- _static_ of: `<L, R>(val: R): Right<L, R>`
+- _static_ nullable: `<T>(value: T): Either<null, T>`
   
 #### Left
 
 *Operations:*
 
-- get value: `(): TypeError`
-- get isRight: `(): boolean`
-- get isLeft: `(): boolean`
-- map: `<U>(_: any): Left<U>`
-- getOrElse: `<U>(defaultVal: U): U`
-- orElse: `<V>(func: (a: any) => V): V`
-- chain: `(func: (a: any) => any): Left<U>`
-- getOrElseThrow: `(val: string): Error`
-- filter: `(func: (a: any) => any): Left<U>`
+- isRight: `(): boolean`
+- isLeft: `(): boolean`
+- map: `<T>(func: (val: L) => T): Either<L, T>`
+- getOrElse: `(defaultVal: any): any`
+- orElse: `(func: (val: L) => any): any`
+- chain: `<T>(func: (a: R) => T): Left<L, R>`
+- getOrElseThrow: `(func: (val: L) => Error): R | Error`
+- filter: `(func: (val: R) => boolean): this`
 
 #### Right
 
 *Operations:*
 
-- get isRight: `(): boolean`
-- get isLeft: `(): boolean`
-- map: `<V>(func: (a: any) => V): Right<V>`
-- getOrElse: `(val: T): T`
-- orElse: `(): Right<T>`
-- chain: `<V>(func: (a: any) => V): V`
-- getOrElseThrow: `(_: any): Right<U>`
-- filter: `<U>(func: (a: any) => any): Right<U> | Left<U>`
+- get value: `(): R`
+- isRight: `(): boolean`
+- isLeft: `(): boolean`
+- map: `<T>(func: (val: R) => T): Either<L, T>`
+- getOrElse: `<T>(defaultVal: T): R`
+- orElse: `(func: (val: R) => any): this`
+- chain: `<T>(func: (a: R) => T): T`
+- getOrElseThrow: `(func: (val: L | R) => Error): R | Error`
+- filter: `(func: (val: R) => boolean): Either<L, R>`
 
 #### IO:
 
 *Operations:*
 
-- map: `(func: FuntT): IO<TFunc>`
-- chain: `(func: TFunc): any`
+- map: `<U>(func: Func1<U>): IO<Func1<U>>`
+- chain: `(func: Func1Optional): any`
 - run: `(): any`
-- of: `<U>(val: U): IO<U>`
-- from: `<T>(func: TFunc): IO<T>`
-- lift: `<U>(val: U): IO<U>`
+- _static_ of: `<U>(val: U): IO<U>`
+- _static_ from: `<T>(func: Func1Optional): IO<T>`
+- _static_ lift: `<U>(val: U): IO<U>`
 
 #### Empty
 
@@ -126,3 +150,48 @@ Container based operations for monads such as Either and Maybe, useful during pr
   
 - map: `(_: any): void`
 - fmap: `(_: any): Empty`
+
+
+## Monadic operations during programmable commas
+For programmable commas, some operations are available allowing you to compose functions:  
+   
+### Operating on Monads
+
+- mapC: `MapC = {
+    <T, V>(func: T): (container: Monadical<V>) => any;
+    <T, V>(func: T, container: Monadical<V>): any;
+};`
+
+- chainC: `ChainC = {
+  <T, V>(func: T): (container: Monadical<V>) => any;
+  <T, V>(func: T, container: Monadical<V>): any;
+};`
+
+- getOrElseC: `GetOrElseC = {
+  <T, V>(val: T): (container: Monadical<V>) => any;
+  <T, V>(val: T, container: Monadical<V>): any;
+};`
+
+
+### Operating on Monads/values encapsulated in generators
+
+- mapG: `MapG = {
+  <T>(a: T): <V>(b: V) => MapC
+  <T, V>(a: T, b: V): MapC
+};`
+
+- chainG: `ChainG = {
+  <T>(a: T): <V>(b: V) => ChainC
+  <T, V>(a: T, b: V): ChainC
+};`
+
+- extractG: `ExtractG = { <T>(a: T): any };`
+
+- safeHandleErrorG: `SafeHandleErrorG = {
+  <T>(a: FuncSpreadable): (b: Generator<any, T, any>) => EitherResult<T>
+  <T>(a: FuncSpreadable, b: Generator<any, T, any>):  EitherResult<T>
+};`
+
+- safeUnpackG: `SafeUnpackG = {
+  <T>(errorHandler: FuncSpreadable): FuncSpreadT<T>
+};`
