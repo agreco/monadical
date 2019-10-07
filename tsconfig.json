@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "umd",
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "declaration": true,
     "noImplicitAny": true,
