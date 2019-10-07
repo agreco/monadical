@@ -1,1 +1,1 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var curry_1=require("./curry"),isDefined=curry_1.default(function(e){return void 0!==e});exports.default=isDefined;
+!function(e){if("object"==typeof module&&"object"==typeof module.exports){var o=e(require,exports);void 0!==o&&(module.exports=o)}else"function"==typeof define&&define.amd&&define(["require","exports","./curry"],e)}(function(e,o){"use strict";Object.defineProperty(o,"__esModule",{value:!0});var t=e("./curry").default(function(e){return void 0!==e});o.default=t});
