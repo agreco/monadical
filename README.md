@@ -20,14 +20,9 @@ _using yarn_
 yarn add monadical
 ```
 ## Usage & Compatabiliy
-The project is currently written in Typescript, targeting version 3.6.x compiling down to es5 with [UMD](https://github.com/umdjs/umd) support.
+The project is currently written in Typescript, targeting version 3.6.x compiling down to es5. Note: CommonJS is the supported target, future work includes adding UMD support.
 
-To import a data-type into your project via a browser, you can include it via a script tag: 
-```
-<script src="monadical/either.js"></script>
-```
-
-or using ES6, you can use the following import syntax:
+Using ES6, you can use the following import syntax:
 ```
 import Either, { Left, Right } from 'monadical/either';
 ```
