@@ -1,19 +1,20 @@
 
-import { EitherResult, FuncSpreadable, SafeHandleErrorG, SafeHandleResult } from './index';
+import { EitherResult, FuncSpreadable, Monadical, SafeHandleErrorG } from './index';
 import curry from './curry';
 import Either from './either';
+import isFunction from './isFunction';
 
 const safeHandleErrorG: SafeHandleErrorG =
-  curry(<T>(errorHandler: FuncSpreadable, res: Generator<any, SafeHandleResult, any>): EitherResult<T> => {
+  curry(function* <T>(errorHandler: FuncSpreadable, res: Monadical<T> | object): Generator<any, EitherResult<T>, any> {
 
-    const result = res.next ? res.next().value : res;
-    const { error } = result;
+    const result = yield res;
+    const { error } = isFunction(result.getOrElse) ? result.getOrElse(() => ({ error: new Error() })) : result;
 
     if (error) {
-      errorHandler(error);
-      return Either.left<T, any>(result);
+      yield errorHandler(error);
+      return yield Promise.resolve(Either.left<T, any>(result));
     } else {
-      return Either.right<any, T>(result);
+      return yield Promise.resolve(Either.right<any, T>(result));
     }
   });
 
