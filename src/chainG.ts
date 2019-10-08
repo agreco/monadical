@@ -1,11 +1,11 @@
 
-import { ChainC, ChainG, Monadical } from './index';
+import { ChainG } from './index';
 import curry from './curry';
 import chainC from './chainC';
 
 const chainG: ChainG =
-  curry(<T>(func: <V>(a: V) => any, container: Generator<any, Monadical<T>, any>): ChainC => {
-    return chainC(func, container.next ? container.next().value : container);
+  curry(function* <T>(func: <V>(a: V) => any, container: Generator<any, T, any>): Generator<any, T, any> {
+    return chainC(func, yield container);
   });
 
 export default chainG;

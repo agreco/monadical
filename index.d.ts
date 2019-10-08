@@ -44,25 +44,23 @@ import isSet from './isSet';
 import notEmpty from './notEmpty';
 import partial from './partial';
 export declare type Monadical<M> = {
+    isLeft?: () => boolean;
+    isRight?: () => boolean;
+    isJust?: () => boolean;
+    isNothing?: () => boolean;
+    orElse?: () => any;
     chain: (arg: any) => any;
     map: <T>(arg: (val: any) => T) => M;
     getOrElse: <T>(arg: T) => M | T;
     filter: (func: (a: any) => boolean) => M;
 };
-export interface Curry {
-    <T1, T2, T3, T4, T5, T6, R>(func: (p1: T1, p2: T2, p3: T3, p4: T4, p5: T5, p6: T6) => R): (p: T1) => (p: T2) => (p: T3) => (p: T4) => (p: T5) => (p: T6) => R;
-    <T1, T2, T3, T4, T5, R>(func: (p1: T1, p2: T2, p3: T3, p4: T4, p5: T5) => R): (p: T1) => (p: T2) => (p: T3) => (p: T4) => (p: T5) => R;
-    <T1, T2, T3, T4, R>(func: (p1: T1, p2: T2, p3: T3, p4: T4) => R): (p: T1) => (p: T2) => (p: T3) => (p: T4) => R;
-    <T1, T2, T3, R>(func: (p1: T1, p2: T2, p3: T3) => R): (p: T1) => (p: T2) => (p: T3) => R;
-    <T1, T2, R>(func: (p1: T1, p2: T2) => R): (p: T1) => (p: T2) => R;
-    <T1, R>(func: (p1: T1) => R): (p: T1) => R;
-}
+export declare type EitherResult<T> = Either<any, T>;
+export declare type MaybeResult<T> = Maybe<T, any>;
 export declare type GetPropOrElse = {
     (path: string): (obj: object) => (defaultVal: any) => any;
     (path: string, obj: object): (defaultVal: any) => any;
     (path: string, obj: object, defaultVal: any): any;
 };
-export declare type ExtractionG<T> = Generator<any, T, any>;
 export declare type ExtractG = {
     <T>(a: T): any;
 };
@@ -86,16 +84,19 @@ export declare type GetOrElseC = {
     <T, V>(val: T): (container: Monadical<V>) => any;
     <T, V>(val: T, container: Monadical<V>): any;
 };
+export declare type GetOrElseG = {
+    <T>(a: T): <V>(b: V) => GetOrElseC;
+    <T, V>(a: T, b: V): GetOrElseC;
+};
 export declare type SafeHandleResult = {
     error: Error;
 };
-export declare type EitherResult<T> = Either<any, T>;
 export declare type SafeHandleErrorG = {
-    <T>(a: FuncSpreadable): (b: Generator<any, T, any>) => EitherResult<T>;
-    <T>(a: FuncSpreadable, b: Generator<any, T, any>): EitherResult<T>;
+    <T>(a: (error: any) => Generator<any, any, any>): (b: Generator<any, T, any>) => EitherResult<T>;
+    <T>(a: (error: any) => Generator<any, any, any>, b: Generator<any, T, any>): EitherResult<T>;
 };
 export declare type SafeUnpackG = {
-    <T>(errorHandler: FuncSpreadable): FuncSpreadT<T>;
+    <T>(errorHandler: (error: any) => Generator<any, any, any>, defaultVal: any): FuncSpreadT<T>;
 };
 export declare type Lift<J, N> = {
     (func: Func1<J>): (value: J) => Maybe<J, N>;
@@ -144,4 +145,12 @@ export declare type FuncSpreadT<T> = (...args: any[]) => T;
 export declare type FuncSpreadable = (...args: any[]) => any;
 export declare type Func1Optional = <A>(a?: A) => any;
 export declare type Func1<A> = (a: A) => A;
+export interface Curry {
+    <T1, T2, T3, T4, T5, T6, R>(func: (p1: T1, p2: T2, p3: T3, p4: T4, p5: T5, p6: T6) => R): (p: T1) => (p: T2) => (p: T3) => (p: T4) => (p: T5) => (p: T6) => R;
+    <T1, T2, T3, T4, T5, R>(func: (p1: T1, p2: T2, p3: T3, p4: T4, p5: T5) => R): (p: T1) => (p: T2) => (p: T3) => (p: T4) => (p: T5) => R;
+    <T1, T2, T3, T4, R>(func: (p1: T1, p2: T2, p3: T3, p4: T4) => R): (p: T1) => (p: T2) => (p: T3) => (p: T4) => R;
+    <T1, T2, T3, R>(func: (p1: T1, p2: T2, p3: T3) => R): (p: T1) => (p: T2) => (p: T3) => R;
+    <T1, T2, R>(func: (p1: T1, p2: T2) => R): (p: T1) => (p: T2) => R;
+    <T1, R>(func: (p1: T1) => R): (p: T1) => R;
+}
 export { alt, chainC, chainG, compose, Container, curry, Either, Left, Right, Empty, extractG, getOrElseC, getPropOrElse, getProps, identity, IO, isArray, isBoolean, isDefined, isEmpty, isFunction, isMap, isNaN, isNumber, isObject, isSet, isString, lift, mapC, mapG, Maybe, noop, normaliseStr, notEmpty, notNil, notNull, partial, pipe, readVal, safeHandleErrorG, safeUnpackG, seq, collapse, joiner, trim, validLength, visualSideEffect, writeVal, utils };
