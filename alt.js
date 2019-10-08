@@ -1,1 +1,1 @@
-!function(e){if("object"==typeof module&&"object"==typeof module.exports){var t=e(require,exports);void 0!==t&&(module.exports=t)}else"function"==typeof define&&define.amd&&define(["require","exports"],e)}(function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});t.default=function(t,o){return function(e){return t(e)||o(e)}}});
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var alt=function(t,r){return function(e){return t(e)||r(e)}};exports.default=alt;
