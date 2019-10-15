@@ -11,44 +11,40 @@ Monadical provides data-types and functions such as `Either` or `curry`, allowin
 To install the latest stable version, run either of the following via a terminal:
 
 _using npm_
-```
+```shell script
 npm install monadical
 ```
 
 _using yarn_
-```
+```shell script
 yarn add monadical
 ```
-## Usage & Compatabiliy
+## Usage & Compatibility
 The project is currently written in Typescript, targeting version 3.6.x compiling down to es5. Note: CommonJS is the supported target, future work includes adding UMD support.
 
 Using ES6, you can use the following import syntax:
-```
+```js
 import Either, { Left, Right } from 'monadical/either';
 ```
 
-So to import the `Maybe` data-type with composing functions, you would write the following using ES6:
-```
+So, to import the `Maybe` data-type with composing functions, you would write the following using ES6:
+```js
 import Maybe from 'monadical/maybe';
 import compose from 'monadical/compose';
-import curry from 'monadical/curry';
+import chainC from 'monadical/chainC';
 import isNumber from 'monadical/isNumber';
 
-const add10 = amount => Maybe.nullable(isNumber(val) ? val + 10 : void 0);
-const safelyAdd10 = compose(chainC(amount => `My amount is now: ${x}`), add10);
-const amount = safelyAdd10(20);
+const add10 = amount => Maybe.nullable(isNumber(amount) ? amount + 10 : void 0);
+const safelyAdd10 = compose(chainC(x => `My amount is now: ${x}`), add10);
 
-assert.equal(safelyAdd10(20), 'My amount is now: 30')
-assert.equal(safelyAdd10(null), void 0)
+console.assert(safelyAdd10(20) === 'My amount is now: 30')
+console.assert(safelyAdd10(null) === void 0)
 ```
 
 ## Supported Types
-
 The following provides an outline of each data-type and their supported operations.
 
 #### Container
-
-straight up container monad:
 
 *Operations:*
 
@@ -150,7 +146,7 @@ straight up container monad:
 ## Monadic operations during programmable commas
 For programmable commas, some operations are available allowing you to compose functions:  
    
-### Operating on Monads
+### Operating on Monads/values
 
 - mapC: `MapC = {
     <T, V>(func: T): (container: Monadical<V>) => any;
