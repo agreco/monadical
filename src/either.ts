@@ -3,22 +3,6 @@ import notNil from './notNil';
 
 export default abstract class Either<L, R> {
 
-  public static left <L, R>(val: L): Left<L, R> {
-    return new Left<L, R>(val);
-  }
-
-  public static right <L, R>(val: R): Right<L, R> {
-    return new Right<L, R>(val);
-  }
-
-  public static of <L, R>(val: R): Right<L, R> {
-    return Either.right<L, R>(val);
-  }
-
-  public static nullable <T>(value: T): Either<null, T> {
-    return (!notNil(value) ? Either.left<null, T>(null) : Either.right<null, T>(value)) as Either<null, T>;
-  }
-
   abstract isRight (): boolean;
 
   abstract isLeft (): boolean;
@@ -36,6 +20,26 @@ export default abstract class Either<L, R> {
   abstract orElse (func: (val: L | R) => any): Right<L, R> | any;
 
   abstract map <T>(func: (val: L | R) => T): Either<L, T>;
+
+  public get value (): unknown {
+    return this;
+  }
+
+  public static left <L, R>(val: L): Left<L, R> {
+    return new Left<L, R>(val);
+  }
+
+  public static right <L, R>(val: R): Right<L, R> {
+    return new Right<L, R>(val);
+  }
+
+  public static of <L, R>(val: R): Right<L, R> {
+    return Either.right<L, R>(val);
+  }
+
+  public static nullable <T>(value: T): Either<void, T> {
+    return (!notNil(value) ? Either.left<void, T>(void 0) : Either.right<void, T>(value)) as Either<void, T>;
+  }
 };
 
 export class Right<L, R> extends Either<L, R> {
@@ -105,6 +109,10 @@ export class Left<L, R> extends Either<L, R> {
     return `Left[ ${ this._value } ]`;
   }
 
+  public get value (): L {
+    return this._value;
+  }
+
   public isRight (): boolean {
     return false;
   }
@@ -113,7 +121,7 @@ export class Left<L, R> extends Either<L, R> {
     return true;
   }
 
-  public chain <T>(func: (a: R) => T): Left<L, R> {
+  public chain <T>(func: (val: R) => T): Left<L, R> {
     return this;
   }
 

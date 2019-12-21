@@ -12,7 +12,7 @@ import identity from './identity';
 import IO from './io';
 import isDefined from './isDefined';
 import isFunction from './isFunction';
-import lift from './lift';
+import { liftToMaybe, liftToEither } from './lift';
 import mapC from './mapC';
 import Maybe from './maybe';
 import isNaN from './isNaN';
@@ -23,8 +23,6 @@ import pipe from './pipe';
 import seq from './seq';
 import * as utils from './utils';
 import { collapse, joiner, trim, validLength } from './utils';
-
-import { Monadical } from './index';
 import chainG from './chainG';
 import safeUnpackG from './safeUnpackG';
 import extractG from './extractG';
@@ -115,9 +113,14 @@ export type SafeUnpackG = {
   <T>(errorHandler: (error: any) => Generator<any, any, any>, defaultVal: any): FuncSpreadT<T>
 }
 
-export type Lift<J, N> = {
+export type LiftToMaybe<J, N> = {
   (func: Func1<J>): (value: J) => Maybe<J, N>
   (func: Func1<J>, value: J): Maybe<J, N>
+}
+
+export type LiftToEither<L, R> = {
+  (func: Func1<R>): (value: R) => Either<L, R>
+  (func: Func1<R>, value: R): Either<L, R>
 }
 
 export interface GenFuncSpread<T> {
@@ -212,7 +215,8 @@ export {
   isObject,
   isSet,
   isString,
-  lift,
+  liftToMaybe,
+  liftToEither,
   mapC,
   mapG,
   Maybe,
