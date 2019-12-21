@@ -1,10 +1,14 @@
 
+import Either from './either';
 import Maybe from './maybe';
 import curry from './curry';
-import { Func1, Lift } from './index';
+import { Func1, LiftToMaybe, LiftToEither } from './index';
 
-const lift = <J, N>():Lift<J, N> => curry(<J, N>(func: Func1<J>, val: J): Maybe<J, N> => {
-  return Maybe.nullable<J, N>(func(val));
+export const liftToMaybe = <J>():LiftToMaybe<J, void> => curry(<J>(func: Func1<J>, val: J): Maybe<J, void> => {
+  return Maybe.nullable<J, void>(func(val));
 });
 
-export default lift;
+export const liftToEither = <R>():LiftToEither<void, R> => curry(<R>(func: Func1<R>, val: R): Either<void, R> => {
+  return Either.nullable<R>(func(val));
+});
+

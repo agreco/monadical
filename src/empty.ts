@@ -1,6 +1,10 @@
 
 class Empty {
-  
+
+  public isEmpty (): boolean {
+    return true;
+  }
+
   public map (_: any): Empty {
     return this;
   }

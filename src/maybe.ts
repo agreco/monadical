@@ -1,54 +1,47 @@
 
 import notNil from "./notNil";
 
-export default class Maybe<J, N> {
+export default abstract class Maybe<J, N> {
 
-  public isNothing (): boolean {
-    return false;
-  };
-  
-  public isJust (): boolean {
-    return false;
+  public get value (): unknown {
+    return this;
   }
-  
-  public static just <J, N>(val: J): Just<J> {
-    return new Just<J>(val);
+
+  public static just <J, N>(val: J): Just<J, N> {
+    return new Just<J, N>(val);
   }
-  
-  public static nothing <J, N>(_: N): Nothing<N> {
-    return new Nothing<N>(_);
+
+  public static nothing <J, N>(): Nothing<J, N> {
+    return new Nothing<J, N>();
   }
-  
-  public static of <J>(val: J): Just<J> {
+
+  public static of <J, N>(val: J): Just<J, N> {
     return Maybe.just(val);
   }
-  
-  public static nullable <J, N>(val: J): Maybe<J, N> {
-    return (notNil(val) ? Maybe.just(val) : Maybe.nothing(void 0)) as unknown as Maybe<J, N>;
+
+  public static nullable <J, N = void>(val: J): Maybe<J, N> {
+    return (!notNil(val) ? Maybe.nothing<J, N>() : Maybe.just<J, N>(val));
   }
 
-  public getOrElse <T, N>(_: N): T | N {
-    return;
-  }
+  abstract isNothing (): boolean;
 
-  public chain <T>(_: (a: (J | N)) => T): T {
-    return;
-  }
+  abstract isJust (): boolean;
 
-  public map (_: (val: (J | N)) => (J | N)): Maybe<J, N> {
-    return;
-  }
+  abstract chain <T>(func: (a: (J | N)) => T): Nothing<J, N> | T;
 
-  public filter (_: (val: J | N) => boolean): Maybe<J, N> {
-    return;
-  }
+  abstract getOrElse (defaultVal: any): any | J;
+
+  abstract filter (func: (val: J | N) => boolean): Maybe<J, N>;
+
+  abstract map <T>(func: (val: (J | N)) => T): Maybe<T, N>;
 }
 
-export class Just<J> {
+export class Just<J, N> extends Maybe<J, N> {
 
   private readonly _value: J;
 
   public constructor (value: J) {
+    super();
     this._value = value;
   }
 
@@ -56,68 +49,72 @@ export class Just<J> {
     return this._value;
   }
 
-  public isJust (): boolean {
-    return true;
-  }
-  
-  public isNothing (): boolean {
-    return false;
-  }
-  
-  public map (func: (a: J) => J): Just<J> {
-    return Maybe.of<J>(func(this._value));
-  }
-  
-  public chain <T>(func: (a: J) => T): T {
-    return func(this._value);
-  }
-  
-  public getOrElse (_: any): J {
-    return this._value;
-  }
-  
-  public filter <N>(func: (a: J) => boolean): Maybe<J, N> {
-    return Maybe.nullable(func(this._value) ? this._value : null);
-  }
-
   public toString (): string {
     return `Just[ ${ this._value } ]`;
   }
+
+  public isJust (): boolean {
+    return true;
+  }
+
+  public isNothing (): boolean {
+    return false;
+  }
+
+  public chain <T>(func: (a: J) => T): T {
+    return func(this._value) as T;
+  }
+
+  public filter <N>(func: (a: J) => boolean): Maybe<J, N> {
+    return Maybe.nullable(func(this._value) ? this._value : null) as Maybe<J, N>;
+  }
+
+  public getOrElse <T>(defaultVal: T): J {
+    return this._value;
+  }
+
+  public map <T>(func: (a: J) => T): Maybe<T, N> {
+    return Maybe.just(func(this._value)) as unknown as Maybe<T, N>;
+  }
 }
 
-export class Nothing<N> {
+export class Nothing<J, N> extends Maybe<J, N>{
 
   private readonly _value: N;
 
-  public constructor (value: N) {
-    this._value = value;
+  public constructor () {
+    super();
+  }
+
+  public get value (): N {
+    return this._value;
   }
 
   public toString (): string {
     return `Nothing[]`;
   }
-  
+
   public isJust (): boolean {
     return false;
   }
-  
+
   public isNothing (): boolean {
     return true;
   }
-  
-  public map (_: any): Nothing<N> {
+
+  public chain <T>(func: (val: J) => T): Nothing<J, N> {
     return this;
   }
-  
-  public chain (_: any): N {
-    return this._value;
+
+  public filter (func: (val: J) => boolean): Nothing<J, N>  {
+    return this;
   }
-  
-  public getOrElse <T>(defaultVal: T): T {
+
+  public getOrElse (defaultVal: any): any {
     return defaultVal;
   }
-  
-  public filter (_: any): Nothing<N>  {
-    return this;
+
+  public map <T>(func: (val: J) => T): Maybe<T, N> {
+    return this as unknown as Maybe<T, N>;
   }
 }

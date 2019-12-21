@@ -1,14 +1,13 @@
 
 import curry from '../src/curry';
 import compose from '../src/compose';
-import lift from '../src/lift';
+import { liftToMaybe } from '../src/lift';
 import Either, { Left, Right } from '../src/either';
 import notNil from '../src/notNil';
 import mapC from '../src/mapC';
 import chainC from '../src/chainC';
 import getOrElseC from '../src/getOrElseC';
 import IO from '../src/io';
-import Empty from '../src/empty';
 import { collapse, joiner, validLength } from '../src';
 import readVal from '../src/readVal';
 import writeVal from '../src/writeVal';
@@ -82,7 +81,7 @@ test('mapping over IO', () => {
     mapC(visualSideEffect('Validated id')),
     chainC(checkIdLength),
     mapC(visualSideEffect('Normalised id')),
-    lift<string, Empty>()(normaliseStr('-'))
+    liftToMaybe<string>()(normaliseStr('-'))
   );
   
   const ioEffect = retrieveObj('abcd-efghi').run();

@@ -1,41 +1,54 @@
 
 import Either, { Right, Left } from '../src/either';
 import identity from '../src/identity';
+import Maybe from '../src/maybe';
 
 interface IData {
   data: number | string
 }
 
+test('Either Right.value', () => {
+  const x: Either<void, number> = Either.right<void, number>(10);
+  expect(x.value).toBe(10);
+});
+
+test('Either Left.value', () => {
+  const x: Either<void, number> = Either.left<void, number>(void 0);
+  expect(x.value).toBe(void 0);
+});
+
 test('Either.right value', async () => {
-  const x: Right<null, number> = Either.of(10);
+  const x: Either<null, number> = Either.of<null, number>(10);
   expect(x.isRight()).toBe(true);
   expect(x.isLeft()).toBe(false);
   expect(x.value).toBe(10);
 
-  const { y }: { y: Right<null, number> } = { y: Either.of(10) };
+  type Y = { y: Either<null, number> }
+  const { y }: Y = { y: Either.of<null, number>(10) };
   expect(y.isRight()).toBe(true);
   expect(y.isLeft()).toBe(false);
   expect(y.value).toBe(10);
 
-  const { z }: { z: Right<null, number> } = { z: Either.of(10) };
+  type Z = { z: Either<null, number> };
+  const { z }: Z  = { z: Either.of<null, number>(10) };
   expect(z.isRight()).toBe(true);
   expect(z.isLeft()).toBe(false);
   expect(z.map((z: number) => z).getOrElse('A default value')).toBe(10);
 
   const { data } = await Promise.resolve({ data: 'Resolved value' }).then(identity);
-  const a: Either<void, IData> = Either.nullable(data);
+  const a: Either<void, IData> = Either.nullable<IData>(data);
   expect(a.isLeft()).toBe(false);
   expect(a.isRight()).toBe(true);
   expect(a.map((d: IData) => d).getOrElse('An error occurred')).toBe(data);
 });
 
 test('Either.right does not throw', () => {
-  const ya: Right<null, number> = Either.of(10);
-  expect(() => ya.map(x => x*x).map(x => (x - 10)).getOrElseThrow((val: number) => new Error())).not.toThrow();
+  const either: Either<null, number> = Either.of<null, number>(10);
+  expect(() => either.map(x => x*x).map(x => (x - 10)).getOrElseThrow((val: number) => new Error())).not.toThrow();
 });
 
 test('Either.right is filterable', () => {
-  const either: Right<null, number> = Either.of(10);
+  const either: Either<null, number> = Either.of<null, number>(10);
 
   const x =
     either.map((x: number) => x * x)
@@ -79,26 +92,22 @@ test('Either.right is filterable', () => {
 });
 
 test('Either.left value', async () => {
-  const x: Left<string, null> = Either.left('Not found error');
+  const x: Either<string, null> = Either.left<string, null>('Not found error');
+  
   expect(x.isRight()).toBe(false);
   expect(x.isLeft()).toBe(true);
-  expect(x.orElse((x: string) => x)).toBe('Not found error');
+  expect(x.value).toBe('Not found error');
 
-  const { y }: { y: Left<string, null> } =
-    await Promise.reject({ y: Either.left('An error occurred') }).catch(identity);
+  type Y = { y: Either<string, null> };
+  const { y }: Y  = await Promise.reject({ y: Either.left<string, null>('An error occurred') }).catch(identity);
+  
   expect(y.isRight()).toBe(false);
   expect(y.isLeft()).toBe(true);
-  expect(y.orElse(identity)).toBe('An error occurred');
-
-  const { z }: { z: Left<string, null> } =
-    await Promise.reject({ z: Either.left('An error occurred') }).catch(identity);
-  expect(z.isRight()).toBe(false);
-  expect(z.isLeft()).toBe(true);
-  expect(z.getOrElse('A default value')).toBe('A default value');
+  expect(y.value).toBe('An error occurred');
 });
 
 test('Either.left is chainable', () => {
-  const either = Either.left<string, number>('An error occurred');
+  const either: Either<string, number> = Either.left<string, number>('An error occurred');
 
   const value =
     either.map((x: string) => x.length * x.length)
@@ -110,14 +119,15 @@ test('Either.left is chainable', () => {
 });
 
 test('Either.left throws', () => {
-  const ya: Left<string, number> = Either.left('An error occurred');
+  const either: Either<string, number> = Either.left<string, number>('An error occurred');
+  
   expect(() => (
-    ya.map((x: string) => x.length * x.length).getOrElseThrow(() => new Error('Yes an error occurred')))
+    either.map((x: string) => x.length * x.length).getOrElseThrow(() => new Error('Yes an error occurred')))
   ).toThrow()
 });
 
 test('Either.left is filterable', () => {
-  const either = Either.left<string, number>('An error occurred');
+  const either: Either<string, number>  = Either.left<string, number>('An error occurred');
 
   const x =
     either.map((x: string) => `${ x.length * x.length }`)
@@ -167,7 +177,7 @@ test('Either.left is filterable', () => {
 });
 
 test('Either.nullable is mappable', () => {
-  const either = Either.nullable('A value');
+  const either: Either<void, string> = Either.nullable('A value');
 
   const retrieveVal =
     either.map((x: string) => x.length)
@@ -179,7 +189,7 @@ test('Either.nullable is mappable', () => {
 });
 
 test('Either.nullable is filterable', () => {
-  const either = Either.nullable('');
+  const either: Either<void, string> = Either.nullable('');
 
   const retrieveVal =
     either.map((x: string) => x.length)
@@ -189,4 +199,17 @@ test('Either.nullable is filterable', () => {
 
   expect(retrieveVal.getOrElse('An error occurred retrieving your value'))
     .toBe('An error occurred retrieving your value');
+});
+
+test('Either.nullable value', async () => {
+  const eitherA: Either<void, string> = Either.nullable('');
+  expect(eitherA.value).toBe('');
+  
+  const eitherB: Either<void, string> = Either.nullable(void 0);
+  expect(eitherB.value).toBe(void 0);
+  
+  let x: string = 'a value';
+  x = await Promise.resolve(void 0);
+  const eitherC: Either<void, string> = Either.nullable(x);
+  expect(eitherC.map((x: string) => x.length.toString()).map((x: string) => x.split('')[0]).value).toBe(void 0);
 });
