@@ -11,7 +11,7 @@ import identity from './identity';
 import IO from './io';
 import isDefined from './isDefined';
 import isFunction from './isFunction';
-import lift from './lift';
+import { liftToMaybe, liftToEither } from './lift';
 import mapC from './mapC';
 import Maybe from './maybe';
 import isNaN from './isNaN';
@@ -22,7 +22,6 @@ import pipe from './pipe';
 import seq from './seq';
 import * as utils from './utils';
 import { collapse, joiner, trim, validLength } from './utils';
-import { Monadical } from './index';
 import chainG from './chainG';
 import safeUnpackG from './safeUnpackG';
 import extractG from './extractG';
@@ -98,9 +97,13 @@ export declare type SafeHandleErrorG = {
 export declare type SafeUnpackG = {
     <T>(errorHandler: (error: any) => Generator<any, any, any>, defaultVal: any): FuncSpreadT<T>;
 };
-export declare type Lift<J, N> = {
+export declare type LiftToMaybe<J, N> = {
     (func: Func1<J>): (value: J) => Maybe<J, N>;
     (func: Func1<J>, value: J): Maybe<J, N>;
+};
+export declare type LiftToEither<L, R> = {
+    (func: Func1<R>): (value: R) => Either<L, R>;
+    (func: Func1<R>, value: R): Either<L, R>;
 };
 export interface GenFuncSpread<T> {
     (...val: any[]): T;
@@ -153,4 +156,4 @@ export interface Curry {
     <T1, T2, R>(func: (p1: T1, p2: T2) => R): (p: T1) => (p: T2) => R;
     <T1, R>(func: (p1: T1) => R): (p: T1) => R;
 }
-export { alt, chainC, chainG, compose, Container, curry, Either, Left, Right, Empty, extractG, getOrElseC, getPropOrElse, getProps, identity, IO, isArray, isBoolean, isDefined, isEmpty, isFunction, isMap, isNaN, isNumber, isObject, isSet, isString, lift, mapC, mapG, Maybe, noop, normaliseStr, notEmpty, notNil, notNull, partial, pipe, readVal, safeHandleErrorG, safeUnpackG, seq, collapse, joiner, trim, validLength, visualSideEffect, writeVal, utils };
+export { alt, chainC, chainG, compose, Container, curry, Either, Left, Right, Empty, extractG, getOrElseC, getPropOrElse, getProps, identity, IO, isArray, isBoolean, isDefined, isEmpty, isFunction, isMap, isNaN, isNumber, isObject, isSet, isString, liftToMaybe, liftToEither, mapC, mapG, Maybe, noop, normaliseStr, notEmpty, notNil, notNull, partial, pipe, readVal, safeHandleErrorG, safeUnpackG, seq, collapse, joiner, trim, validLength, visualSideEffect, writeVal, utils };
