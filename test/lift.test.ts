@@ -1,18 +1,18 @@
 
-import { liftToMaybe, liftToEither } from '../src';
+import { liftToMaybe, liftToEither } from '../src/lift';
 import identity from '../src/identity';
-import { Func1 } from '../src';
 import notNil from '../src/notNil';
-import Maybe, { Nothing } from '../src/maybe';
-import Either, { Left } from '../src/either';
+import { Func1, FuncSpreadT, Maybe, Either, Nothing, Left } from '../src';
+import { Nothing as InstNothing } from '../src/maybe';
+import { Left as InstLeft } from '../src/either';
 
 interface IData extends Promise<IData> {
   data?: number
 }
 
-const maybeNumber = liftToMaybe<number>();
+const maybeNumber: FuncSpreadT<Maybe<number, void>> = liftToMaybe<number>();
 
-const eitherNumber = liftToEither<number>();
+const eitherNumber: FuncSpreadT<Either<void, number>> = liftToEither<number>();
 
 const initialVal: number = 10;
 
@@ -41,7 +41,11 @@ describe('liftToMaybe', () => {
   test('lifted value of a Just is filterable', () => {
     
     const x: Maybe<number, void> = maybeNumber((x: number) => x + 10, initialVal);
-    expect(x.map((x: number) => x * x).map((x: number) => (x - 10)).filter((x: number) => x >= 90).getOrElse('An error occurred')).toBe(390);
+    expect(x.map((x: number) => x * x)
+      .map((x: number) => (x - 10))
+      .filter((x: number) => x >= 90)
+      .getOrElse('An error occurred'))
+      .toBe(390);
   });
   
   test('lift value into a Nothing', async () => {
@@ -73,11 +77,12 @@ describe('liftToMaybe', () => {
     expect(x.getOrElse('A default value')).toBe('A default value');
     
     const xVal: number | Nothing<number, void> =
-      x.map((x: number) => x * x).map((x: number) => (x - 10)).chain((a: number) => a + 10);
+      x.map((x: number) => x * x)
+      .map((x: number) => (x - 10))
+      .chain((x: number): number => x + 10);
     
-    expect(xVal instanceof Nothing).toBe(true);
+    expect(xVal instanceof InstNothing).toBe(true);
   });
-  
 });
 
 describe('liftToEither', () => {
@@ -93,13 +98,20 @@ describe('liftToEither', () => {
   test('lifted value of a Right is chainable', () => {
     
     const x: Either<void, number> = eitherNumber((x: number) => x + 10, initialVal);
-    expect(x.map((x: number) => x * x).map((x: number) => (x - 10)).chain((x: number) => x * 2)).toBe(780);
+    expect(x.map((x: number) => x * x)
+      .map((x: number) => (x - 10))
+      .chain((x: number) => x * 2))
+      .toBe(780);
   });
   
   test('lifted value of a Right is filterable', () => {
     
     const x: Either<void, number> = eitherNumber((x: number) => x + 10, initialVal);
-    expect(x.map((x: number) => x * x).map((x: number) => (x - 10)).filter((x: number) => x >= 90).getOrElse('An error occurred')).toBe(390);
+    expect(x.map((x: number) => x * x)
+      .map((x: number) => (x - 10))
+      .filter((x: number) => x >= 90)
+      .getOrElse('An error occurred'))
+      .toBe(390);
   });
   
   test('lift value into a Left', async () => {
@@ -131,9 +143,10 @@ describe('liftToEither', () => {
     expect(x.getOrElse('A default value')).toBe('A default value');
     
     const xVal: number | Left<void, number> =
-      x.map((x: number) => x * x).map((x: number) => (x - 10)).chain((a:number) => a + 10);
-    
-    expect(xVal instanceof Left).toBe(true);
-  });
+      x.map((x: number) => x * x)
+      .map((x: number) => (x - 10))
+      .chain((a:number) => a + 10);
   
+    expect(xVal instanceof InstLeft).toBe(true);
+  });
 });

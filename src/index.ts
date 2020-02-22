@@ -1,49 +1,4 @@
 
-import alt from './alt';
-import compose from './compose';
-import Container from './container';
-import chainC from './chainC';
-import curry from './curry';
-import Either, { Left, Right } from './either';
-import Empty from './empty';
-import getOrElseC from './getOrElseC';
-import getPropOrElse from './getPropOrElse';
-import identity from './identity';
-import IO from './io';
-import isDefined from './isDefined';
-import isFunction from './isFunction';
-import { liftToMaybe, liftToEither } from './lift';
-import mapC from './mapC';
-import Maybe from './maybe';
-import isNaN from './isNaN';
-import noop from './noop';
-import notNil from './notNil';
-import notNull from './notNull';
-import pipe from './pipe';
-import seq from './seq';
-import * as utils from './utils';
-import { collapse, joiner, trim, validLength } from './utils';
-import chainG from './chainG';
-import safeUnpackG from './safeUnpackG';
-import extractG from './extractG';
-import getProps from './getProps';
-import mapG from './mapG';
-import normaliseStr from './normaliseStr';
-import safeHandleErrorG from './safeHandleErrorG';
-import visualSideEffect from './visualSideEffect';
-import readVal from './readVal';
-import writeVal from './writeVal';
-import isArray from './isArray';
-import isBoolean from './isBoolean';
-import isEmpty from './isEmpty';
-import isMap from './isMap';
-import isNumber from './isNumber';
-import isObject from './isObject';
-import isString from './isString';
-import isSet from './isSet';
-import notEmpty from './notEmpty';
-import partial from './partial';
-
 export type Monadical<M> = {
   isLeft?: () => boolean;
   isRight?: () => boolean;
@@ -55,6 +10,95 @@ export type Monadical<M> = {
   getOrElse: <T>(arg: T) => M | T;
   filter: (func: (a: any) => boolean) => M;
 };
+
+export type Either<L, R> = {
+  isRight (): boolean;
+  isLeft (): boolean;
+  chain <T>(func: (a: L | R) => T): Left<L, R> | T;
+  getOrElse (defaultVal: any): any | R;
+  getOrElseThrow (func: (val: L | R) => Error): R | Error;
+  filter (func: (val: L | R) => boolean): Either<L, R>;
+  join (): Left<L, R> | Right<L, R>;
+  orElse (func: (val: L | R) => any): Right<L, R> | any;
+  map <T>(func: (val: L | R) => T): Either<L, T>;
+  value (): unknown;
+  left <L, R>(val: L): Left<L, R>;
+  right <L, R>(val: R): Right<L, R>;
+  of <L, R>(val: R): Right<L, R>;
+  nullable <T>(value: T): Either<void, T>;
+};
+
+export type Left<L, R> = {
+  readonly _value: L;
+  (value: L): Left<L, R>;
+  toString (): string;
+  value (): L;
+  isRight (): boolean;
+  isLeft (): boolean;
+  chain <T>(func: (val: R) => T): Left<L, R>;
+  getOrElse (defaultVal: any): any;
+  getOrElseThrow (func: (val: L) => Error): R | Error;
+  filter (func: (val: R) => boolean): Left<L, R>;
+  join (): Left<L, R>;
+  orElse (func: (val: L) => any): any;
+  map <T>(func: (val: L) => T): Either<L, T>;
+}
+
+export type Right<L, R> = {
+  readonly _value: R;
+  (value: R): Right<L, R>;
+  toString (): string;
+  value (): R;
+  isRight (): boolean;
+  isLeft (): boolean;
+  chain <T>(func: (a: R) => T): T;
+  getOrElse <T>(defaultVal: T): R;
+  getOrElseThrow (func: (val: L | R) => Error): R | Error;
+  filter (func: (val: R) => boolean): Either<L, R>;
+  join <T>(): Right<L, R>;
+  orElse (func: (val: R) => any): Right<L, R>;
+  map <T>(func: (val: R) => T): Either<L, T>;
+}
+
+export type Maybe<J, N> = {
+  value (): unknown;
+  just <J, N>(val: J): Just<J, N>;
+  nothing <J, N>(): Nothing<J, N>;
+  of <J, N>(val: J): Just<J, N>;
+  nullable <J, N = void>(val: J): Maybe<J, N>;
+  isNothing (): boolean;
+  isJust (): boolean;
+  chain <T>(func: (a: (J | N)) => T): Nothing<J, N> | T;
+  getOrElse (defaultVal: any): any | J;
+  filter (func: (val: J | N) => boolean): Maybe<J, N>;
+  map <T>(func: (val: (J | N)) => T): Maybe<T, N>;
+}
+
+export type Just<J, N> = {
+  readonly _value: J;
+  (value: J): Just<J, N>;
+  value (): J;
+  toString (): string;
+  isJust (): boolean;
+  isNothing (): boolean;
+  chain <T>(func: (a: J) => T): T;
+  filter <N>(func: (a: J) => boolean): Maybe<J, N>;
+  getOrElse <T>(defaultVal: T): J;
+  map <T>(func: (a: J) => T): Maybe<T, N>;
+}
+
+export type Nothing<J, N> = {
+  readonly _value: N;
+  (): Nothing<J, N>;
+  value (): N;
+  toString (): string;
+  isJust (): boolean;
+  isNothing (): boolean;
+  chain <T>(func: (val: J) => T): Nothing<J, N>;
+  filter (func: (val: J) => boolean): Nothing<J, N>;
+  getOrElse (defaultVal: any): any;
+  map <T>(func: (val: J) => T): Maybe<T, N>;
+}
 
 export type EitherResult<T> = Either<any, T>;
 
@@ -185,57 +229,4 @@ export interface Curry {
   <T1, T2, T3, R>(func: (p1: T1, p2: T2, p3: T3) => R): (p: T1) => (p: T2) => (p: T3) => R;
   <T1, T2, R>(func: (p1: T1, p2: T2) => R): (p: T1) => (p: T2) => R;
   <T1, R>(func: (p1: T1) => R): (p: T1) => R;
-}
-
-export {
-  alt,
-  chainC,
-  chainG,
-  compose,
-  Container,
-  curry,
-  Either,
-  Left,
-  Right,
-  Empty,
-  extractG,
-  getOrElseC,
-  getPropOrElse,
-  getProps,
-  identity,
-  IO,
-  isArray,
-  isBoolean,
-  isDefined,
-  isEmpty,
-  isFunction,
-  isMap,
-  isNaN,
-  isNumber,
-  isObject,
-  isSet,
-  isString,
-  liftToMaybe,
-  liftToEither,
-  mapC,
-  mapG,
-  Maybe,
-  noop,
-  normaliseStr,
-  notEmpty,
-  notNil,
-  notNull,
-  partial,
-  pipe,
-  readVal,
-  safeHandleErrorG,
-  safeUnpackG,
-  seq,
-  collapse,
-  joiner,
-  trim,
-  validLength,
-  visualSideEffect,
-  writeVal,
-  utils
 }

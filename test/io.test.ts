@@ -8,7 +8,7 @@ import mapC from '../src/mapC';
 import chainC from '../src/chainC';
 import getOrElseC from '../src/getOrElseC';
 import IO from '../src/io';
-import { collapse, joiner, validLength } from '../src';
+import { collapse, joiner, validLength } from '../utils';
 import readVal from '../src/readVal';
 import writeVal from '../src/writeVal';
 import visualSideEffect from '../src/visualSideEffect';

@@ -1,5 +1,6 @@
 
-import { collapse, Normalise, trim } from './index';
+import { Normalise } from './index';
+import { collapse, trim } from './utils';
 import compose from './compose';
 
 const normaliseStr: Normalise =

@@ -4,7 +4,7 @@ import {
   joiner,
   trim,
   collapse,
-} from '../src';
+} from '../src/utils';
 
 describe('validLength', () => {
 
