@@ -1,0 +1,46 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "env": {
+    "browser": true,
+    "node": false,
+    "es6": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    },
+    "warnOnUnsupportedTypeScriptVersion": false,
+    "sourceType": "module"
+  },
+  "rules": {
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/prefer-interface": "off",
+    "block-scoped-var": 2,
+    "no-await-in-loop": 1,
+    "no-console": 1,
+    "no-constant-condition": "off",
+    "no-debugger": 1,
+    "no-spaced-func": 0,
+    "no-undef": 0,
+    "no-unreachable": 0,
+    "prefer-const": "off",
+    "require-yield": "warn",
+    "semi": "warn",
+    "strict": 2
+  }
+}

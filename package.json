@@ -4,9 +4,10 @@
   "description": "A set of monadic data types",
   "scripts": {
     "build": "scripts/build",
-    "test": "scripts/test",
+    "lint": "scripts/lint",
+    "prepare": "npm run build",
     "prettier": "scripts/prettier",
-    "prepare": "npm run build"
+    "test": "scripts/test"
   },
   "files": [
     "*.js",
@@ -23,7 +24,10 @@
     "@types/co": "^4.6.2",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.8",
+    "@typescript-eslint/eslint-plugin": "^2.22.0",
+    "@typescript-eslint/parser": "^2.22.0",
     "co": "^4.6.0",
+    "eslint": "^6.8.0",
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
     "ts-jest": "^24.1.0",
