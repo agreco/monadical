@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var curry_1=require("./curry"),isObject=curry_1.default(function(e){var t=Object.prototype.toString.call(e);return/(Object)\]$/.test(t)});exports.default=isObject;

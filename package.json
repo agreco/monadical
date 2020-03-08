@@ -2,11 +2,16 @@
   "name": "monadical",
   "version": "3.4.0",
   "description": "A set of monadic data types",
-  "main": "./index.js",
   "scripts": {
     "build": "scripts/build",
-    "test": "scripts/test"
+    "test": "scripts/test",
+    "prepare": "npm run build"
   },
+  "files": [
+    "*.js",
+    "*.js.map",
+    "*.d.ts"
+  ],
   "author": "Antonio G. Greco",
   "license": "MIT",
   "repository": {

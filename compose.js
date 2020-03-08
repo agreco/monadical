@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var compose=function(){for(var e=[],r=0;r<arguments.length;r++)e[r]=arguments[r];return e.reduce(function(t,o){return function(){for(var e=[],r=0;r<arguments.length;r++)e[r]=arguments[r];return t(o.apply(void 0,e))}})};exports.default=compose;

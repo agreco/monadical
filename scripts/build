@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-rm -rf ./*.js
-
 npx tsc
 
 for file in *.js; do

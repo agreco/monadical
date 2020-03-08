@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var curry_1=require("./curry"),chainC=curry_1.default(function(r,e){return e.chain(r)});exports.default=chainC;

@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var Empty=function(){function e(){}return e.prototype.isEmpty=function(){return!0},e.prototype.map=function(t){return this},e.prototype.fmap=function(t){return new e},e.prototype.toString=function(){return"Empty[]"},e}();exports.default=Empty;
