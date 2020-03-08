@@ -1,13 +1,12 @@
-
 import isArray from '../src/isArray';
 
-test('[[\'a\']] isArray', () => expect(isArray([['a']])).toBe(true));
+test("[['a']] isArray", () => expect(isArray([['a']])).toBe(true));
 
 test('new Array() isArray', () => expect(isArray([1, 2, 3])).toBe(true));
 
 test('[] isArray', () => expect(isArray([])).toBe(true));
 
-test('expression isArray', () =>  expect(isArray('a'.length === 1 && [])).toBe(true));
+test('expression isArray', () => expect(isArray('a'.length === 1 && [])).toBe(true));
 
 test('null isArray', () => expect(isArray(null)).toBe(false));
 
@@ -24,10 +23,10 @@ test('NaN isArray', () => expect(isArray(NaN)).toBe(false));
 test('Infinity isArray', () => expect(isArray(Infinity)).toBe(false));
 
 test('function isArray', () => {
-  function Func () {}
-  Func.prototype.expand = "test";
+  function Func() {}
+  Func.prototype.expand = 'test';
   const MyFunc = new (Func as any)(); // TS nonsense
-  
+
   expect(isArray(MyFunc)).toBe(false);
 });
 

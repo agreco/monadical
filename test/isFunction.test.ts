@@ -1,19 +1,18 @@
-
 import isFunction from '../src/isFunction';
 
 test('expression isFunction', () => {
   const z = (x: number): number => x;
-  
+
   expect(isFunction(z)).toBe(true);
   expect(isFunction((x: number): number => x)).toBe(true);
   expect(isFunction('a'.length === 1 && ((x: number): number => x))).toBe(true);
 });
 
 test('function isFunction', () => {
-  function Func () {}
-  Func.prototype.expand = "test";
+  function Func() {}
+  Func.prototype.expand = 'test';
   const MyFunc: any = new (Func as any)(); // TS nonsense
-  
+
   expect(isFunction(Func)).toBe(true);
   expect(isFunction(new (Func as any)())).toBe(false);
   expect(isFunction(MyFunc)).toBe(false);

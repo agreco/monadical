@@ -1,4 +1,3 @@
-
 import noop from '../src/noop';
 
 test('noop is noop', () => expect(noop()).toBe(void 0));

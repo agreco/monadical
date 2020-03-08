@@ -1,4 +1,3 @@
-
 import { FuncSpreadable } from './index';
 import curry from './curry';
 import isNumber from './isNumber';

@@ -1,9 +1,7 @@
-
 import partial from '../src/partial';
 import isFunction from '../src/isFunction';
 
 test('partially apply a function with 1 arg', () => {
-  
   const sayHi: (name: string) => string = (name: any) => {
     return `Hi ${name}`;
   };
@@ -14,7 +12,6 @@ test('partially apply a function with 1 arg', () => {
 });
 
 test('partially apply a function with 2 args', () => {
-  
   const sayHi: (name: string, greeting: string) => string = (name: string, greeting: string) => {
     return `Hi ${name}, ${greeting}`;
   };
@@ -26,20 +23,20 @@ test('partially apply a function with 2 args', () => {
 });
 
 test('partially apply a function with n args', () => {
-  
-  const sayHi: (name: string, greeting: string, question: string, conclusion: string) => string =
-    (name: string, greeting: string, question: string, conclusion: string) => {
-      return `Hi ${name}, ${greeting}. ${question}? ${conclusion}`;
-    };
+  const sayHi: (name: string, greeting: string, question: string, conclusion: string) => string = (
+    name: string,
+    greeting: string,
+    question: string,
+    conclusion: string
+  ) => {
+    return `Hi ${name}, ${greeting}. ${question}? ${conclusion}`;
+  };
 
-  const x: (question: string, conclusion: string) => string =
-    partial(sayHi, 'Antonio', 'pleased to meet you');
+  const x: (question: string, conclusion: string) => string = partial(sayHi, 'Antonio', 'pleased to meet you');
 
   expect(isFunction(x)).toBe(true);
 
-  expect(
-    x('How\'s it hanging', 'Keeping it real!')
-  ).toBe(
-    'Hi Antonio, pleased to meet you. How\'s it hanging? Keeping it real!'
+  expect(x("How's it hanging", 'Keeping it real!')).toBe(
+    "Hi Antonio, pleased to meet you. How's it hanging? Keeping it real!"
   );
 });

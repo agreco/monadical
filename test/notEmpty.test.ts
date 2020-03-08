@@ -1,4 +1,3 @@
-
 import notEmpty from '../src/notEmpty';
 import noop from '../src/noop';
 
@@ -21,8 +20,8 @@ test('NaN notEmpty', () => expect(notEmpty(NaN)).toBe(false));
 test('Infinity notEmpty', () => expect(notEmpty(Infinity)).toBe(false));
 
 test('function notEmpty', () => {
-  function Func () {}
-  Func.prototype.expand = "test";
+  function Func() {}
+  Func.prototype.expand = 'test';
   const MyFunc = new (Func as any)(); // TS nonsense
 
   expect(notEmpty(noop)).toBe(false);
@@ -46,7 +45,7 @@ test('string not notEmpty', () => expect(notEmpty('A value')).toBe(true));
 test('Map notEmpty', () => expect(notEmpty(new Map())).toBe(false));
 test('Map not notEmpty', () => {
   const M = new (Map as any)([['a', 'b', 'c']]); // TS nonsense
-  expect(notEmpty(M)).toBe(true)
+  expect(notEmpty(M)).toBe(true);
 });
 
 test('Set notEmpty', () => expect(notEmpty(new Set())).toBe(false));
