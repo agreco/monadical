@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var alt=function(t,r){return function(e){return t(e)||r(e)}};exports.default=alt;

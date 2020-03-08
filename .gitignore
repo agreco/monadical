@@ -18,6 +18,10 @@ yarn-debug.log*
 *.tern-port
 *.zhtml
 .pnp.js
+./*.js
+./*.js.map
+./*.d.ts
+
 
 # DIRECTORIES
 /build
@@ -30,3 +34,4 @@ yarn-debug.log*
 .history
 /coverage
 /test-report
+/dist

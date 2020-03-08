@@ -3,7 +3,7 @@ import { MapC, Monadical } from '../src';
 import mapG from '../src/mapG';
 import normaliseStr from '../src/normaliseStr';
 import Either from '../src/either';
-import compose from '../compose';
+import compose from '../src/compose';
 import curry from '../src/curry';
 import co from 'co';
 
