@@ -1,4 +1,3 @@
-
 import curry from '../src/curry';
 import compose from '../src/compose';
 import { liftToMaybe } from '../src/lift';
@@ -16,10 +15,10 @@ import getProps from '../src/getProps';
 import normaliseStr from '../src/normaliseStr';
 
 interface Point {
-  id: string,
-  x: number,
-  y: number,
-  z: number
+  id: string;
+  x: number;
+  y: number;
+  z: number;
 }
 
 type SafeFindPoint = {
@@ -43,31 +42,31 @@ const findPoint: (id: string) => Either<string, Point> = safeFindPoint(point);
 
 type IdCheck = Left<string, null> | Right<null, string>;
 
-const checkIdLength: (id: string) => IdCheck =
-    (id: string) => validLength(id, 9) ?
-      Either.right<null, string>(id) :
-      Either.left<string, null>(`Invalid ID: ${id}`);
+const checkIdLength: (id: string) => IdCheck = (id: string) =>
+  validLength(id, 9) ? Either.right<null, string>(id) : Either.left<string, null>(`Invalid ID: ${id}`);
 
 test('IO value', () => {
-
   type IObj = {
-    x: number
-  }
-  
+    x: number;
+  };
+
   const times: (x: number) => number = (x: number) => x * x;
   const divideByTwo: (x: number) => number = (x: number) => x / 2;
-  
+
   const objA: IObj = { x: 10 };
-  const ioA: IO<number> = IO.from(readVal<IObj, number>(objA, 'x')).map(times).map(divideByTwo);
+  const ioA: IO<number> = IO.from(readVal<IObj, number>(objA, 'x'))
+    .map(times)
+    .map(divideByTwo);
   expect(ioA.run()).toBe(50);
-  
+
   const objB: IObj = { x: 10 };
-  const ioB: IO<number> = IO.from(writeVal<IObj, number>(objB, 'x', 20)).map(times).map(divideByTwo);
+  const ioB: IO<number> = IO.from(writeVal<IObj, number>(objB, 'x', 20))
+    .map(times)
+    .map(divideByTwo);
   expect(ioB.run()).toBe(200);
 });
 
 test('mapping over IO', () => {
-
   const retrieveObj: (a: string) => IO<string> = compose(
     mapC(visualSideEffect('Writing object retrieval to screen')),
     IO.lift,
@@ -83,7 +82,7 @@ test('mapping over IO', () => {
     mapC(visualSideEffect('Normalised id')),
     liftToMaybe<string>()(normaliseStr('-'))
   );
-  
+
   const ioEffect = retrieveObj('abcd-efghi').run();
   expect(ioEffect).toBe('abcd-efghi,10,20,40');
 });

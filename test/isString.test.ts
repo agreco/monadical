@@ -1,4 +1,3 @@
-
 import isString from '../src/isString';
 
 test('string isString', () => expect(isString('Hello world')).toBe(true));
@@ -24,10 +23,10 @@ test('NaN isString', () => expect(isString(NaN)).toBe(false));
 test('Infinity isString', () => expect(isString(Infinity)).toBe(false));
 
 test('function isString', () => {
-  function Func () {}
-  Func.prototype.expand = "test";
+  function Func() {}
+  Func.prototype.expand = 'test';
   const MyFunc = new (Func as any)(); // TS nonsense
-  
+
   expect(isString(MyFunc)).toBe(false);
 });
 

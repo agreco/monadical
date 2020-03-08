@@ -1,13 +1,6 @@
-
-import {
-  validLength,
-  joiner,
-  trim,
-  collapse,
-} from '../src/utils';
+import { validLength, joiner, trim, collapse } from '../src/utils';
 
 describe('validLength', () => {
-
   test('validLength of string', () => {
     const str: string = 'abcdefghijklmnopqrstuvwxyz';
     expect(validLength(str, 26)).toBe(true);
@@ -25,21 +18,20 @@ describe('validLength', () => {
 });
 
 describe('joiner', () => {
-
   test('joiner to join an array of strings with dashes', () => {
-    const arr: string[] = [ 'a', 'b', 'c', 'd', 'e' ];
+    const arr: string[] = ['a', 'b', 'c', 'd', 'e'];
     const delim: string = '-';
     expect(joiner<string>(delim, arr)).toBe('a-b-c-d-e');
   });
 
   test('joiner to join an array of numbers with dashes', () => {
-    const arr: number[] = [ 1, 2, 3 ];
+    const arr: number[] = [1, 2, 3];
     const delim: string = '-';
     expect(joiner<number>(delim, arr)).toBe('1-2-3');
   });
 
   test('joiner to join an array of numbers and string with commas', () => {
-    const arr: (number | string)[] = [ 1, '1', 2, '2', 3, '3' ];
+    const arr: (number | string)[] = [1, '1', 2, '2', 3, '3'];
     const delim: string = ',';
     expect(joiner<number | string>(delim, arr)).toBe('1,1,2,2,3,3');
   });
@@ -52,7 +44,6 @@ describe('joiner', () => {
 });
 
 describe('trim', () => {
-
   test('trim a string', () => {
     expect(trim('    a-b-c-d-e    ')).toBe('a-b-c-d-e');
   });
@@ -67,7 +58,6 @@ describe('trim', () => {
 });
 
 describe('collapse', () => {
-
   test('collapse a string delimited by dashes', () => {
     expect(collapse('-', 'a-b-c-d-e')).toBe('abcde');
   });

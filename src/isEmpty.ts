@@ -1,4 +1,3 @@
-
 import { FuncSpreadable } from './index';
 
 import curry from './curry';
@@ -14,16 +13,18 @@ import isMap from './isMap';
 import isSet from './isSet';
 
 const isEmpty: FuncSpreadable = curry((val: any): boolean => {
-  return !notNil(val)
-    || isBoolean(val)
-    || isNumber(val)
-    || isNaN(val)
-    || isFunction(val)
-    || isString(val) && val === ''
-    || isObject(val) && (Object.keys(val)).length === 0
-    || isArray(val) && val.length === 0
-    || isMap(val) && val.size === 0
-    || isSet(val) && val.size === 0
+  return (
+    !notNil(val) ||
+    isBoolean(val) ||
+    isNumber(val) ||
+    isNaN(val) ||
+    isFunction(val) ||
+    (isString(val) && val === '') ||
+    (isObject(val) && Object.keys(val).length === 0) ||
+    (isArray(val) && val.length === 0) ||
+    (isMap(val) && val.size === 0) ||
+    (isSet(val) && val.size === 0)
+  );
 });
 
 export default isEmpty;

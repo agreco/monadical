@@ -1,4 +1,3 @@
-
 import isDefined from '../src/isDefined';
 
 test('undefined isDefined', () => expect(isDefined(undefined)).toBe(false));
@@ -20,10 +19,10 @@ test('NaN isDefined', () => expect(isDefined(NaN)).toBe(true));
 test('Infinity isDefined', () => expect(isDefined(Infinity)).toBe(true));
 
 test('function isDefined', () => {
-  function Func () {}
-  Func.prototype.expand = "test";
+  function Func() {}
+  Func.prototype.expand = 'test';
   const MyFunc = new (Func as any)(); // TS nonsense
-  
+
   expect(isDefined(MyFunc)).toBe(true);
 });
 

@@ -1,8 +1,6 @@
-
 import writeVal from '../src/writeVal';
 
 describe('writeVal', () => {
-
   test('writeVal of type string', () => {
     const obj: { [key: string]: number | string } = { x: Math.PI };
     writeVal<{ [key: string]: number | string }, string>(obj, 'x', '3.141592653589793')();
@@ -27,4 +25,3 @@ describe('writeVal', () => {
     expect(obj.y).toBe(2.718281828459045);
   });
 });
-

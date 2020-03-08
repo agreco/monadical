@@ -1,4 +1,3 @@
-
 import isMap from '../src/isMap';
 
 test('expression isMap', () => {
@@ -25,10 +24,10 @@ test('NaN isMap', () => expect(isMap(NaN)).toBe(false));
 test('Infinity isMap', () => expect(isMap(Infinity)).toBe(false));
 
 test('function isMap', () => {
-  function Func () {}
-  Func.prototype.expand = "test";
+  function Func() {}
+  Func.prototype.expand = 'test';
   const MyFunc = new (Func as any)(); // TS nonsense
-  
+
   expect(isMap(MyFunc)).toBe(false);
 });
 

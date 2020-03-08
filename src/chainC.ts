@@ -1,4 +1,3 @@
-
 import { ChainC, Monadical } from './index';
 import curry from './curry';
 

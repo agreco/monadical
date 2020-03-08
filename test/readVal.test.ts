@@ -1,8 +1,6 @@
-
 import readVal from '../src/readVal';
 
 describe('readVal', () => {
-
   test('readVal of type number', () => {
     expect(readVal({ pi: Math.PI }, 'pi')()).toBe(3.141592653589793);
   });
@@ -19,4 +17,3 @@ describe('readVal', () => {
     expect(readVal({}, 'zeta')()).toBe(undefined);
   });
 });
-

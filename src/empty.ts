@@ -1,19 +1,17 @@
-
 class Empty {
-
-  public isEmpty (): boolean {
+  public isEmpty(): boolean {
     return true;
   }
 
-  public map (_: any): Empty {
+  public map(_: any): Empty {
     return this;
   }
-  
-  public fmap (_: any): Empty {
+
+  public fmap(_: any): Empty {
     return new Empty();
   }
-  
-  public toString (): string {
+
+  public toString(): string {
     return 'Empty[]';
   }
 }

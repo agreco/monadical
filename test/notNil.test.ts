@@ -1,4 +1,3 @@
-
 import notNil from '../src/notNil';
 
 test('string notNil', () => expect(notNil('Hello world')).toBe(true));
@@ -24,10 +23,10 @@ test('NaN notNil', () => expect(notNil(NaN)).toBe(true));
 test('Infinity notNil', () => expect(notNil(Infinity)).toBe(true));
 
 test('function notNil', () => {
-  function Func () {}
-  Func.prototype.expand = "test";
+  function Func() {}
+  Func.prototype.expand = 'test';
   const MyFunc = new (Func as any)(); // TS nonsense
-  
+
   expect(notNil(MyFunc)).toBe(true);
 });
 

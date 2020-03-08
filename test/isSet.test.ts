@@ -1,4 +1,3 @@
-
 import isSet from '../src/isSet';
 
 test('expression isSet', () => {
@@ -25,10 +24,10 @@ test('NaN isSet', () => expect(isSet(NaN)).toBe(false));
 test('Infinity isSet', () => expect(isSet(Infinity)).toBe(false));
 
 test('function isSet', () => {
-  function Func () {}
-  Func.prototype.expand = "test";
+  function Func() {}
+  Func.prototype.expand = 'test';
   const MyFunc = new (Func as any)(); // TS nonsense
-  
+
   expect(isSet(MyFunc)).toBe(false);
 });
 

@@ -1,4 +1,3 @@
-
 import { MapC, Monadical } from './index';
 import curry from './curry';
 

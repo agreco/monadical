@@ -1,4 +1,3 @@
-
 import isEmpty from '../src/isEmpty';
 import noop from '../src/noop';
 
@@ -21,8 +20,8 @@ test('NaN isEmpty', () => expect(isEmpty(NaN)).toBe(true));
 test('Infinity isEmpty', () => expect(isEmpty(Infinity)).toBe(true));
 
 test('function isEmpty', () => {
-  function Func () {}
-  Func.prototype.expand = "test";
+  function Func() {}
+  Func.prototype.expand = 'test';
   const MyFunc = new (Func as any)(); // TS nonsense
 
   expect(isEmpty(Func)).toBe(true);

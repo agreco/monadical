@@ -1,4 +1,3 @@
-
 import notNull from './notNull';
 import isDefined from './isDefined';
 
