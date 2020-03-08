@@ -28,6 +28,7 @@
     "@typescript-eslint/parser": "^2.22.0",
     "co": "^4.6.0",
     "eslint": "^6.8.0",
+    "husky": "^4.2.3",
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
     "ts-jest": "^24.1.0",
@@ -47,6 +48,12 @@
     ],
     "transform": {
       "^.+\\.ts?$": "ts-jest"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier && npm run lint",
+      "pre-push": "npm test"
     }
   }
 }
