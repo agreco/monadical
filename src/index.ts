@@ -304,7 +304,7 @@ export type Curry2<A, B, R> = {
 
 export type Curry1<A, R> = (a: A) => R;
 
-export type Curry<T, R> = T extends [any, any, any, any, any, any, any, any, any]
+export type Curry<T, R> = T extends [any, any, any, any, any, any, any, any, any, any]
   ? Curry10<T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8], T[9], R>
   : T extends [any, any, any, any, any, any, any, any, any]
   ? Curry9<T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8], R>
