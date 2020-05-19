@@ -221,15 +221,107 @@ export type FuncSpreadable = (...args: any[]) => any;
 export type Func1Optional = <A>(a?: A) => any;
 export type Func1<A> = (a: A) => A;
 
-export interface Curry {
-  <T1, T2, T3, T4, T5, T6, R>(func: (p1: T1, p2: T2, p3: T3, p4: T4, p5: T5, p6: T6) => R): (
-    p: T1
-  ) => (p: T2) => (p: T3) => (p: T4) => (p: T5) => (p: T6) => R;
-  <T1, T2, T3, T4, T5, R>(func: (p1: T1, p2: T2, p3: T3, p4: T4, p5: T5) => R): (
-    p: T1
-  ) => (p: T2) => (p: T3) => (p: T4) => (p: T5) => R;
-  <T1, T2, T3, T4, R>(func: (p1: T1, p2: T2, p3: T3, p4: T4) => R): (p: T1) => (p: T2) => (p: T3) => (p: T4) => R;
-  <T1, T2, T3, R>(func: (p1: T1, p2: T2, p3: T3) => R): (p: T1) => (p: T2) => (p: T3) => R;
-  <T1, T2, R>(func: (p1: T1, p2: T2) => R): (p: T1) => (p: T2) => R;
-  <T1, R>(func: (p1: T1) => R): (p: T1) => R;
-}
+export type Curry10<A, B, C, D, E, F, G, H, I, J, R> = {
+  (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J): R;
+  (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I): Curry1<I, R>;
+  (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H): Curry2<H, I, R>;
+  (a: A, b: B, c: C, d: D, e: E, f: F, g: G): Curry3<H, I, J, R>;
+  (a: A, b: B, c: C, d: D, e: E, f: F): Curry4<G, H, I, J, R>;
+  (a: A, b: B, c: C, d: D, e: E): Curry5<F, G, H, I, J, R>;
+  (a: A, b: B, c: C, d: D): Curry6<E, F, G, H, I, J, R>;
+  (a: A, b: B, c: C): Curry7<D, E, F, G, H, I, J, R>;
+  (a: A, b: B): Curry8<C, D, E, F, G, H, I, J, R>;
+  (a: A): Curry9<B, C, D, E, F, G, H, I, J, R>;
+};
+
+export type Curry9<A, B, C, D, E, F, G, H, I, R> = {
+  (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I): R;
+  (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H): Curry1<I, R>;
+  (a: A, b: B, c: C, d: D, e: E, f: F, g: G): Curry2<H, I, R>;
+  (a: A, b: B, c: C, d: D, e: E, f: F): Curry3<G, H, I, R>;
+  (a: A, b: B, c: C, d: D, e: E): Curry4<F, G, H, I, R>;
+  (a: A, b: B, c: C, d: D): Curry5<E, F, G, H, I, R>;
+  (a: A, b: B, c: C): Curry6<D, E, F, G, H, I, R>;
+  (a: A, b: B): Curry7<C, D, E, F, G, H, I, R>;
+  (a: A): Curry8<B, C, D, E, F, G, H, I, R>;
+};
+
+export type Curry8<A, B, C, D, E, F, G, H, R> = {
+  (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H): R;
+  (a: A, b: B, c: C, d: D, e: E, f: F, g: G): Curry1<H, R>;
+  (a: A, b: B, c: C, d: D, e: E, f: F): Curry2<G, H, R>;
+  (a: A, b: B, c: C, d: D, e: E): Curry3<F, G, H, R>;
+  (a: A, b: B, c: C, d: D): Curry4<E, F, G, H, R>;
+  (a: A, b: B, c: C): Curry5<D, E, F, G, H, R>;
+  (a: A, b: B): Curry6<C, D, E, F, G, H, R>;
+  (a: A): Curry7<B, C, D, E, F, G, H, R>;
+};
+
+export type Curry7<A, B, C, D, E, F, G, R> = {
+  (a: A, b: B, c: C, d: D, e: E, f: F, g: G): R;
+  (a: A, b: B, c: C, d: D, e: E, f: F): Curry1<G, R>;
+  (a: A, b: B, c: C, d: D, e: E): Curry2<F, G, R>;
+  (a: A, b: B, c: C, d: D): Curry3<E, F, G, R>;
+  (a: A, b: B, c: C): Curry4<D, E, F, G, R>;
+  (a: A, b: B): Curry5<C, D, E, F, G, R>;
+  (a: A): Curry6<B, C, D, E, F, G, R>;
+};
+
+export type Curry6<A, B, C, D, E, F, R> = {
+  (a: A, b: B, c: C, d: D, e: E, f: F): R;
+  (a: A, b: B, c: C, d: D, e: E): Curry1<F, R>;
+  (a: A, b: B, c: C, d: D): Curry2<E, F, R>;
+  (a: A, b: B, c: C): Curry3<D, E, F, R>;
+  (a: A, b: B): Curry4<C, D, E, F, R>;
+  (a: A): Curry5<B, C, D, E, F, R>;
+};
+
+export type Curry5<A, B, C, D, E, R> = {
+  (a: A, b: B, c: C, d: D, e: E): R;
+  (a: A, b: B, c: C, d: D): Curry1<E, R>;
+  (a: A, b: B, c: C): Curry2<D, E, R>;
+  (a: A, b: B): Curry3<C, D, E, R>;
+  (a: A): Curry4<B, C, D, E, R>;
+};
+
+export type Curry4<A, B, C, D, R> = {
+  (a: A, b: B, c: C, d: D): R;
+  (a: A, b: B, c: C): Curry1<D, R>;
+  (a: A, b: B): Curry2<C, D, R>;
+  (a: A): Curry3<B, C, D, R>;
+};
+
+export type Curry3<A, B, C, R> = {
+  (a: A, b: B, c: C): R;
+  (a: A, b: B): Curry1<C, R>;
+  (a: A): Curry2<B, C, R>;
+};
+
+export type Curry2<A, B, R> = {
+  (a: A, b: B): R;
+  (a: A): Curry1<B, R>;
+};
+
+export type Curry1<A, R> = (a: A) => R;
+
+export type Curry<T, R> = T extends [any, any, any, any, any, any, any, any, any]
+  ? Curry10<T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8], T[9], R>
+  : T extends [any, any, any, any, any, any, any, any, any]
+  ? Curry9<T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8], R>
+  : T extends [any, any, any, any, any, any, any, any]
+  ? Curry8<T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], R>
+  : T extends [any, any, any, any, any, any, any]
+  ? Curry7<T[0], T[1], T[2], T[3], T[4], T[5], T[6], R>
+  : T extends [any, any, any, any, any, any]
+  ? Curry6<T[0], T[1], T[2], T[3], T[4], T[5], R>
+  : T extends [any, any, any, any, any]
+  ? Curry5<T[0], T[1], T[2], T[3], T[4], R>
+  : T extends [any, any, any, any]
+  ? Curry4<T[0], T[1], T[2], T[3], R>
+  : T extends [any, any, any]
+  ? Curry3<T[0], T[1], T[2], R>
+  : T extends [any, any]
+  ? Curry2<T[0], T[1], R>
+  : T extends [any]
+  ? Curry1<T[0], R>
+  : unknown;
