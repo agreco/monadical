@@ -19,7 +19,7 @@ export default abstract class Either<L, R> {
 
   abstract map<T>(func: (val: L | R) => T): Either<L, T>;
 
-  public get value(): unknown {
+  public get value(): any {
     return this;
   }
 
