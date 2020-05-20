@@ -1,4 +1,4 @@
-export type Monadical<M> = {
+export type Monadical<M, J = any, N = any, L = any, R = any> = {
   isLeft?: () => boolean;
   isRight?: () => boolean;
   isJust?: () => boolean;
@@ -7,7 +7,12 @@ export type Monadical<M> = {
   chain: (arg: any) => any;
   map: <T>(arg: (val: any) => T) => M;
   getOrElse: <T>(arg: T) => M | T;
+  getOrElseThrow: (func: (val: L | R) => Error) => R | Error;
   filter: (func: (a: any) => boolean) => M;
+  join: () => Left<L, R> | Right<L, R>;
+  value: any;
+  of: <L, R>(val: R) => Right<L, R>;
+  nullable: <T>(value: T) => Either<void, T>;
 };
 
 export type Either<L, R> = {
