@@ -1,5 +1,3 @@
-import { FuncSpreadable } from './index';
-
 import curry from './curry';
 import notNil from './notNil';
 import isBoolean from './isBoolean';
@@ -12,7 +10,7 @@ import isArray from './isArray';
 import isMap from './isMap';
 import isSet from './isSet';
 
-const isEmpty: FuncSpreadable = curry((val: any): boolean => {
+const isEmpty: (val: any) => boolean = curry((val: any): boolean => {
   return (
     !notNil(val) ||
     isBoolean(val) ||
