@@ -1,7 +1,6 @@
-import { FuncSpreadable } from './index';
 import curry from './curry';
 
-const isArray: FuncSpreadable = curry((val: any): boolean => {
+const isArray: (val: any) => val is any[] = curry((val: any): val is any[] => {
   const stringTypeRep = Object.prototype.toString.call(val);
   return /(Array)\]$/.test(stringTypeRep);
 });
