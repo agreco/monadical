@@ -1,6 +1,9 @@
-import { Collapse, Joiner, ValidLength } from './index';
+import { Collapse, Joiner, ValidLength } from './';
 
 import curry from './curry';
+import mapObjectKeys from './mapObjectKeys';
+import camelCase from './camelCase';
+import snakeCase from './snakeCase';
 
 export const validLength: ValidLength = curry((str: string, len: number) => str.length === len);
 
@@ -11,3 +14,7 @@ export const trim: (a: string) => string = curry((str: string): string => str.tr
 export const collapse: Collapse = curry((delim: string, str: string): string =>
   str.replace(new RegExp('\\' + delim, 'g'), '')
 );
+
+export const camelCaseObjectKeys = mapObjectKeys(camelCase);
+
+export const snakeCaseObjectKeys = mapObjectKeys(snakeCase);
