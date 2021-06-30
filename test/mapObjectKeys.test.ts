@@ -40,6 +40,6 @@ test.each([
       booBaz: ['a b', 'b c', 'c d', { doOmer: 'a', boOm: ['a', 'b', { c: 'd', eF: ['g'] }] }]
     }
   ]
-])('it maps the %s object keys entities', (val: IndexableAny, expectedVal) => {
-  expect(mapObjectKeys(val, camelCase)).toMatchObject(expectedVal);
+])('it maps the %s object keys with camelCase', (val: IndexableAny, expectedVal) => {
+  expect(mapObjectKeys(camelCase, val)).toMatchObject(expectedVal);
 });
