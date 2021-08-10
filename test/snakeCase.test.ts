@@ -1,6 +1,8 @@
 import snakeCase from '../src/snakeCase';
 
 test.each([
+  [ 'abcDef', 'abc_def'],
+  [ 'AbcDef', 'abc_def' ],
   [ 'abc def', 'abc_def'],
   [ 'abc-def', 'abc_def'],
   [ 'abc_def', 'abc_def'],

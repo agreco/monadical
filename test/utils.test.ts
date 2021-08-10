@@ -118,6 +118,8 @@ describe('camelCaseObjectKeys', () => {
 
 describe('snakeCasing', () => {
   test.each([
+    [{ abcDef: 'foo' }, { abc_def: 'foo' }],
+    [{ AbcDef: 'foo' }, { abc_def: 'foo' }],
     [{ 'abc def': 'foo' }, { abc_def: 'foo' }],
     [{ 'abc-def': 'foo' }, { abc_def: 'foo' }],
     [{ abc_def: 'foo' }, { abc_def: 'foo' }],
@@ -140,16 +142,20 @@ describe('snakeCasing', () => {
         'boo baz': ['a b', 'b c', 'c d', { 'do omer': 'a', 'bo om': ['a', 'b', { c: 'd', 'e()f': ['g'] }] }]
       },
       {
-        'boo_baz': ['a b', 'b c', 'c d', { 'do_omer': 'a', 'bo_om': ['a', 'b', { c: 'd', 'e_f': ['g'] }] }]
+        boo_baz: ['a b', 'b c', 'c d', { do_omer: 'a', bo_om: ['a', 'b', { c: 'd', e_f: ['g'] }] }]
       }
     ],
     [
       {
+        qrsTuv: 'foo',
+        KlmNop: 'foo',
         'abc()def': 'foo',
         foo_bar: { 'boo baz': 'snaz faz' },
         'boo baz': ['a b', 'b c', 'c d', { 'do omer': 'a', 'bo om': ['a', 'b', { c: 'd', 'e()f': ['g'] }] }]
       },
       {
+        qrs_tuv: 'foo',
+        klm_nop: 'foo',
         abc_def: 'foo',
         foo_bar: { boo_baz: 'snaz faz' },
         boo_baz: ['a b', 'b c', 'c d', { do_omer: 'a', bo_om: ['a', 'b', { c: 'd', e_f: ['g'] }] }]
