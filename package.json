@@ -1,6 +1,6 @@
 {
   "name": "monadical",
-  "version": "4.5.1",
+  "version": "4.5.2",
   "description": "A set of monadic data types",
   "scripts": {
     "build": "scripts/build",
