@@ -57,7 +57,7 @@ test.each([
   [{ 'abc*def': 'foo' }, { abc_def: 'foo' }],
   [{ 'abc(def': 'foo' }, { abc_def: 'foo' }],
   [{ 'abc)def': 'foo' }, { abc_def: 'foo' }],
-  [{ 'a品cd!e f': 'foo' }, { a品cd_e_f: 'foo' }],
+  [{ 'a品cd!e f': 'foo' }, { a_品_cd_e_f: 'foo' }],
   [{ 'ն !w**sss': 'foo' }, { ն_w_sss: 'foo' }],
   [{ 0: 'foo' }, { 0: 'foo' }],
   [{ '0 a s w': 'foo' }, { '0_a_s_w': 'foo' }],

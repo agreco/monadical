@@ -7,6 +7,6 @@ for file in *.js; do
 	then
 		continue
 	fi
-  uglifyjs "$file" --stats -c -m  -o ./"$file" --source-map 'filename'
+  uglifyjs "$file" -c -m  -o ./"$file" --source-map 'filename'
   echo minified: "$file"
 done
