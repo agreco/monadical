@@ -5,7 +5,7 @@ import curry from './curry';
 import nonEmptyObject from './nonEmptyObject';
 import nonEmptyArray from './nonEmptyArray';
 
-type MappableObject = IndexableAny | IndexableAny[];
+export type MappableObject = IndexableAny | IndexableAny[];
 
 const mapObjectKeys: Curry<[FuncSpreadT<string | number>, MappableObject], MappableObject> = curry(
   <T extends MappableObject>(f: FuncSpreadT<string | number>, val: T): MappableObject => {

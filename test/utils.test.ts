@@ -112,7 +112,7 @@ describe('camelCaseObjectKeys', () => {
       }
     ]
   ])('it maps the %s object keys entities', (val: IndexableAny, expectedVal) => {
-    expect(camelCaseObjectKeys(val)).toMatchObject(expectedVal);
+    expect(camelCaseObjectKeys()(val)).toMatchObject(expectedVal);
   });
 });
 
@@ -182,6 +182,6 @@ describe('snakeCasing', () => {
       }
     ]
   ])('it maps the %s object keys with snakeCase', (val: IndexableAny, expectedVal) => {
-    expect(snakeCaseObjectKeys(val)).toMatchObject(expectedVal);
+    expect(snakeCaseObjectKeys()(val)).toMatchObject(expectedVal);
   });
 });
