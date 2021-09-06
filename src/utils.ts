@@ -2,8 +2,6 @@ import { Collapse, Func1, FuncSpreadable, Joiner, ValidLength } from './';
 
 import curry from './curry';
 import mapObjectKeys, { MappableObject } from './mapObjectKeys';
-import camelCase from './camelCase';
-import snakeCase from './snakeCase';
 
 export const validLength: ValidLength = curry((str: string, len: number) => str.length === len);
 
@@ -15,6 +13,6 @@ export const collapse: Collapse = curry((delim: string, str: string): string =>
   str.replace(new RegExp('\\' + delim, 'g'), '')
 );
 
-export const camelCaseObjectKeys = (func: FuncSpreadable = camelCase): Func1<MappableObject> => mapObjectKeys(func);
+export const camelCaseObjectKeys = (func: FuncSpreadable): Func1<MappableObject> => mapObjectKeys(func);
 
-export const snakeCaseObjectKeys = (func: FuncSpreadable = snakeCase): Func1<MappableObject> => mapObjectKeys(func);
+export const snakeCaseObjectKeys = (func: FuncSpreadable): Func1<MappableObject> => mapObjectKeys(func);
