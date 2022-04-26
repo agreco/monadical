@@ -21,6 +21,7 @@ yarn-debug.log*
 ./*.js
 ./*.js.map
 ./*.d.ts
+.tool-versions
 
 
 # DIRECTORIES
