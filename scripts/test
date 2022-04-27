@@ -1,21 +1,3 @@
 #!/usr/bin/env bash
 
-npx jest
-
-#npx jest ./test/alt.ts
-#npx jest ./test/compose.ts
-#npx jest ./test/container.ts
-#npx jest ./test/curry.ts
-#npx jest ./test/either.ts
-#npx jest ./test/empty.ts
-#npx jest ./test/getPropOrElse.ts
-#npx jest ./test/io.ts
-#npx jest ./test/maybe.ts
-#npx jest ./test/partial.ts
-#npx jest ./test/pipe.ts
-#npx jest ./test/isEmpty.ts
-#npx jest ./test/isBoolean.ts
-#npx jest ./test/lift.ts
-#npx jest ./test/seq.ts
-#npx jest ./test/notEmpty.ts
-#npx jest ./test/utils.ts
+npx jest --maxWorkers=50%
