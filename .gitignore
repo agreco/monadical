@@ -11,6 +11,9 @@ yarn-error.log*
 yarn-debug.log*
 .DS_Store
 ._*
+.tool-versions
+*.sublime-workspace
+*.sublime-project
 .nyc_output
 *.log
 *.iml
