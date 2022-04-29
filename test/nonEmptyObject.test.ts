@@ -23,7 +23,7 @@ test('function nonEmptyObject', () => {
   function Func() {}
   Func.prototype.expand = 'test';
   const MyFunc = new (Func as any)();
-  
+
   expect(nonEmptyObject(noop)).toBe(false);
   expect(nonEmptyObject(Func)).toBe(false);
   expect(nonEmptyObject(MyFunc)).toBe(false);

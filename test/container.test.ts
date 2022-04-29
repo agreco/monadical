@@ -28,12 +28,7 @@ test('retrieve a Container.of', () => {
 
 test('flatten Containers with a join', () => {
   const x: Container<Container<Container<string>>> = Container.of(Container.of(Container.of('Monads Gonads')));
-  expect(
-    x
-      .join()
-      .map(identity)
-      .get()
-  ).toBe('Monads Gonads');
+  expect(x.join().map(identity).get()).toBe('Monads Gonads');
 });
 
 test('string representation of Container and value', () => {

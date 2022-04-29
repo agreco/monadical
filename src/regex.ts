@@ -1,4 +1,3 @@
-
 export const upperCase = /[A-Z]/g;
 export const anyWhitespace = /(\s.)/g;
 export const nonAlphaUnicode = /[^a-z0-9\p{L}]+/gu;

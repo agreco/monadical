@@ -89,7 +89,7 @@ export class Right<L, R> extends Either<L, R> {
   }
 
   public map<T>(func: (val: R) => T): Either<L, T> {
-    return (Either.right(func(this._value)) as unknown) as Either<L, T>;
+    return Either.right(func(this._value)) as unknown as Either<L, T>;
   }
 }
 
@@ -142,6 +142,6 @@ export class Left<L, R> extends Either<L, R> {
   }
 
   public map<T>(func: (val: L) => T): Either<L, T> {
-    return (this as unknown) as Either<L, T>;
+    return this as unknown as Either<L, T>;
   }
 }

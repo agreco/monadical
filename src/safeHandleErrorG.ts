@@ -3,7 +3,7 @@ import curry from './curry';
 import Either from './either';
 import isFunction from './isFunction';
 
-const safeHandleErrorG: SafeHandleErrorG = curry(function*<T>(
+const safeHandleErrorG: SafeHandleErrorG = curry(function* <T>(
   errorHandler: FuncSpreadable,
   res: Monadical<T> | object
 ): Generator<any, EitherResult<T>, any> {

@@ -5,7 +5,7 @@ import extractG from '../src/extractG';
 import co from 'co';
 
 describe('extractG', () => {
-  const safeGenFunc: (val: string) => Generator<any, Monadical<string>, any> = curry(function*(
+  const safeGenFunc: (val: string) => Generator<any, Monadical<string>, any> = curry(function* (
     val: string
   ): Generator<any, Monadical<string>, any> {
     return yield { id: val, name: 'Antonio G. Greco', githubUrl: 'https://github.com/agreco' };
@@ -13,7 +13,7 @@ describe('extractG', () => {
 
   test(
     'extract a value from a generator',
-    co.wrap(function*() {
+    co.wrap(function* () {
       const extractIdFunc = compose(extractG, safeGenFunc);
       const profile = yield extractIdFunc('a-b-c-d-e');
 

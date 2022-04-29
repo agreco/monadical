@@ -6,7 +6,7 @@ type Maybe<J, N> = {
   chain<T>(func: (maybeChainVal: J) => T): Maybe<T, N> | T;
   getOrElse(maybeDefaultVal: any): any | J;
   filter(func: (maybeFilterVal: J) => boolean): Maybe<J, N>;
-}
+};
 
 export default Maybe;
 

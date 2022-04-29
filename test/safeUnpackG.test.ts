@@ -10,8 +10,8 @@ describe('safeUnpackG', () => {
 
   test(
     'Unpack a generator containing an monadic type wrapping an error',
-    co.wrap(function*() {
-      const profileRetrievalWithError: <T>(val: string) => any = curry(function*(
+    co.wrap(function* () {
+      const profileRetrievalWithError: <T>(val: string) => any = curry(function* (
         val: string
       ): Generator<any, Left<SafeHandleResult, any>, any> {
         return yield Promise.resolve(
@@ -20,7 +20,7 @@ describe('safeUnpackG', () => {
       });
 
       let errorState: SafeHandleResult = { error: new Error('ErrorState -> Missing re-initialisation of this error') };
-      const errorHandler: FuncSpreadable = curry(function*(state: SafeHandleResult, err: Error) {
+      const errorHandler: FuncSpreadable = curry(function* (state: SafeHandleResult, err: Error) {
         state.error = err;
       });
       const safelyGetProfile = compose(
@@ -39,8 +39,8 @@ describe('safeUnpackG', () => {
 
   test(
     'Unpack a generator containing an monadic type wrapping profile data',
-    co.wrap(function*() {
-      const profileRetrieval: <T>(val: string) => any = curry(function*(
+    co.wrap(function* () {
+      const profileRetrieval: <T>(val: string) => any = curry(function* (
         val: string
       ): Generator<any, Right<null, {}>, any> {
         const profile: P = { id: val, name: 'Antonio G. Greco', githubUrl: 'https://github.com/agreco' };
@@ -48,7 +48,7 @@ describe('safeUnpackG', () => {
       });
 
       let errorState: SafeHandleResult = { error: new Error('ErrorState -> Missing re-initialisation of this error') };
-      const errorHandler: FuncSpreadable = curry(function*(state: SafeHandleResult, err: Error) {
+      const errorHandler: FuncSpreadable = curry(function* (state: SafeHandleResult, err: Error) {
         state.error = err;
       });
       const safelyGetProfile = compose(safeUnpackG(errorHandler(errorState), 'An Error occurred'), profileRetrieval);

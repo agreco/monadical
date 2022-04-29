@@ -54,15 +54,11 @@ test('IO value', () => {
   const divideByTwo: (x: number) => number = (x: number) => x / 2;
 
   const objA: IObj = { x: 10 };
-  const ioA: IO<number> = IO.from(readVal<IObj, number>(objA, 'x'))
-    .map(times)
-    .map(divideByTwo);
+  const ioA: IO<number> = IO.from(readVal<IObj, number>(objA, 'x')).map(times).map(divideByTwo);
   expect(ioA.run()).toBe(50);
 
   const objB: IObj = { x: 10 };
-  const ioB: IO<number> = IO.from(writeVal<IObj, number>(objB, 'x', 20))
-    .map(times)
-    .map(divideByTwo);
+  const ioB: IO<number> = IO.from(writeVal<IObj, number>(objB, 'x', 20)).map(times).map(divideByTwo);
   expect(ioB.run()).toBe(200);
 });
 

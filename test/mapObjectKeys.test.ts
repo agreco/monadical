@@ -68,7 +68,7 @@ test.each([
       'boo baz': ['a b', 'b c', 'c d', { 'do omer': 'a', 'bo om': ['a', 'b', { c: 'd', 'e()f': ['g'] }] }]
     },
     {
-      'boo_baz': ['a b', 'b c', 'c d', { 'do_omer': 'a', 'bo_om': ['a', 'b', { c: 'd', 'e_f': ['g'] }] }]
+      boo_baz: ['a b', 'b c', 'c d', { do_omer: 'a', bo_om: ['a', 'b', { c: 'd', e_f: ['g'] }] }]
     }
   ],
   [

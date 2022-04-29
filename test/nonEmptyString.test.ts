@@ -23,7 +23,7 @@ test('function nonEmptyString', () => {
   function Func() {}
   Func.prototype.expand = 'test';
   const MyFunc = new (Func as any)();
-  
+
   expect(nonEmptyString(noop)).toBe(false);
   expect(nonEmptyString(Func)).toBe(false);
   expect(nonEmptyString(MyFunc)).toBe(false);

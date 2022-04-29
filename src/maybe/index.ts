@@ -3,7 +3,7 @@ import Maybe, { Just, Nothing } from './typings';
 
 export default abstract class MaybeClass<J, N> implements Maybe<J, N> {
   value: J | N;
-  
+
   public static just<J, N>(maybeJustVal: J): Maybe<J, N> {
     return new JustClass<J, N>(maybeJustVal);
   }
@@ -40,32 +40,32 @@ class JustClass<J, N> extends MaybeClass<J, N> implements Just<J, N> {
     super();
     this.value = justConstructorVal;
   }
-  
+
   public toString(): string {
     return `Just[ ${this.value} ]`;
   }
-  
+
   public isJust(): boolean {
     return true;
   }
-  
+
   public isNothing(): boolean {
     return false;
   }
-  
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public getOrElse<T>(_: T): J {
     return this.value as J;
   }
-  
+
   public map<T>(func: (justMapVal: J) => T): Maybe<T, N> {
     return MaybeClass.just(func(this.value as J));
   }
-  
+
   public chain<T>(func: (justChainVal: J) => T): T {
     return func(this.value as J);
   }
-  
+
   public filter(func: (justFilterVal: J) => boolean): Maybe<J, N> {
     return MaybeClass.nullable<J, N>(func(this.value as J) ? this.value : null);
   }
@@ -79,33 +79,33 @@ export class NothingClass<J, N> extends MaybeClass<J, N> implements Nothing<J, N
     super();
     this.value = nothingConstructorVal;
   }
-  
+
   public toString(): string {
     return `Nothing[]`;
   }
-  
+
   public isJust(): boolean {
     return false;
   }
-  
+
   public isNothing(): boolean {
     return true;
   }
-  
+
   public getOrElse(nothingDefaultVal: any): any {
     return nothingDefaultVal;
   }
-  
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public map<T>(_: (nothingMapVal: J) => T): Maybe<T, N> {
     return this as unknown as Maybe<T, N>;
   }
-  
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public chain<T>(_: (nothingChainVal: J) => T): Maybe<T, N> {
     return this as unknown as Maybe<T, N>;
   }
-  
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public filter(_: (nothingFilterVal: J) => boolean): Maybe<J, N> {
     return this;

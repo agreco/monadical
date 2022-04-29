@@ -33,7 +33,7 @@ describe('normaliseStr', () => {
   });
 
   test('extractG - extract value from a generator', async () => {
-    const safeGenFunc: (val: string) => Generator<any, any, any> = curry(function*(
+    const safeGenFunc: (val: string) => Generator<any, any, any> = curry(function* (
       val: string
     ): Generator<any, any, any> {
       yield Either.nullable<string>(val);

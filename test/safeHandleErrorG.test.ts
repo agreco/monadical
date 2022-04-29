@@ -7,13 +7,13 @@ import co from 'co';
 describe('safeHandleErrorG', () => {
   type P = { name: string; githubUrl: string; id: string };
 
-  const profileRetrievalWithError: <T>(val: string) => any = curry(function*(
+  const profileRetrievalWithError: <T>(val: string) => any = curry(function* (
     val: string
   ): Generator<any, SafeHandleResult, any> {
     return yield { error: new Error(`Missing profile with id: ${val}`), data: null };
   });
 
-  const profileRetrieval: <T>(val: string) => any = curry(function*(
+  const profileRetrieval: <T>(val: string) => any = curry(function* (
     val: string
   ): Generator<any, SafeHandleResult, any> {
     const profile: P = { id: val, name: 'Antonio G. Greco', githubUrl: 'https://github.com/agreco' };
@@ -22,9 +22,9 @@ describe('safeHandleErrorG', () => {
 
   test(
     'Handle result containing error',
-    co.wrap(function*() {
+    co.wrap(function* () {
       let errorState: SafeHandleResult = { error: new Error('ErrorState -> Missing re-initialisation of this error') };
-      const errorHandler: FuncSpreadable = curry(function*(state: SafeHandleResult, err: Error) {
+      const errorHandler: FuncSpreadable = curry(function* (state: SafeHandleResult, err: Error) {
         state.error = err;
       });
       const safelyGetProfile = compose(safeHandleErrorG(errorHandler(errorState)), profileRetrievalWithError);
@@ -38,9 +38,9 @@ describe('safeHandleErrorG', () => {
 
   test(
     'Handle result containing profile data',
-    co.wrap(function*() {
+    co.wrap(function* () {
       let errorState: SafeHandleResult = { error: new Error('ErrorState -> Missing re-initialisation of this error') };
-      const errorHandler: FuncSpreadable = curry(function*(state: SafeHandleResult, err: Error) {
+      const errorHandler: FuncSpreadable = curry(function* (state: SafeHandleResult, err: Error) {
         state.error = err;
       });
       const safelyGetProfile = compose(safeHandleErrorG(errorHandler(errorState)), profileRetrieval);

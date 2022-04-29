@@ -8,7 +8,7 @@ import curry from '../src/curry';
 import co from 'co';
 
 describe('chainG', () => {
-  const safeGenFunc: (val: string) => Generator<any, Monadical<string>, any> = curry(function*(
+  const safeGenFunc: (val: string) => Generator<any, Monadical<string>, any> = curry(function* (
     val: string
   ): Generator<any, Monadical<string>, any> {
     return yield Promise.resolve(Either.nullable<string>(val));
@@ -16,7 +16,7 @@ describe('chainG', () => {
 
   test(
     'chain a function of the data-type, Either.Right, from a generator',
-    co.wrap(function*() {
+    co.wrap(function* () {
       const normaliseChain: ChainC = chainG(normaliseStr('-'));
       const extractIdFunc = compose(normaliseChain, safeGenFunc);
       const result: string = yield extractIdFunc('a-b-c-d-e');
@@ -27,7 +27,7 @@ describe('chainG', () => {
 
   test(
     'chain a function of the data-type, Either.Left, from a generator',
-    co.wrap(function*() {
+    co.wrap(function* () {
       const normaliseChain: ChainC = chainG(normaliseStr('-'));
       const extractIdFunc = compose(normaliseChain, safeGenFunc);
       const result: Monadical<string> = yield extractIdFunc(null);
@@ -38,7 +38,7 @@ describe('chainG', () => {
 
   test(
     'chain a function of the data-type, Either.Right, to a data-type Maybe.Just, from a generator',
-    co.wrap(function*() {
+    co.wrap(function* () {
       const chainToMaybe: ChainC = chainG((a: string) => Maybe.of(normaliseStr('-')(a)));
       const extractIdFunc = compose(chainToMaybe, safeGenFunc);
       const result: Monadical<string> = yield extractIdFunc('a-b-c-d-e');
@@ -49,7 +49,7 @@ describe('chainG', () => {
 
   test(
     'chain a function of the data-type, Either.Left, to a data-type Maybe.Just, from a generator',
-    co.wrap(function*() {
+    co.wrap(function* () {
       const chainToMaybe: ChainC = chainG((a: string) => Maybe.of(normaliseStr('-')(a)));
       const extractIdFunc = compose(chainToMaybe, safeGenFunc);
       const result: Monadical<string> = yield extractIdFunc(null);
