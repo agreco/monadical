@@ -112,6 +112,10 @@ describe('Maybe', () => {
 
     let x: string = 'a value';
     x = await Promise.reject(void 0).catch(identity);
-    expect(Maybe.nullable<string, void>(x).map(x => x.length.toString()).map(x => x.split('')[0]).value).toBe(void 0);
+    expect(
+      Maybe.nullable<string, void>(x)
+        .map(x => x.length.toString())
+        .map(x => x.split('')[0]).value
+    ).toBe(void 0);
   });
 });
